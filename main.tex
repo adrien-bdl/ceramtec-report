@@ -159,9 +159,314 @@ Adrien Bindel, Michelle Takahashi, Thibault Vallejo,Ferdinando Prencipe
 
 \section{Conclusion}
 
-\section{Appendix}
+\appendix
+% <<REGISTER_BEGIN>>
+\section{External Data Source Register}
+\label{app:external-data-register}
 
+This appendix mirrors the team Google Sheet \textit{External Data Register} (Drive folder \texttt{data/external}). Last synced: 2026-07-06.
 
+\subsection{Status legend}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Status} & \textbf{Meaning} \\
+\midrule
+\textcolor{green!60!black}{Retrieved} & Automated fetch works; data on disk or in processed outputs \\
+\textcolor{orange!85!black}{Partial} & Some data or proxies only; not a full registry extract \\
+\textcolor{gray}{Todo} & Not yet retrieved \\
+\bottomrule
+\end{tabular}
 
+\subsection{Currency exchange rates}
+Cross-border pricing risk — how EUR-based production cost translates into OEM selling prices and payer ceilings in USD, GBP, CNY, etc.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+fx/ & ECB FX & \textcolor{green!60!black}{Retrieved} & Global & Daily & EUR vs USD, GBP, CNY, JPY, CHF \\
+\end{longtable}
+\normalsize
+
+\subsection{Material \& Commodity prices}
+Input-cost pressure on ceramic/metal components\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+materials/ & Fred metals/PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Surgical-appliance PPI, alumina/aluminum/titanium/nickel shapes, IMF metal prices \\
+ & World Bank CMO & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Energy and commodity indices; monthly material prices \\
+ & USGS MCS (Mineral Commodity Summaries) & \textcolor{green!60!black}{Retrieved} & Global & Annual & Annual unit values: Al, Cr, Co, Fe, Pb, Mo, Ni, Sn, Ti, Zn, Zr/Hf \\
+\end{longtable}
+\normalsize
+
+\subsection{Energy \& Manufacturing PPI}
+Firing/sintering and supply-chain inflation compressing OEM implant margins\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+materials/ & FRED energy & \textcolor{green!60!black}{Retrieved} & Global & Monthly/Daily & Natural gas, industrial electricity (ceramics processing cost pressure) \\
+ & FRED surgical-appliance / orthopedic PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Manufacturing inflation pressure on OEM implant margins \\
+\end{longtable}
+\normalsize
+
+\subsection{Reimbursement rates \& amounts}
+Money-In: Total insurer/payer revenue paid to the hospital for the entire episode of care. Sets the absolute budgetary ceiling for the procedure and device.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+reimbursement/ & CMS MS-DRG & \textcolor{green!60!black}{Retrieved} & US & Annual & Medicare (public funds) episode payment for hip/knee arthroplasty (DRG 470 family) \\
+ & FAIR Health / Definitive & \textcolor{gray}{Todo} & US & Continuous & Private/commercial insurance claims database for private reimbursement benchmarks \\
+ & ATIH GHS (the stay at the hospital) & \textcolor{green!60!black}{Retrieved} & France & Annual & Public-hospital episode tariffs (GHM 08C hip family) \\
+ & LPPR (Liste des Produits) (the device) & \textcolor{green!60!black}{Retrieved} & France & Continuous & Specific national maximum reimbursement limits for medical devices/implants \\
+ & Regional DRG (The Stay + Device) & \textcolor{orange!85!black}{Partial} & Italy & Annual & Inpatient DRG (e.g. Piedmont 209) + national prosthetic list, note that system in italy is highly regionalized \\
+ & Nomenclatore / Regional Reference Lists (The Device Cap) & \textcolor{gray}{Todo} & Italy & Dynamic & the Italian health system is highly regionalized, the regions (like Lombardy or Veneto) publish specific medical device tariff lists (often referred to as Tetti di spesa or reference prices) \\
+ & NHSA VBP ceiling & \textcolor{orange!85!black}{Partial} & China & per-round & Public-hospital implant max bids (CoC/CoP/MoP differentiated) \\
+\end{longtable}
+\normalsize
+
+\subsection{Public procurement awards}
+Money-Out: Actual transaction price paid by hospitals/tenders to the implant manufacturer for the hardware. Reflects real market competition and discounts.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+procurement/ & TED (EU) & \textcolor{green!60!black}{Retrieved} & EU & Continuous & EU-orthopaedic procurement notices \\
+ & BOAMP / UniHA / Resah & \textcolor{gray}{Todo} & France & Continuous & French national public market announcements and hospital group purchasing awards \\
+ & ANAC / Consip / Regional buyers & \textcolor{gray}{Todo} & Italy & Continuous & Italian contract database and regional central purchasing (ARIA, SoReSa) tender awards \\
+ & Contracts Finder (UK) & \textcolor{green!60!black}{Retrieved} & UK & Continuous & UK public procurement awards \\
+ & SAM.gov (VA Contracts) & \textcolor{gray}{Todo} & US & Continuous & Federal procurement awards for VA and military hospital implant contracts \\
+ & ECRI / Definitive Healthcare & \textcolor{gray}{Todo} & US & Continuous & Aggregated hospital GPO transaction prices and private purchasing data \\
+ & National Joint Procurement Office & \textcolor{gray}{Todo} & China & per-round & Official VBP winning bid results and volume allocations (Tianjin platform) \\
+ & Yaozh / Pharmcube & \textcolor{gray}{Todo} & China & Continuous & Commercial aggregators scraping provincial VBP tender values and price cuts \\
+\end{longtable}
+\normalsize
+
+\subsection{Waiting times}
+Demand tension - elective backlog and capacity stress (UK orthopaedic proxy)\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+waiting\_times/ & NHS RTT & \textcolor{green!60!black}{Retrieved} & UK & Monthly & Elective surgery waiting times including trauma \& orthopaedic \\
+\end{longtable}
+\normalsize
+
+\subsection{Number of sugeries}
+Market size - THA (total hip arthroplasty) volume and rate per 100k population\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+surgeries/ & OECD Health — surgical procedures & \textcolor{green!60!black}{Retrieved} & Global & Annual & Cross-country procedure rates per 100k (hip replacement where available) \\
+ & Eurostat — hospital discharges & \textcolor{green!60!black}{Retrieved} & EU & Annual & EU in-patient surgical operations; complements OECD for Europe \\
+surgeries/reference/ & France reference overlays & \textcolor{orange!85!black}{Partial} & France & Ad hoc & Reference overlays where needed for panel consistency \\
+ & Italy reference overlays & \textcolor{orange!85!black}{Partial} & Italy & Ad hoc & Reference overlays where needed for panel consistency \\
+ & US reference & \textcolor{orange!85!black}{Partial} & US & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
+ & China reference & \textcolor{orange!85!black}{Partial} & China & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
+\end{longtable}
+\normalsize
+
+\subsection{Bearing mix}
+Bearing mix (ceramic vs non-ceramic), revision burden, implant usage trend\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+surgeries/ajr & AJRR & \textcolor{green!60!black}{Retrieved} & US & Annual & Data for 2012 - 2024 \\
+surgeries/riap & RIAP (Italy national) & \textcolor{green!60!black}{Retrieved} & Italy & Annual & 2015 - 2022 \\
+reimbursement/lpp & open lpp (data.gouv.fr) & \textcolor{green!60!black}{Retrieved} & France & Annual & national reimbursement proxy contianing component-level, 2014 - 2024 \\
+surgeries/cjar & CJAR / China proxies & \textcolor{green!60!black}{Retrieved} & China & Annual & 2021, 2022, 2024 (VBP demand + COA survey) \\
+reimbursement/reference & NHSA VBP CoC/CoP tariffs & \textcolor{green!60!black}{Retrieved} & China & Per-round & Price ceiling by type, not volume share \\
+\end{longtable}
+\normalsize
+
+\subsection{Revision \& clinical evidence}
+Clinical value of longer-lasting bearings; revision-risk narrative\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+clinical\_evidence/pubmed & PubMed evidence exports & \textcolor{green!60!black}{Retrieved} & Global & Continuous & Survivorship, bearing-surface, China demographic citations \\
+surgeries/reference/ & Revision-rate reference panel & \textcolor{orange!85!black}{Partial} & US / China / France / Italy & Ad hoc & Literature-anchored country-year revision proxies \\
+\end{longtable}
+\normalsize
+
+\subsection{Macro health spending}
+Payer budget envelope, public/private splot, OOP pressure\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+health\_spending/ & WHO GHED & \textcolor{green!60!black}{Retrieved} & Global & Annual & Total health spend, public/private split, out-of-pocket ratios by country \\
+\end{longtable}
+\normalsize
+
+\subsection{MedTech sector benchmarks}
+Orthopaedic market size context (public reports)\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+medtech\_benchmarks/ & MedTech Europe PDFs & \textcolor{orange!85!black}{Partial} & EU (mainly) & Annual & Public orthopaedic market facts \& figures (member-only detail not available) \\
+ & US benchmark extracts (if available) & \textcolor{gray}{Todo} & US & Annual &  \\
+ & China benchmark extracts (if available) & \textcolor{gray}{Todo} & China & Annual &  \\
+\end{longtable}
+\normalsize
+
+\subsection{OEMs}
+Clients, financial health, R\&D, innovation, account prirority\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+oem/ & SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew, not all the OEMs, some of them are still missing, see the exhaustive list \\
+oem/account\_profiles/ & account profiles & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Key account strategy files \\
+oem/patents & Patent counts & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Innovation proxy snapshots \\
+\end{longtable}
+\normalsize
+
+\subsection{Competitors}
+Competitive set, subsitute bearing/ceramic suppliers\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\toprule
+\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+competitors & Competitor list / competitor datasets & \textcolor{gray}{Todo} & Global & Ad hoc & Nothing done, CeramTec should have internal data about their competitors, wait for their internal data to see what external data about the competitors need to be retrieved \\
+\end{longtable}
+\normalsize
+
+% <<REGISTER_END>>
 
 \end{document}
