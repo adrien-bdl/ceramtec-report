@@ -153,13 +153,127 @@ A hip implant bearing is the articulation couple that enables movement between t
 
 CeramTec is positioned upstream in the orthopaedic value chain as a component supplier rather than a final implant OEM. Its direct customers are implant manufacturers who integrate ceramic components into complete hip systems and then sell to hospitals and purchasing organizations under country-specific reimbursement and procurement constraints. This position creates a two-level pricing challenge: CeramTec must defend value to OEM buyers while those OEMs are themselves constrained by payer budgets and tender outcomes in each market.
 
-explain its current pricing policy
+\textcolor{red}{[TODO: describe CeramTec's current pricing policy --- list-price structure, OEM contract mechanics, geographic price differentiation, and discount/escalation rules. Requires internal CeramTec input.]}
 
 The motivation for a data-driven pricing strategy is therefore structural: willingness-to-pay and margin headroom differ materially by country, payer system, and OEM segment. A single global pricing logic cannot capture differences such as reimbursement ceilings in France, regional tariff heterogeneity in Italy, public procurement pressure in the UK and EU, or VBP-linked constraints in China. A differentiated approach by market and OEM allows pricing arguments to be tied to observed demand, budget pressure, competitive intensity, and revision-related value.
 
 Before this project, CeramTec had not built a systematic external-data capability to support pricing strategy or negotiation preparation. Pricing discussions were not anchored in a continuously updated evidence base spanning reimbursement, procurement, procedure volumes, bearing mix evolution, macro spending context, and OEM financial signals. This gap is precisely what the Phase 1 data foundation was designed to close.
 
-state the plan (what phase corresponds to what)
+\section{CeramTec Business Context}
+
+CeramTec operates as a \textbf{B2B component supplier} in the orthopaedic value chain: it manufactures high-performance ceramic femoral heads and acetabular liners that implant OEMs integrate into complete hip systems. Hospitals and purchasing organisations negotiate with OEMs under country-specific reimbursement and procurement rules; CeramTec's commercial challenge is therefore \textbf{two-level}---defending component value to OEM buyers whose own margins are capped by payer ceilings, tender outcomes, and episode-based reimbursement.
+
+\subsection{Customer base and competitive landscape}
+
+The project's key-account work focuses on five global OEMs for which external financial and innovation signals were assembled (SEC XBRL, patent snapshots, reimbursement exposure):
+
+\begin{itemize}
+  \item \textbf{Stryker Corporation} (USA) --- high-volume orthopaedics; robotics-led premium positioning
+  \item \textbf{DePuy Synthes / J\&J MedTech} (USA) --- global leader; significant China VBP exposure
+  \item \textbf{Zimmer Biomet Holdings} (USA) --- large incumbent; cost discipline under US hospital pressure
+  \item \textbf{Smith+Nephew plc} (UK/US ADR) --- medium-high ceramic relevance; Europe reimbursement-aware
+  \item \textbf{Medacta International} (Switzerland) --- smaller scale; innovation-partner profile in Europe
+\end{itemize}
+
+\textcolor{red}{[TODO: complete the full CeramTec OEM customer list and account revenue shares from internal CRM/sales data.]}
+
+Substitute ceramic and technical-ceramics suppliers identified in the external register include CoorsTek, HiPer Medical, Kyocera Medical, Enovis/Mathys (OEM with own ceramic line), and several China-based suppliers (Suntech/Cericare, Three-Circle, Arthrone, TrendTec, Yukun) plus G.\ Surgiwear (India). \textcolor{red}{[TODO: validate competitive overlap and market-share estimates with CeramTec commercial intelligence.]}
+
+Table~\ref{tab:positioning} summarises how CeramTec positions relative to selected OEM customers and ceramic competitors. CeramTec's differentiation is as a \textbf{dedicated ceramic-component specialist} with the BIOLOX$^{\textregistered}$ product family, rather than as a full-system implant OEM or a general technical-ceramics conglomerate.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Positioning snapshot: CeramTec vs selected OEM customers and ceramic competitors}
+\label{tab:positioning}
+\begin{tabular}{@{}p{2.2cm}p{1.6cm}p{4.2cm}p{4.8cm}@{}}
+\toprule
+\textbf{Firm} & \textbf{Type} & \textbf{Market role} & \textbf{vs.\ CeramTec} \\
+\midrule
+CeramTec & Supplier & BIOLOX ceramic heads/liners for hip OEMs & Reference player; alumina/ZTA ceramic IP and scale \\
+Stryker & OEM customer & Full hip systems; premium robotics portfolio & Major volume account; MS-DRG cost pressure \\
+DePuy Synthes & OEM customer & Global orthopaedics; China manufacturing & Strategic partner; VBP ceiling risk \\
+Zimmer Biomet & OEM customer & Value + premium hip lines & Defend account; dual-sourcing risk \\
+Smith+Nephew & OEM customer & Sports med.\ + orthopaedics & Nurture; smaller ceramic volume \\
+Medacta & OEM customer & Surgeon-centric EU OEM & Grow; innovation proximity \\
+CoorsTek & Competitor & Broad technical ceramics incl.\ medical & Generalist; US-centric \\
+Kyocera Medical & Competitor & Orthopaedic + dental ceramics & Vertically integrated Japanese player \\
+HiPer Medical & Competitor & Swiss ceramic hip components & European boutique competitor \\
+Enovis/Mathys & Competitor/OEM & Own ceramic femoral heads & OEM-owned ceramic supply \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Data-driven pricing is essential in this context because OEM willingness-to-pay varies with their financial health, innovation intensity, geographic reimbursement exposure, and competitive sourcing options---none of which can be inferred from CeramTec's internal cost base alone.
+
+\subsection{Bearing products and clinical--commercial relevance}
+
+CeramTec's hip portfolio centres on the \textbf{BIOLOX$^{\textregistered}$} family of bioceramic components supplied to OEMs, who then offer them in different \textbf{bearing couples}:
+
+\begin{itemize}
+  \item \textbf{BIOLOX$^{\textregistered}$ forte} --- alumina ceramic; established option for femoral heads in ceramic-on-polyethylene (CoP) systems
+  \item \textbf{BIOLOX$^{\textregistered}$ delta} --- zirconia-toughened alumina (ZTA) matrix composite; used in premium CoP and ceramic-on-ceramic (CoC) constructs with improved fracture toughness
+\end{itemize}
+
+\textcolor{red}{[TODO: confirm current product SKU list, sizes, and any additional BIOLOX variants from CeramTec product catalogue.]}
+
+Clinically, the bearing couple determines wear debris, fracture risk, and long-term survivorship. CoC couplings minimise polyethylene wear but require precise engineering and patient selection; CoP remains the volume segment in most markets. Registry data collected in Phase~1 (US AJRR, Italy RIAP, France Open LPP, China VBP proxies) show materially different ceramic-involved shares across markets---directly relevant to CeramTec's addressable premium volume.
+
+Revision risk, wear behaviour, and long-term outcomes are therefore not only clinical endpoints but \textbf{pricing levers}: where registries and literature associate higher ceramic adoption with lower revision burden (H1 in our hypothesis table: Pearson $r \approx -0.99$ across four country means, $n=4$), CeramTec can support OEM value stories for premium components. \textcolor{red}{[TODO: add CeramTec-approved clinical evidence claims and any proprietary survivorship data.]}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][3.5cm][c]{0.42\textwidth}{\centering\textcolor{gray}{[Image placeholder:\\BIOLOX femoral head]}}}
+\hfill
+\fbox{\parbox[c][3.5cm][c]{0.42\textwidth}{\centering\textcolor{gray}{[Image placeholder:\\BIOLOX acetabular liner / insert]}}}
+\caption{CeramTec BIOLOX hip components (images to be added).}
+\label{fig:biolox-placeholders}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering\textcolor{gray}{[Image placeholder: bearing-couple schematic --- CoP vs CoC vs MoP]}}}
+\caption{Bearing-surface couples using ceramic components (schematic to be added).}
+\label{fig:bearing-couples-placeholder}
+\end{figure}
+
+\section{Project Objectives and Scope}
+
+The project objective is to design a \textbf{data-driven pricing strategy} for CeramTec's hip implant bearing components: moving from intuition-led OEM negotiations to evidence-backed segmentation by market, payer environment, and account profile.
+
+\subsection{Scope}
+
+\textbf{Geographic markets} (per CeramTec direction): United States, China, France, and Italy. Germany, the United Kingdom, and LATAM were explicitly excluded from Phase~1 scope.
+
+\textbf{OEM accounts:} the five key accounts profiled above, with financial and patent signals from SEC EDGAR (where available) and structured Steckbrief templates in \texttt{data/external/oem/account\_profiles/}.
+
+\textbf{Evidence categories:} thirteen families in the External Data Register---FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitors---totalling 51 tracked source rows.
+
+\textbf{Pricing dimensions analysed:} input-cost pass-through (materials, energy, FX), payer budget ceilings (episode and device tariffs), observed procurement competition, demand volume and bearing-mix evolution, revision-related value, OEM financial capacity, and competitive ceramic supply.
+
+A core deliverable beyond static analysis is a \textbf{maintainable external-data capability}: reproducible scraping/processing scripts, a synchronized team register (Google Sheet $\rightarrow$ repo), one EDA notebook per data category, and cross-category learnings notebooks for combined analysis.
+
+\subsection{Project phases and deliverables}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Project phases and main deliverables}
+\label{tab:phases}
+\begin{tabular}{@{}p{1.4cm}p{4.8cm}p{6.8cm}@{}}
+\toprule
+\textbf{Phase} & \textbf{Objective} & \textbf{Key deliverables (status)} \\
+\midrule
+1 & Build external evidence foundation and first market signals & External Data Register; 13-category data pipeline; market panel (US/FR/IT/CN); 7 hypotheses; 5 Key Account Steckbriefe; Phase~1 charts (\texttt{outputs/phase1/}); category EDA notebooks --- \textbf{done} \\
+2 & Enrich data quality and join internal CeramTec pricing & Registry upgrades (US HCUP/AJRR, CN CJAR, FR ATIH); internal OEM price series; supervised pricing model; CRM completion of account profiles --- \textcolor{red}{[in progress / TODO]} \\
+3 & Test pricing hypotheses and build segmentation framework & Formal tests of H1--H7 (OLS, Chow breaks, K-means OEM clusters); market--OEM pricing segmentation rules --- \textcolor{red}{[TODO: confirm Phase 3 scope with CeramTec]} \\
+4 & Operationalise pricing recommendations & \textcolor{red}{[TODO: define Phase 4 deliverables --- e.g.\ negotiation playbooks, pricing tool/dashboard, rollout plan]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Phase~1 established the structured, reproducible backbone required for later phases: without a maintained register and automated retrieval, any segmentation model would age quickly as reimbursement rules, VBP rounds, and registry publications change. Subsequent phases depend on \textcolor{red}{[TODO: CeramTec internal bearing price history and account-level contract data]} to move from external proxies to actionable list-price and discount recommendations.
+
 
 \section{Phase 1}
 
