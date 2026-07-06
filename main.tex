@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{placeins}
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage[edges]{forest}
+\usepackage{float}
+\usepackage[
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{overpic}
+
+\definecolor{tableheader}{HTML}{EBF1F2}
+
+\setlength{\parindent}{0pt}
+
+% Define VS Code-like colors
+\definecolor{vscodeBackground}{RGB}{30, 30, 30}
+\definecolor{vscodeKeyword}{RGB}{197, 134, 192}
+\definecolor{vscodeString}{RGB}{206, 145, 120}
+\definecolor{vscodeComment}{RGB}{106, 153, 85}
+\definecolor{vscodeNumber}{RGB}{181, 206, 168}
+\definecolor{vscodeFunction}{RGB}{220, 220, 170}
+\definecolor{vscodeTag}{RGB}{86, 156, 214}
+\definecolor{vscodeAttribute}{RGB}{156, 220, 254}
+\definecolor{vscodeText}{RGB}{212, 212, 212}
+\definecolor{vscodeLineNumber}{RGB}{133, 133, 133}
+
+% Define enhanced HTML style (VS Code-like)
+\lstdefinestyle{htmlStyle}{
+  language=HTML,
+  backgroundcolor=\color{vscodeBackground},
+  basicstyle=\ttfamily\small\color{vscodeText},
+  keywordstyle=\color{vscodeTag}\bfseries,
+  stringstyle=\color{vscodeString},
+  commentstyle=\color{vscodeComment}\itshape,
+  identifierstyle=\color{vscodeAttribute},
+  numbers=left,
+  numberstyle=\tiny\color{vscodeLineNumber},
+  numbersep=10pt,
+  stepnumber=1,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  rulecolor=\color{vscodeLineNumber},
+  tabsize=2,
+  captionpos=b,
+  breakatwhitespace=false,
+  xleftmargin=2em,
+  framexleftmargin=1.5em,
+  moredelim=[s][\color{vscodeTag}]{<}{>},
+  morestring=[b]",
+  morestring=[b]',
+  literate=
+    {0}{{{\color{vscodeNumber}0}}}1
+    {1}{{{\color{vscodeNumber}1}}}1
+    {2}{{{\color{vscodeNumber}2}}}1
+    {3}{{{\color{vscodeNumber}3}}}1
+    {4}{{{\color{vscodeNumber}4}}}1
+    {5}{{{\color{vscodeNumber}5}}}1
+    {6}{{{\color{vscodeNumber}6}}}1
+    {7}{{{\color{vscodeNumber}7}}}1
+    {8}{{{\color{vscodeNumber}8}}}1
+    {9}{{{\color{vscodeNumber}9}}}1
+}
+
+% Define enhanced Python style (VS Code-like)
+\lstdefinestyle{pythonStyle}{
+  language=Python,
+  backgroundcolor=\color{vscodeBackground},
+  basicstyle=\ttfamily\small\color{vscodeText},
+  keywordstyle=\color{vscodeKeyword}\bfseries,
+  stringstyle=\color{vscodeString},
+  commentstyle=\color{vscodeComment}\itshape,
+  identifierstyle=\color{vscodeText},
+  numbers=left,
+  numberstyle=\tiny\color{vscodeLineNumber},
+  numbersep=10pt,
+  stepnumber=1,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  rulecolor=\color{vscodeLineNumber},
+  tabsize=4,
+  captionpos=b,
+  breakatwhitespace=false,
+  xleftmargin=2em,
+  framexleftmargin=1.5em,
+  morekeywords={as, with, self, True, False, None},
+  emphstyle=\color{vscodeFunction},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]""",
+  literate=
+    {0}{{{\color{vscodeNumber}0}}}1
+    {1}{{{\color{vscodeNumber}1}}}1
+    {2}{{{\color{vscodeNumber}2}}}1
+    {3}{{{\color{vscodeNumber}3}}}1
+    {4}{{{\color{vscodeNumber}4}}}1
+    {5}{{{\color{vscodeNumber}5}}}1
+    {6}{{{\color{vscodeNumber}6}}}1
+    {7}{{{\color{vscodeNumber}7}}}1
+    {8}{{{\color{vscodeNumber}8}}}1
+    {9}{{{\color{vscodeNumber}9}}}1
+}
+
+\title{\textbf{Analytics in Business Analytics - Consulting Project} \\ \textbf{Data-driven pricing for hip implants bearings: CeramTech}}
+
+\author{
+Adrien Bindel, Michelle Takahashi, Thibault Vallejo,Ferdinando Prencipe 
+}
+
+% Add this empty date command right here
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+
+
+\end{document}
