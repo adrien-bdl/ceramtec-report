@@ -149,42 +149,38 @@ Adrien Bindel, Michelle Takahashi, Thibault Vallejo,Ferdinando Prencipe
 
 \section{Introduction}
 
-explain what is the bearing of a hip implant
+A hip implant bearing is the articulation couple that enables movement between the femoral head and the acetabular liner. The bearing choice (for example ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) directly affects wear behavior, revision risk, long-term clinical outcomes, and overall treatment economics. Because of this, bearing-level dynamics are critical for understanding both medical value and pricing power in hip arthroplasty markets.
 
-ceramtec
-explain its positioning (customers etc) in the value chain
+CeramTec is positioned upstream in the orthopaedic value chain as a component supplier rather than a final implant OEM. Its direct customers are implant manufacturers who integrate ceramic components into complete hip systems and then sell to hospitals and purchasing organizations under country-specific reimbursement and procurement constraints. This position creates a two-level pricing challenge: CeramTec must defend value to OEM buyers while those OEMs are themselves constrained by payer budgets and tender outcomes in each market.
 
 explain its current pricing policy
 
-state the motivation for a data-driven strategy (differentitated by market and OEM)
+The motivation for a data-driven pricing strategy is therefore structural: willingness-to-pay and margin headroom differ materially by country, payer system, and OEM segment. A single global pricing logic cannot capture differences such as reimbursement ceilings in France, regional tariff heterogeneity in Italy, public procurement pressure in the UK and EU, or VBP-linked constraints in China. A differentiated approach by market and OEM allows pricing arguments to be tied to observed demand, budget pressure, competitive intensity, and revision-related value.
 
-recall that ceramtec has never used external data or data to motivate its pricing strategy or negociations
+Before this project, CeramTec had not built a systematic external-data capability to support pricing strategy or negotiation preparation. Pricing discussions were not anchored in a continuously updated evidence base spanning reimbursement, procurement, procedure volumes, bearing mix evolution, macro spending context, and OEM financial signals. This gap is precisely what the Phase 1 data foundation was designed to close.
 
 \section{Phase 1}
 
-situation of CeramTec: 
-- had never collected any external data
+Phase 1 starts from a clear initial situation: CeramTec had no centralized external-data system for pricing intelligence. Relevant signals existed across public institutions, registries, procurement portals, reimbursement schedules, macro databases, and company disclosures, but they were fragmented, inconsistent in format, and difficult to use in negotiation timelines.
 
-our solution:
-- find data from different categories covering the entire market
-- scraping and processing files for reproducivuliy and maintenance of the pipeline over the year, add new data and follow the evolution of the market after the project
+Our solution was to build an end-to-end external evidence pipeline across all key pricing dimensions. Instead of collecting one-off files, we organized sources into a unified register and implemented reproducible retrieval and processing scripts so the dataset can be refreshed, extended, and maintained over time. This turns Phase 1 from a static deliverable into a durable capability that can keep tracking market evolution after the project period.
 
 \subsection{Categorisation of the data}
 
-list the different data categories
+The external evidence base is structured into 13 categories covering the full pricing logic: FX, material and energy cost pressure, reimbursement ceilings, public procurement prices, waiting times, surgery volumes, bearing mix, revision and clinical evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitor context. This structure ensures each pricing hypothesis can be linked to a specific and traceable evidence family rather than ad hoc assumptions.
 
-give number of dataset, datapoints retrieved etc to show that this part of the work was massive
+At the register level, the current synchronized version tracks 51 rows of sources and datasets across these categories. Beyond the raw count, the workload was substantial because each source required separate handling rules (API pulls, structured CSV retrieval, PDF extraction, registry harmonization, or proxy construction where official data was incomplete). The result is a broad multi-market evidence map rather than a narrow single-dataset analysis.
 
-expain the difficulty of getting the data: very few open source dataset, most of the data needed to be found in large healthcare pdfs, hard to find data for all the years, some countries are more transparent than others
+Data acquisition was particularly difficult in healthcare due to uneven transparency and highly heterogeneous publication formats. Open machine-readable datasets are limited for several critical topics, many key values are embedded in long institutional PDFs, and time coverage can be irregular by country and year. In practice, this required country-specific retrieval strategies, explicit quality flags, and carefully documented partial/proxy coverage where full registry data was not available.
 
 \subsection{Exploratpry data analysis}
 
-First  plots and signals that seems to run the market
+The exploratory analysis phase translated the retrieved evidence into first-order market signals. Initial plots focused on identifying drivers that plausibly explain pricing pressure and negotiation context: procedure volume trajectories, bearing-mix evolution, reimbursement ceilings versus observed procurement dynamics, and input-cost indicators (materials, energy, FX). This first signal layer is not intended as a final causal model; it establishes which variables are most promising for deeper pricing segmentation in later phases.
 
 
 \subsection{Maintainability and durability of the solution}
 
-explain we created scraping script to automaticcaly retireve the data is one commannd run, enables to automatically gets the new data
+Maintainability was a design requirement from the start. We implemented reusable scraping and processing scripts so data refreshes can be run as a standard workflow rather than rebuilt manually each cycle. Concretely, the project now supports one-command orchestration for retrieval and processing, plus a synchronized external register that documents source status, market scope, and update frequency. This makes it feasible to ingest new releases regularly, preserve methodological consistency, and keep pricing evidence current over time.
 
 \section{Phase 2}
 
