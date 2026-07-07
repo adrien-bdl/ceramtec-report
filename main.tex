@@ -1,11 +1,21 @@
+
 \documentclass{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+]{geometry}
+
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{makecell}
 \usepackage{hyperref}
-\usepackage{subcaption}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{placeins}
 \usepackage{verbatim}
 \usepackage{amsmath}
@@ -14,36 +24,29 @@
 \usepackage{stmaryrd}
 \usepackage[edges]{forest}
 \usepackage{float}
-\usepackage[
-    left=2.5cm,
-    right=2.5cm,
-    top=2.5cm,
-    bottom=2.5cm
-]{geometry}
-\usepackage[utf8]{inputenc}
-\usepackage[table]{xcolor}
 \usepackage{tabularx}
 \usepackage{longtable}
-\usepackage{booktabs}
 \usepackage{overpic}
+\usepackage{fancyhdr}
+\usepackage{setspace}
 
 \definecolor{tableheader}{HTML}{EBF1F2}
 
 \setlength{\parindent}{0pt}
 
 % Define VS Code-like colors
-\definecolor{vscodeBackground}{RGB}{30, 30, 30}
-\definecolor{vscodeKeyword}{RGB}{197, 134, 192}
-\definecolor{vscodeString}{RGB}{206, 145, 120}
-\definecolor{vscodeComment}{RGB}{106, 153, 85}
-\definecolor{vscodeNumber}{RGB}{181, 206, 168}
-\definecolor{vscodeFunction}{RGB}{220, 220, 170}
-\definecolor{vscodeTag}{RGB}{86, 156, 214}
-\definecolor{vscodeAttribute}{RGB}{156, 220, 254}
-\definecolor{vscodeText}{RGB}{212, 212, 212}
-\definecolor{vscodeLineNumber}{RGB}{133, 133, 133}
+\definecolor{vscodeBackground}{RGB}{30,30,30}
+\definecolor{vscodeKeyword}{RGB}{197,134,192}
+\definecolor{vscodeString}{RGB}{206,145,120}
+\definecolor{vscodeComment}{RGB}{106,153,85}
+\definecolor{vscodeNumber}{RGB}{181,206,168}
+\definecolor{vscodeFunction}{RGB}{220,220,170}
+\definecolor{vscodeTag}{RGB}{86,156,214}
+\definecolor{vscodeAttribute}{RGB}{156,220,254}
+\definecolor{vscodeText}{RGB}{212,212,212}
+\definecolor{vscodeLineNumber}{RGB}{133,133,133}
 
-% Define enhanced HTML style (VS Code-like)
+% HTML style
 \lstdefinestyle{htmlStyle}{
   language=HTML,
   backgroundcolor=\color{vscodeBackground},
@@ -82,7 +85,7 @@
     {9}{{{\color{vscodeNumber}9}}}1
 }
 
-% Define enhanced Python style (VS Code-like)
+% Python style
 \lstdefinestyle{pythonStyle}{
   language=Python,
   backgroundcolor=\color{vscodeBackground},
@@ -105,7 +108,7 @@
   breakatwhitespace=false,
   xleftmargin=2em,
   framexleftmargin=1.5em,
-  morekeywords={as, with, self, True, False, None},
+  morekeywords={as,with,self,True,False,None},
   emphstyle=\color{vscodeFunction},
   morestring=[b]",
   morestring=[b]',
@@ -123,47 +126,95 @@
     {9}{{{\color{vscodeNumber}9}}}1
 }
 
-\title{\textbf{Analytics in Business Analytics - Consulting Project} \\ \textbf{Data-driven pricing for hip implants bearings: CeramTech}}
-
-\author{
-Adrien Bindel, Michelle Takahashi, Thibault Vallejo,Ferdinando Prencipe 
-}
-
-% Add this empty date command right here
-\date{July 2026}
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{Imperial Business School - Analytics in Business, Summer 2026}
+\fancyfoot[R]{\thepage}
 
 \begin{document}
-\maketitle
 
+%TC:ignore
+\begin{titlepage}
+\pagestyle{empty}
+
+\begin{center}
+
+\vspace*{1.5cm}
+
+{\Large Imperial College Business School}\\[0.3cm]
+
+{\large Analytics in Business Consulting Project}\\[0.5cm]
+
+\rule{\textwidth}{1.2pt}
+
+\vspace{0.5cm}
+
+{\Huge Dynamic Pricing Feasibility Assessment for CeramTec}\\[0.1cm]
+
+\vspace{0.2cm}
+
+\rule{\textwidth}{1.2pt}
+
+
+\vspace{1cm}
+
+{\large CID: 02023817, 06070918, 06066256, 06054938}\\[0.2cm]
+{\large Date: 17th August 2026}\\[0.2cm]
+
+\end{center}
+
+\end{titlepage}
+%TC:endignore
+
+
+
+\pagestyle{fancy} 
+
+\singlespacing
+
+\setcounter{page}{1} % reset page counter to 1
+
+
+
+\vspace{0.5em}
 
 \section*{Executive Summary}
 
 
 \section*{Acknowledgments}
 
-
 \newpage
 \tableofcontents
 \newpage
 
-
 \section{Introduction}
 
-A hip implant bearing is the articulation couple that enables movement between the femoral head and the acetabular liner. The bearing choice (for example ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) directly affects wear behavior, revision risk, long-term clinical outcomes, and overall treatment economics. Because of this, bearing-level dynamics are critical for understanding both medical value and pricing power in hip arthroplasty markets.
+CeramTec is a global manufacturer of advanced technical ceramics and a leading supplier of ceramic components for orthopaedic implants. This report focuses on CeramTec's ceramic bearings used in total hip replacements and investigates whether a data-driven dynamic pricing strategy could improve the company's pricing decisions across different markets and customers.
 
-CeramTec is positioned upstream in the orthopaedic value chain as a component supplier rather than a final implant OEM. Its direct customers are implant manufacturers who integrate ceramic components into complete hip systems and then sell to hospitals and purchasing organizations under country-specific reimbursement and procurement constraints. This position creates a two-level pricing challenge: CeramTec must defend value to OEM buyers while those OEMs are themselves constrained by payer budgets and tender outcomes in each market.
+A total hip implant is a prosthetic device that replaces a damaged hip joint to restore mobility and relieve pain. As illustrated in Figure~\ref{fig:hip_implant}, the implant consists of several components, including the femoral stem, femoral head, acetabular shell, and acetabular liner. The bearing is the articulating interface between the femoral head and the acetabular liner, enabling smooth movement of the joint.
 
-\textcolor{red}{[TODO: describe CeramTec's current pricing policy --- list-price structure, OEM contract mechanics, geographic price differentiation, and discount/escalation rules. Requires internal CeramTec input.]}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{introduction/hip_implant.png}
+\caption{Components of a total hip implant.}
+\label{fig:hip_implant}
+\end{figure}
 
-The motivation for a data-driven pricing strategy is therefore structural: willingness-to-pay and margin headroom differ materially by country, payer system, and OEM segment. A single global pricing logic cannot capture differences such as reimbursement ceilings in France, regional tariff heterogeneity in Italy, public procurement pressure in the UK and EU, or VBP-linked constraints in China. A differentiated approach by market and OEM allows pricing arguments to be tied to observed demand, budget pressure, competitive intensity, and revision-related value.
+The choice of bearing material (such as ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) has a significant impact on wear performance, implant longevity, revision risk, and long-term patient outcomes. These characteristics also influence the economic value of the implant, making the bearing a key driver of both clinical outcomes and pricing decisions.
 
-Before this project, CeramTec had not built a systematic external-data capability to support pricing strategy or negotiation preparation. Pricing discussions were not anchored in a continuously updated evidence base spanning reimbursement, procurement, procedure volumes, bearing mix evolution, macro spending context, and OEM financial signals. This gap is precisely what the Phase 1 data foundation was designed to close.
+Although CeramTec currently prices its products primarily using a cost-based approach, it operates across markets with widely different reimbursement systems, procurement mechanisms, competitive environments, and customer profiles. These differences suggest that a uniform pricing strategy may not fully capture customers' willingness to pay or the value delivered by ceramic bearings. Furthermore, CeramTec serves multiple OEM customers with different market positions and product portfolios, creating additional opportunities for differentiated pricing.
 
-\section{CeramTec Business Context}
+The objective of this project is therefore to assess the feasibility of implementing a data-driven pricing strategy for CeramTec's ceramic hip bearings. To support this objective, we developed a comprehensive external-data foundation covering reimbursement systems, procurement, procedure volumes, clinical evidence, macroeconomic indicators, and OEM characteristics across four strategic markets. This evidence is subsequently combined with internal data to support market segmentation and predictive pricing models.
+
+
+\section{Business Context and Project Scope}
+
+\subsection{CeramTec in the value chain}
 
 CeramTec operates as a \textbf{B2B component supplier} in the orthopaedic value chain: it manufactures high-performance ceramic femoral heads and acetabular liners that implant OEMs integrate into complete hip systems. Hospitals and purchasing organisations negotiate with OEMs under country-specific reimbursement and procurement rules; CeramTec's commercial challenge is therefore \textbf{two-level}---defending component value to OEM buyers whose own margins are capped by payer ceilings, tender outcomes, and episode-based reimbursement.
 
-\subsection{Customer base and competitive landscape}
+\subsubsection{Customer base and competitive landscape}
 
 The project's key-account work focuses on five global OEMs for which external financial and innovation signals were assembled (SEC XBRL, patent snapshots, reimbursement exposure):
 
@@ -206,7 +257,7 @@ Enovis/Mathys & Competitor/OEM & Own ceramic femoral heads & OEM-owned ceramic s
 
 Data-driven pricing is essential in this context because OEM willingness-to-pay varies with their financial health, innovation intensity, geographic reimbursement exposure, and competitive sourcing options---none of which can be inferred from CeramTec's internal cost base alone.
 
-\subsection{Bearing products and clinical--commercial relevance}
+\subsection{Hip bearing products}
 
 CeramTec's hip portfolio centres on the \textbf{BIOLOX$^{\textregistered}$} family of bioceramic components supplied to OEMs, who then offer them in different \textbf{bearing couples}:
 
@@ -237,13 +288,30 @@ Revision risk, wear behaviour, and long-term outcomes are therefore not only cli
 \label{fig:bearing-couples-placeholder}
 \end{figure}
 
-\section{Project Objectives and Scope}
+\subsubsection{Current pricing approach}
+
+CeramTec currently prices its bearings on a cost-plus basis: production cost plus a margin.
+
+\begin{itemize}
+    \item \textcolor{red}{[TODO: obtain average/typical margin applied, and whether it varies by product line or account]}
+    \item \textcolor{red}{[TODO: confirm whether any market- or OEM-level differentiation already exists informally]}
+\end{itemize}
+
+Given that willingness-to-pay and margin headroom differ materially by country, payer system, and OEM segment, a single global cost-plus price cannot capture differences such as reimbursement ceilings in France, regional tariff heterogeneity in Italy, or VBP-linked constraints in China. Each OEM also has a distinct market positioning and product range, motivating differentiation by buyer as well as by market.
+
+\subsection{Project Objectives}
 
 The project objective is to design a \textbf{data-driven pricing strategy} for CeramTec's hip implant bearing components: moving from intuition-led OEM negotiations to evidence-backed segmentation by market, payer environment, and account profile.
 
 \subsection{Scope}
 
-\textbf{Geographic markets} (per CeramTec direction): United States, China, France, and Italy. Germany, the United Kingdom, and LATAM were explicitly excluded from Phase~1 scope.
+\textbf{Geographic markets and accounts:} the analysis covers 4 countries (USA, China, France, Italy) and, per CeramTec direction, 16 OEM accounts.
+
+\begin{itemize}
+    \item \textcolor{red}{[TODO: reconcile "16 OEMs" scope with the 5 key accounts currently profiled in \S2.1.1 -- clarify whether the remaining 11 are lower priority, unprofiled, or out of Phase~1's data scope]}
+\end{itemize}
+
+Given $16 \times 4 = 64$ potential market--OEM price points, a data-driven, segmentation-based approach is preferred over ad hoc account-by-account negotiation.
 
 \textbf{OEM accounts:} the five key accounts profiled above, with financial and patent signals from SEC EDGAR (where available) and structured Steckbrief templates in \texttt{data/external/oem/account\_profiles/}.
 
@@ -253,7 +321,7 @@ The project objective is to design a \textbf{data-driven pricing strategy} for C
 
 A core deliverable beyond static analysis is a \textbf{maintainable external-data capability}: reproducible scraping/processing scripts, a synchronized team register (Google Sheet $\rightarrow$ repo), one EDA notebook per data category, and cross-category learnings notebooks for combined analysis.
 
-\subsection{Project phases and deliverables}
+\subsection{Project phases}
 
 \begin{table}[H]
 \centering
@@ -300,9 +368,15 @@ Maintainability was a design requirement from the start. We implemented reusable
 
 \section{Phase 2}
 
+inspect internal data and relevant feature engineering
+
 \section{Phase 3}
 
+market + customer segmentation using clustering approach
+
 \section{Phase 4}
+
+predictive model
 
 \section{Conclusion}
 
