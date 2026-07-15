@@ -181,7 +181,7 @@
 
 \section*{Executive Summary}
 
-CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant manufacturers, initially framed this project as \textbf{dynamic pricing}. After analysing the commercial context, we conclude that true dynamic pricing---continuous price adjustment in response to demand, inventory, or time-to-event, as in airlines or concert ticketing---is \textbf{not feasible nor desirable} for CeramTec. The company negotiates individually with approximately \textbf{16 long-term OEM customers}; prices cannot change hourly or daily. The relevant problem is \textbf{price stratification}: establishing evidence-backed \textbf{baseline price ranges} by market and customer to support future negotiations.
+CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant manufacturers, initially framed this project as \textbf{dynamic pricing}. After analysing the commercial context, we conclude that true dynamic pricing---continuous price adjustment in response to demand, inventory, or time-to-event, as in airlines or concert ticketing---is \textbf{not feasible nor desirable} for CeramTec. The company negotiates individually with a \textbf{small set of strategic OEM customers} (fourteen key-account-priority OEMs in the large and medium tiers, plus six high-potential accounts per CeramTec's internal register); prices cannot change hourly or daily. The relevant problem is \textbf{price stratification}: establishing evidence-backed \textbf{baseline price ranges} by market and customer to support future negotiations.
 
 Because CeramTec had no prior external-data capability and internal sales data were only accessible from \textbf{7 July 2026} (NDA delays), a substantial share of the project focused on building a reproducible external evidence foundation across four priority markets (US, China, France, Italy). We designed a complete \textbf{four-phase pricing framework} (data collection, feature engineering, segmentation, predictive baselines) and implemented Phase~1 in full. Phases~2--4 are presented as the methodology we would execute once internal and external data are fully linked.
 
@@ -224,17 +224,81 @@ CeramTec operates as a \textbf{B2B component supplier} in the orthopaedic value 
 
 \subsubsection{Customer base and competitive landscape}
 
-The project's key-account work focuses on five global OEMs for which external financial and innovation signals were assembled (SEC XBRL, patent snapshots, reimbursement exposure):
+CeramTec's commercial team maintains an internal \textbf{Key Accounts} register that lists every orthopaedic OEM the company could supply and ranks them by \textbf{commercial potential}. Accounts are not treated uniformly: they are segmented into four tiers according to annual sales (current and potential), whether strategic projects are in scope, and the intensity of commercial relationship management. CeramTec already maintains active commercial contact across this universe; \textbf{fourteen OEMs} in the large and medium tiers are served by dedicated \textbf{Key Account Managers} (KAMs)---CeramTec sales staff responsible for each strategic buyer relationship. This tiering directly informs negotiation priority and is the authoritative customer universe for price stratification.
 
 \begin{itemize}
-  \item \textbf{Stryker Corporation} (USA) --- high-volume orthopaedics; robotics-led premium positioning
-  \item \textbf{DePuy Synthes / J\&J MedTech} (USA) --- global leader; significant China VBP exposure
-  \item \textbf{Zimmer Biomet Holdings} (USA) --- large incumbent; cost discipline under US hospital pressure
-  \item \textbf{Smith+Nephew plc} (UK/US ADR) --- medium-high ceramic relevance; Europe reimbursement-aware
-  \item \textbf{Medacta International} (Switzerland) --- smaller scale; innovation-partner profile in Europe
+  \item \textbf{Large customers} (3 accounts) --- sales above EUR\,10m including potential strategic projects: Zimmer Biomet, Stryker (incl.\ Serf), and Medacta.
+  \item \textbf{Medium customers} (11 accounts) --- sales above EUR\,3m excluding strategic projects, but with a relevant market position: DePuy, AK Medical, Weigao, Mindray, Double, UOC, Naton/Zhengtian, Aesculap, Corin (Arthrex), Microport, and Chunli.
+  \item \textbf{High potentials} (6 accounts) --- sales below EUR\,3m but including potential strategic projects: Meril, Embody, MatOrtho, JRI, Dedienne, and Globus Medical.
+  \item \textbf{Small accounts and long tail} --- sales below EUR\,3m without strategic projects, managed by field specialists or the Customer Service Team. Named small accounts include Smith+Nephew, Waldemar Link, and Lima; a further 24 field-specialist accounts (e.g.\ Exactech, Enovis, Corentec) and all remaining customers form the long tail.
 \end{itemize}
 
-\textcolor{red}{[TODO: complete the full CeramTec OEM customer list and account revenue shares from internal CRM/sales data.]}
+Table~\ref{tab:key-accounts-large-medium} and Table~\ref{tab:key-accounts-high-small} reproduce the register. The fourteen large- and medium-tier accounts align with the ``$\sim$16 strategic OEMs'' referenced in early project scoping.
+
+For Phase~1 external intelligence, we built detailed profiles for five accounts spanning the large, medium, and small tiers---those with the richest public financial and innovation disclosures (SEC EDGAR, patent snapshots, reimbursement exposure):
+
+\begin{itemize}
+  \item \textbf{Stryker Corporation} (USA) --- \textit{large tier}; high-volume orthopaedics; robotics-led premium positioning
+  \item \textbf{DePuy Synthes / J\&J MedTech} (USA) --- \textit{medium tier}; global leader; significant China VBP exposure
+  \item \textbf{Zimmer Biomet Holdings} (USA) --- \textit{large tier}; large incumbent; cost discipline under US hospital pressure
+  \item \textbf{Smith+Nephew plc} (UK/US ADR) --- \textit{small-account tier}; medium-high ceramic relevance; Europe reimbursement-aware
+  \item \textbf{Medacta International} (Switzerland) --- \textit{large tier}; smaller scale; innovation-partner profile in Europe
+\end{itemize}
+
+\textcolor{red}{[TODO: add account revenue shares and SAP/Salesforce volume ranks from internal CRM data once the customer master key is defined.]}
+
+\begin{table}[H]
+\centering
+\small
+\caption{CeramTec key accounts --- large and medium tiers (source: Key Accounts register, May 2026)}
+\label{tab:key-accounts-large-medium}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tier} & \textbf{Client} & \textbf{Headquarters} \\
+\midrule
+Large & Zimmer Biomet & USA / Warsaw \\
+Large & Stryker (incl.\ Serf) & USA / Mahwah \\
+Large & Medacta & Switzerland / Castel San Pietro \\
+\midrule
+Medium & AK Medical & China / Beijing \\
+Medium & DePuy & USA / Warsaw \\
+Medium & Weigao & China / Shandong \\
+Medium & Mindray & China / Shenzhen \\
+Medium & Double & China / Xiamen \\
+Medium & UOC & Taiwan / Taipei \\
+Medium & Naton / Zhengtian & China / Beijing \\
+Medium & Aesculap & Germany / Tuttlingen \\
+Medium & Corin (Arthrex) & UK / Gloucestershire \\
+Medium & Microport & China / Shanghai \\
+Medium & Chunli & China / Beijing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\caption{CeramTec key accounts --- high potentials and named small accounts (source: Key Accounts register, May 2026)}
+\label{tab:key-accounts-high-small}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tier} & \textbf{Client} & \textbf{Headquarters} \\
+\midrule
+High potential & Meril & India / Vapi \\
+High potential & Embody & USA / Norfolk \\
+High potential & MatOrtho & UK / London--Leatherhead \\
+High potential & JRI & UK / Sheffield \\
+High potential & Dedienne & France / Montpellier \\
+High potential & Globus Medical & USA / Audubon \\
+\midrule
+Small account & Smith+Nephew & USA / Memphis \\
+Small account & Waldemar Link & Germany / Hamburg \\
+Small account & Lima & Italy / San Daniele del Friuli \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Additional field-specialist accounts: Ruihe, Dingjian, Yijiabao, Symbios, Adler, Permedica, Implantec, Falcon, Nakashima, Medgal, Plus Orthopaedics, ATF, Evolutis, Groupe Lepine, XNOV, Biorad, Brazil Customers, OrthoDevelopment, Exactech, Enovis, Corentec, Beznoska, TTK, and Surgival. All other customers are handled by the Customer Service Team (long tail).
 
 Substitute ceramic and technical-ceramics suppliers identified in the external register include CoorsTek, HiPer Medical, Kyocera Medical, Enovis/Mathys (OEM with own ceramic line), and several China-based suppliers (Suntech/Cericare, Three-Circle, Arthrone, TrendTec, Yukun) plus G.\ Surgiwear (India). \textcolor{red}{[TODO: validate competitive overlap and market-share estimates with CeramTec commercial intelligence.]}
 
@@ -319,7 +383,7 @@ The client initially described the project as \textbf{dynamic pricing}. In indus
 
 CeramTec's commercial reality is fundamentally different:
 \begin{itemize}
-  \item CeramTec supplies \textbf{components} to a small set of approximately \textbf{16 OEM customers}, with whom it maintains long-term, relationship-driven contracts.
+  \item CeramTec supplies \textbf{components} to a tiered set of OEM customers (fourteen key-account-priority OEMs in the large and medium tiers, plus six high potentials), with whom it maintains long-term, relationship-driven contracts.
   \item Prices are negotiated \textbf{individually} per account and product line; they are not published on a consumer-facing channel that could be repriced every minute.
   \item Frequent automated price changes would undermine trust with strategic buyers and are incompatible with medical-device contracting cycles.
 \end{itemize}
@@ -356,13 +420,14 @@ Phase~1 establishes the reproducible evidence backbone. Phases~2--4 translate th
 
 \textbf{Project objective.} Assess the feasibility of a \textbf{data-driven pricing strategy} and deliver a structured framework CeramTec can operationalise: moving from cost-plus intuition to evidence-backed \textbf{baseline price ranges} by market and account. The deliverable is not a live dynamic-pricing engine but a methodology, data register, and reproducible pipeline.
 
-\textbf{Geographic markets and accounts.} The analysis covers four countries (USA, China, France, Italy) and, per CeramTec direction, 16 OEM accounts.
+\textbf{Geographic markets and accounts.} The analysis covers four countries (USA, China, France, Italy) and CeramTec's full key-account universe as defined in the internal register (Section~\ref{sec:business-context}): fourteen key-account-priority OEMs (three large, eleven medium), six high potentials, and a long tail of smaller accounts.
 
 \begin{itemize}
-    \item \textcolor{red}{[TODO: reconcile ``16 OEMs'' scope with the five key accounts currently profiled in Section~\ref{sec:business-context} --- clarify whether the remaining 11 are lower priority, unprofiled, or out of Phase~1's data scope]}
+    \item \textbf{Phase~1 deep-dive scope:} five OEMs with external financial profiles (Stryker, DePuy, Zimmer Biomet, Medacta, Smith+Nephew) --- chosen for SEC/patent data availability, not because other tiers are out of scope.
+    \item \textbf{Phase~2--4 target scope:} join internal SAP/Salesforce revenue to the full tiered register (\texttt{oem\_list.csv}) to stratify baselines across all key-account-priority and high-potential accounts.
 \end{itemize}
 
-Given $16 \times 4 = 64$ potential market--OEM price points, a segmentation-based approach is preferred over ad hoc account-by-account negotiation.
+Given $14 \times 4 = 56$ primary market--OEM price points at the key-account tier (or $20 \times 4 = 80$ including high potentials), a segmentation-based approach is preferred over ad hoc account-by-account negotiation.
 
 \textbf{Evidence categories.} Thirteen families in the External Data Register---FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitors---totalling 51 tracked source rows.
 
@@ -410,7 +475,7 @@ To scale collection, we developed \textbf{AI-assisted scraping and processing sc
 Had internal data been available from project start, Phase~2 would construct the modelling feature matrix by joining CeramTec SAP and Salesforce records to the external country--year panel (and, where possible, account--year slices). Planned steps:
 
 \begin{enumerate}
-  \item \textbf{Customer resolution} --- define a master \texttt{oem\_id} mapping SAP customer names and Salesforce accounts to the 16 strategic OEMs (and reconcile international corporate structures).
+  \item \textbf{Customer resolution} --- define a master \texttt{oem\_id} mapping SAP customer names and Salesforce accounts to the tiered key-account register (14 key-account-priority + 6 high-potential OEMs) and reconcile international corporate structures.
   \item \textbf{Internal commercial features} --- revenue, unit volumes, average realised price, seasonality flags (August/December troughs, June China order spikes), and post-COVID normalisation (2023 peak vs 2024 correction).
   \item \textbf{External join features} --- reimbursement episode ceilings, ceramic-bearing share, revision proxies, procurement intensity, and USD material-cost basket indices aligned to contract years.
   \item \textbf{Quality layer} --- document missingness and proxy coverage per country--OEM pair; exclude or down-weight cells with only literature fallbacks.
@@ -484,7 +549,7 @@ On the technical side, we learned to deploy \textbf{agentic AI at scale} for scr
 
 The objective of this project was to assess the \textbf{feasibility of a data-driven pricing strategy} for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible in principle} but cannot be fully operationalised within a single academic project given data constraints. Our principal deliverable is a \textbf{four-phase framework}---from evidence collection through feature engineering, segmentation, and negotiation baselines---together with a fully implemented Phase~1 pipeline (register, scripts, notebooks, \texttt{external\_data\_dataset.csv}) that CeramTec can extend.
 
-We reframed the client's initial ``dynamic pricing'' expectation into \textbf{price stratification}: baseline ranges for approximately 16 strategic OEM relationships across four regulated markets, not minute-by-minute repricing. Phases~2--4 are specified in detail and partially initiated, but completion requires resolving internal-data integration (NDA-delayed access from 7 July 2026, missing Salesforce--SAP linkage).
+We reframed the client's initial ``dynamic pricing'' expectation into \textbf{price stratification}: baseline ranges for CeramTec's tiered OEM relationships (fourteen key-account-priority accounts plus six high potentials) across four regulated markets, not minute-by-minute repricing. Phases~2--4 are specified in detail and partially initiated, but completion requires resolving internal-data integration (NDA-delayed access from 7 July 2026, missing Salesforce--SAP linkage).
 
 The \textbf{dominant challenge} was \textbf{external data retrieval}. Healthcare pricing signals are buried in institution-specific PDFs and national registries with heterogeneous formats; open APIs are scarce and cross-country parity is limited. AI-assisted scraping and processing materially improved scalability, yet manual validation and partial coverage remain unavoidable. This data environment---not model design---is the binding constraint on moving from framework to live pricing recommendations.
 
@@ -772,7 +837,9 @@ Clients, financial health, R\&D, innovation, account prirority\\[0.5em]
 \endfoot
 \bottomrule
 \endlastfoot
-oem/ & SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew, not all the OEMs, some of them are still missing, see the exhaustive list \\
+oem/Key\_Accounts\_060526.pdf & key accounts register & \textcolor{green!60!black}{Retrieved} & Global & Ad hoc & CeramTec internal tiered OEM list (large/medium/high/small/long tail) \\
+oem/oem\_list.csv & OEM tiers (CSV) & \textcolor{green!60!black}{Derived} & Global & Ad hoc & Machine-readable extract of key accounts PDF \\
+oem/ & SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew; remaining key-account-tier OEMs pending \\
 oem/account\_profiles/ & account profiles & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Key account strategy files \\
 oem/patents & Patent counts & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Innovation proxy snapshots \\
 \end{longtable}
