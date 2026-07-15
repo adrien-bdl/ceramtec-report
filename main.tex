@@ -185,7 +185,7 @@ CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant ma
 
 Because CeramTec had no prior external-data capability and internal sales data were only accessible from \textbf{7 July 2026} (NDA delays), a substantial share of the project focused on building a reproducible external evidence foundation across four priority markets (US, China, France, Italy). We designed a complete \textbf{four-phase pricing framework} (data collection, feature engineering, segmentation, predictive baselines) and implemented Phase~1 in full. Phases~2--4 are presented as the methodology we would execute once internal and external data are fully linked.
 
-This report therefore delivers three things: (i)~a critical reframing of the client's problem; (ii)~a step-by-step pricing framework with limitations stated explicitly; and (iii)~a maintainable data pipeline (register, scraping/processing scripts, merged external dataset) that CeramTec can extend after the project. Key learnings include the heterogeneity of regulated healthcare markets and the use of AI-assisted extraction to scale retrieval from unstructured PDF reports---with the caveat that data comparability remains uneven across countries and OEMs.
+This report therefore delivers three things: (i)~a critical reframing of the client's problem; (ii)~a step-by-step four-phase pricing framework with Phase~1 implemented; and (iii)~a maintainable data pipeline (register, scripts, merged external dataset). The \textbf{main binding constraint} proved to be external data retrieval in regulated healthcare markets, not the soundness of the pricing methodology itself.
 
 \section*{Acknowledgments}
 
@@ -212,10 +212,11 @@ The choice of bearing material (such as ceramic-on-ceramic, ceramic-on-polyethyl
 
 Although CeramTec currently prices its products primarily using a cost-based approach, it operates across markets with widely different reimbursement systems, procurement mechanisms, competitive environments, and customer profiles. These differences suggest that a uniform pricing strategy may not fully capture customers' willingness to pay or the value delivered by ceramic bearings. Furthermore, CeramTec serves multiple OEM customers with different market positions and product portfolios, creating additional opportunities for differentiated pricing.
 
-The objective of this project is to assess the feasibility of a \textbf{data-driven pricing framework} for CeramTec's ceramic hip bearings and to deliver a reproducible evidence base that the company can maintain after the consulting engagement. A central finding is that the client's initial ``dynamic pricing'' framing must be reinterpreted: what CeramTec needs is not minute-by-minute price optimisation but \textbf{stratified negotiation baselines} grounded in market, payer, and account context. Section~\ref{sec:reframing} develops this argument; Sections~\ref{sec:data-constraints}--\ref{sec:methodology} present constraints, mitigations, and our four-phase methodology; Section~\ref{sec:learnings} summarises what we learned from the healthcare market and from building AI-assisted data pipelines.
+The objective of this project is to assess the feasibility of a \textbf{data-driven pricing strategy} for CeramTec's ceramic hip bearings and to deliver a reproducible evidence base that the company can maintain after the consulting engagement. Section~\ref{sec:reframing} reframes the client's initial ``dynamic pricing'' expectation; Section~\ref{sec:methodology} introduces our four-phase framework; Phase sections report implementation progress, constraints, and mitigations.
 
 
-\section{Business Context and Project Scope}
+\section{Business Context}
+\label{sec:business-context}
 
 \subsection{CeramTec in the value chain}
 
@@ -306,30 +307,12 @@ CeramTec currently prices its bearings on a cost-plus basis: production cost plu
 
 Given that willingness-to-pay and margin headroom differ materially by country, payer system, and OEM segment, a single global cost-plus price cannot capture differences such as reimbursement ceilings in France, regional tariff heterogeneity in Italy, or VBP-linked constraints in China. Each OEM also has a distinct market positioning and product range, motivating differentiation by buyer as well as by market.
 
-\subsection{Project Objectives}
 
-The project objective is to design a \textbf{data-driven price stratification framework} for CeramTec's hip implant bearing components: moving from cost-plus intuition to evidence-backed \textbf{baseline price ranges} that support OEM negotiations by market and account profile. The deliverable is not a live dynamic-pricing engine but a structured methodology, data register, and reproducible pipeline that CeramTec can operationalise once internal and external data are fully integrated.
+\section{Project Scope and Methodology}
 
-\subsection{Scope}
+This section states the project objective, reframes the client's initial problem statement, introduces the four-phase methodology, and defines geographic and data scope.
 
-\textbf{Geographic markets and accounts:} the analysis covers 4 countries (USA, China, France, Italy) and, per CeramTec direction, 16 OEM accounts.
-
-\begin{itemize}
-    \item \textcolor{red}{[TODO: reconcile "16 OEMs" scope with the 5 key accounts currently profiled in \S2.1.1 -- clarify whether the remaining 11 are lower priority, unprofiled, or out of Phase~1's data scope]}
-\end{itemize}
-
-Given $16 \times 4 = 64$ potential market--OEM price points, a data-driven, segmentation-based approach is preferred over ad hoc account-by-account negotiation.
-
-\textbf{OEM accounts:} the five key accounts profiled above, with financial and patent signals from SEC EDGAR (where available) and structured Steckbrief templates in \texttt{data/external/oem/account\_profiles/}.
-
-\textbf{Evidence categories:} thirteen families in the External Data Register---FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitors---totalling 51 tracked source rows.
-
-\textbf{Pricing dimensions analysed:} input-cost pass-through (materials, energy, FX), payer budget ceilings (episode and device tariffs), observed procurement competition, demand volume and bearing-mix evolution, revision-related value, OEM financial capacity, and competitive ceramic supply.
-
-A core deliverable beyond static analysis is a \textbf{maintainable external-data capability}: reproducible scraping/processing scripts, a synchronized team register (Google Sheet $\rightarrow$ repo), one EDA notebook per data category, and a merged external dataset (\texttt{data/external/external\_data\_dataset.csv}).
-
-
-\section{Reframing: Price Stratification versus Dynamic Pricing}
+\subsection{Problem reframing: price stratification versus dynamic pricing}
 \label{sec:reframing}
 
 The client initially described the project as \textbf{dynamic pricing}. In industries such as aviation, rail, and event ticketing, dynamic pricing means adjusting prices frequently---sometimes hourly---based on remaining capacity, time to departure or performance, and observed demand elasticity. Algorithms continuously re-optimise list prices to fill inventory at maximum willingness-to-pay.
@@ -345,58 +328,10 @@ We therefore reframe the problem as \textbf{price stratification} (or \textbf{ne
 
 This reframing is critical for two reasons. First, it shows that we understood the client's true constraint rather than importing a fashionable ``dynamic pricing'' label from unrelated industries. Second, it sets realistic success criteria for the project: delivering a \textbf{framework and evidence base} for stratified pricing, not a real-time pricing bot.
 
-
-\section{Data Landscape and Project Constraints}
-\label{sec:data-constraints}
-
-\subsection{Internal data}
-
-Until the project, CeramTec had not used data systematically to support pricing. Internal sources include:
-
-\begin{itemize}
-  \item \textbf{Salesforce} --- records demand signals and client meetings, but \textbf{no revenue data}; it cannot on its own support price--volume analysis.
-  \item \textbf{SAP} --- transactional detail including pieces sold (daily timestamps), revenue, customer name, material number and name, product group, and geographic fields (to be interpreted cautiously because OEM corporations operate internationally).
-\end{itemize}
-
-A major integration barrier is that \textbf{Salesforce and SAP cannot be directly linked}: no common key exists between the two environments, limiting unified account-level feature engineering until CeramTec defines a master customer identifier.
-
-\textbf{NDA and timing.} Historical sales and pricing data existed at CeramTec throughout the project, but contractual clearance delayed access. We obtained internal data only on \textbf{7 July 2026}, leaving limited time for full integration into Phases~2--4 within the academic timeline. Spencer committed to sharing supplementary files (accounts summary and SAP revenue data) to support ongoing work.
-
-Preliminary inspection of SAP series reveals observable patterns relevant to pricing segmentation: seasonal drops in \textbf{August and December} (production and demand), \textbf{June spikes} linked to grouped orders from Chinese customers, and a \textbf{2023 COVID-related surge} followed by a decrease in 2024. These patterns motivate time-aware features in Phase~2 even though full modelling was not completed before the report deadline.
-
-\subsection{External data}
-
-With limited internal history at project start, we invested heavily in \textbf{external evidence}: reimbursement ceilings, procurement outcomes, registry bearing mix, procedure volumes, macro cost indices, and OEM financial signals. Healthcare markets are \textbf{highly regulated} and \textbf{country-specific}---US DRG episode payments, French GHS and LPPR device lists, Italy's regionalised DRG and prosthetic tariffs, and China's NHSA volume-based procurement (VBP) operate on different logic. Few open, machine-readable datasets exist; much information sits in lengthy PDF reports from agencies, registries, and industry bodies with non-standard layouts.
-
-\subsection{Implication for project deliverables}
-
-The combination of late internal access, sparse external APIs, and cross-country heterogeneity means the full end-to-end pricing model \textbf{cannot be completed within the project window}. Our deliverable is therefore the \textbf{complete methodological framework} (Phases~1--4), a fully implemented Phase~1 pipeline, explicit documentation of limitations, and reproducible artefacts (register, scripts, notebooks) so CeramTec can continue execution.
-
-
-\section{Mitigation: AI-Assisted Data Retrieval}
-\label{sec:mitigation}
-
-To scale collection of unstructured external data, we developed \textbf{AI-assisted scraping and processing scripts} that:
-\begin{itemize}
-  \item automatically retrieve reports and datasets from public portals and registries;
-  \item extract tables and indicators from PDF documents (e.g.\ RIAP national registry reports, AJRR summaries, Open LPP reimbursement files);
-  \item harmonise outputs into tidy CSVs under \texttt{data/external/<category>/processed/}.
-\end{itemize}
-
-This agentic, script-based approach materially improves throughput compared with manual copy-paste from PDFs. However, it is \textbf{not a turnkey solution}:
-\begin{itemize}
-  \item extracted values require \textbf{manual validation}, especially when report formats change between years or when addenda supersede main tables;
-  \item there is \textbf{no guarantee of parity} across countries or OEMs---empirically, data richness varies sharply (strong US/IT registry extracts versus partial China proxies);
-  \item maintenance effort grows with each new source format.
-\end{itemize}
-
-We consider this the most pragmatic path for CeramTec given industry data opacity, but it reinforces that price stratification must be built on \textbf{transparent quality flags} rather than assumed completeness.
-
-
-\section{Proposed Four-Phase Methodology}
+\subsection{Four-phase pricing framework}
 \label{sec:methodology}
 
-Our pricing framework proceeds in four phases. Table~\ref{tab:phases} summarises objectives and status; subsequent sections detail each phase and what we would have delivered with complete, timely data.
+Our methodology proceeds in four phases. Table~\ref{tab:phases} summarises objectives and status; Sections~\ref{sec:phase1}--\ref{sec:phase4} detail each phase, including constraints encountered and solutions applied.
 
 \begin{table}[H]
 \centering
@@ -409,16 +344,35 @@ Our pricing framework proceeds in four phases. Table~\ref{tab:phases} summarises
 \midrule
 1 & Data collection and exploration & External Data Register (51 sources); 13-category pipeline; country--year panel; 7 hypotheses; EDA notebooks; \texttt{external\_data\_dataset.csv} --- \textbf{implemented} \\
 2 & Feature engineering & Join SAP revenue and Salesforce activity to external panel; build negotiation features (seasonality, cost indices, reimbursement exposure) --- \textbf{partially started after 7 July internal access} \\
-3 & Market and customer segmentation & Cluster OEMs and markets (e.g.\ K-means on financials, innovation, reimbursement pressure); define stratification tiers --- \textbf{designed, not fully executed} \\
+3 & Market and customer segmentation & Cluster OEMs and markets; define stratification tiers --- \textbf{designed, not fully executed} \\
 4 & Price baseline model & Predict anchor price ranges per segment; negotiation playbooks --- \textbf{designed, not fully executed} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Phase~1 established the reproducible backbone: without a maintained register and automated retrieval, any segmentation model would age quickly as reimbursement rules, VBP rounds, and registry publications change. Phases~2--4 depend on linking CeramTec internal bearing price history to the external panel via a resolved customer master key.
+Phase~1 establishes the reproducible evidence backbone. Phases~2--4 translate that evidence---combined with CeramTec internal data---into features, segments, and negotiation baselines.
+
+\subsection{Scope}
+
+\textbf{Project objective.} Assess the feasibility of a \textbf{data-driven pricing strategy} and deliver a structured framework CeramTec can operationalise: moving from cost-plus intuition to evidence-backed \textbf{baseline price ranges} by market and account. The deliverable is not a live dynamic-pricing engine but a methodology, data register, and reproducible pipeline.
+
+\textbf{Geographic markets and accounts.} The analysis covers four countries (USA, China, France, Italy) and, per CeramTec direction, 16 OEM accounts.
+
+\begin{itemize}
+    \item \textcolor{red}{[TODO: reconcile ``16 OEMs'' scope with the five key accounts currently profiled in Section~\ref{sec:business-context} --- clarify whether the remaining 11 are lower priority, unprofiled, or out of Phase~1's data scope]}
+\end{itemize}
+
+Given $16 \times 4 = 64$ potential market--OEM price points, a segmentation-based approach is preferred over ad hoc account-by-account negotiation.
+
+\textbf{Evidence categories.} Thirteen families in the External Data Register---FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitors---totalling 51 tracked source rows.
+
+\textbf{Pricing dimensions.} Input-cost pass-through (materials, energy, FX), payer budget ceilings, procurement competition, demand volume and bearing-mix evolution, revision-related value, OEM financial capacity, and competitive ceramic supply.
+
+\textbf{Reproducibility deliverables.} Scraping/processing scripts, a synchronized team register (Google Sheet $\rightarrow$ repo), one EDA notebook per data category, and merged external dataset (\texttt{data/external/external\_data\_dataset.csv}).
 
 
 \section{Phase 1: Data Collection and Exploration}
+\label{sec:phase1}
 
 Phase 1 starts from a clear initial situation: CeramTec had no centralized external-data system for pricing intelligence. Relevant signals existed across public institutions, registries, procurement portals, reimbursement schedules, macro databases, and company disclosures, but they were fragmented, inconsistent in format, and difficult to use in negotiation timelines.
 
@@ -443,8 +397,15 @@ Exploration also surfaced the \textbf{heterogeneity of healthcare systems} as a 
 
 Maintainability was a design requirement from the start. We implemented reusable scraping and processing scripts so data refreshes can be run as a standard workflow rather than rebuilt manually each cycle. Concretely, the project now supports one-command orchestration for retrieval and processing, plus a synchronized external register that documents source status, market scope, and update frequency. A merged country--year dataset (\texttt{external\_data\_dataset.csv}) combines market-panel indicators, collaborator procurement extracts (US SAM, France BOAMP), and USD-referenced FX and material-cost indices. This makes it feasible to ingest new releases regularly, preserve methodological consistency, and keep pricing evidence current after the project ends.
 
+\subsection{Constraints encountered and solutions}
+
+The main Phase~1 challenge was \textbf{external data retrieval}. CeramTec had no prior external-data capability; meanwhile healthcare markets offer few open, machine-readable datasets. Most relevant information is scattered across lengthy PDF reports (national registries, reimbursement schedules, agency publications) with non-standard layouts and uneven coverage by country and year. US and Italian registry extracts proved relatively rich; China often required proxy constructions; comparability across OEMs and markets cannot be assumed.
+
+To scale collection, we developed \textbf{AI-assisted scraping and processing scripts} that retrieve reports from public portals, extract tables from PDFs (e.g.\ RIAP, AJRR, Open LPP), and harmonise outputs into tidy CSVs. This agentic approach materially improves throughput versus manual extraction, but remains imperfect: extracted values require \textbf{manual validation}, report formats change between years, and there is \textbf{no guarantee of parity} across countries. We document coverage explicitly in the External Data Register (Retrieved / Partial / Todo flags). Despite these limits, Phase~1 delivered the evidence backbone on which Phases~2--4 depend.
+
 
 \section{Phase 2: Feature Engineering and Internal Data Integration}
+\label{sec:phase2}
 
 Had internal data been available from project start, Phase~2 would construct the modelling feature matrix by joining CeramTec SAP and Salesforce records to the external country--year panel (and, where possible, account--year slices). Planned steps:
 
@@ -457,8 +418,22 @@ Had internal data been available from project start, Phase~2 would construct the
 
 With internal access from 7 July 2026, we initiated inspection of SAP fields and seasonality patterns but did not complete the full feature store before the report deadline. \textcolor{red}{[TODO: insert summary statistics or charts from internal data once Spencer's accounts summary and SAP revenue extracts are fully integrated.]}
 
+\subsection{Constraints encountered and solutions}
+
+Phase~2 was constrained primarily by \textbf{late access to internal data}. Historical sales and pricing existed at CeramTec throughout the project, but NDA clearance delayed handover until \textbf{7 July 2026}, leaving limited time to build and validate the feature matrix within the academic timeline.
+
+Additional integration barriers remain:
+\begin{itemize}
+  \item \textbf{Salesforce} records demand and meetings but contains \textbf{no revenue data}.
+  \item \textbf{SAP} holds transactional detail (pieces sold, revenue, customer, material, geography) but \textbf{cannot be linked to Salesforce} without a shared customer key.
+  \item Geographic fields in SAP must be interpreted cautiously because OEM corporations operate internationally.
+\end{itemize}
+
+Spencer committed to sharing supplementary files (accounts summary and SAP revenue data) to support the join. Observable SAP patterns---August/December seasonality, June spikes from Chinese grouped orders, and the 2023 COVID surge followed by 2024 normalisation---motivate time-aware features once the customer master key is defined.
+
 
 \section{Phase 3: Market and Customer Segmentation}
+\label{sec:phase3}
 
 Phase~3 applies unsupervised and rule-based segmentation to group markets and OEMs with similar pricing environments and negotiation leverage. The intended approach:
 
@@ -470,8 +445,13 @@ Phase~3 applies unsupervised and rule-based segmentation to group markets and OE
 
 Seven hypotheses drafted in Phase~1 (e.g.\ ceramic share vs revision rate, COVID structural break in THA volumes, China VBP ceiling step-change) would be tested formally here to validate which dimensions justify separate price bands. Clustering (e.g.\ K-means on standardised OEM features) was specified in the project plan but not fully executed due to the delayed internal join.
 
+\subsection{Constraints encountered}
+
+Phase~3 depends on the quality and completeness of Phase~1 external features and Phase~2 internal joins. With incomplete internal integration and uneven external coverage (especially proxies for China and partial OEM financials), segmentation tiers can be \textbf{designed and illustrated} but not fully validated before the report deadline. Hypothesis tests that require account-level price history remain pending.
+
 
 \section{Phase 4: Price Baseline Model and Negotiation Support}
+\label{sec:phase4}
 
 The final phase translates segments into \textbf{actionable negotiation baselines}---recommended price ranges per market--OEM tier, not automated tick-by-tick repricing. Planned components:
 
@@ -482,6 +462,10 @@ The final phase translates segments into \textbf{actionable negotiation baseline
 \end{itemize}
 
 A baseline notebook (\texttt{price\_signal\_model\_baseline.ipynb}) sketches this approach using external proxies alone; it demonstrates methodology but cannot substitute for internal price history. \textcolor{red}{[TODO: update with internal-data model results once SAP revenue join is complete.]}
+
+\subsection{Constraints encountered}
+
+Phase~4 requires labelled internal price outcomes (realised bearing prices or negotiated discounts by account and period). Without a complete SAP--Salesforce--external feature table, predictive baselines remain \textbf{methodological prototypes} rather than deployable negotiation tools. The phase is fully specified; execution awaits internal data integration described in Section~\ref{sec:phase2}.
 
 
 \section{Project Learnings}
@@ -498,11 +482,13 @@ On the technical side, we learned to deploy \textbf{agentic AI at scale} for scr
 
 \section{Conclusion}
 
-This project began with a client request for ``dynamic pricing'' and concludes with a more accurate diagnosis: CeramTec needs \textbf{data-driven price stratification}---evidence-backed baseline ranges for a finite set of strategic OEM relationships across regulated national markets. We showed that literal dynamic pricing is mismatched to the B2B component-supplier context.
+The objective of this project was to assess the \textbf{feasibility of a data-driven pricing strategy} for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible in principle} but cannot be fully operationalised within a single academic project given data constraints. Our principal deliverable is a \textbf{four-phase framework}---from evidence collection through feature engineering, segmentation, and negotiation baselines---together with a fully implemented Phase~1 pipeline (register, scripts, notebooks, \texttt{external\_data\_dataset.csv}) that CeramTec can extend.
 
-We delivered a complete \textbf{four-phase framework}, fully implemented \textbf{Phase~1} (external register, automated retrieval, exploratory analysis, merged external dataset), and documented why Phases~2--4 could not be finished: late internal data access (7 July 2026), missing Salesforce--SAP linkage, and the inherent difficulty of harmonising healthcare data across countries. We also demonstrated a scalable mitigation path via AI-assisted extraction, with transparent limits on cross-country comparability.
+We reframed the client's initial ``dynamic pricing'' expectation into \textbf{price stratification}: baseline ranges for approximately 16 strategic OEM relationships across four regulated markets, not minute-by-minute repricing. Phases~2--4 are specified in detail and partially initiated, but completion requires resolving internal-data integration (NDA-delayed access from 7 July 2026, missing Salesforce--SAP linkage).
 
-For CeramTec, the recommended next steps are: (i)~establish a customer master key and integrate Spencer's SAP revenue and accounts data; (ii)~refresh the external register on a schedule; (iii)~execute segmentation and baseline models within the Phase~3--4 design; and (iv)~use stratified bands in negotiations rather than pursuing real-time dynamic repricing. The scripts, register, and notebooks in this repository are intended to make that continuation straightforward.
+The \textbf{dominant challenge} was \textbf{external data retrieval}. Healthcare pricing signals are buried in institution-specific PDFs and national registries with heterogeneous formats; open APIs are scarce and cross-country parity is limited. AI-assisted scraping and processing materially improved scalability, yet manual validation and partial coverage remain unavoidable. This data environment---not model design---is the binding constraint on moving from framework to live pricing recommendations.
+
+For CeramTec, we recommend: (i)~maintain and refresh the external register on a schedule; (ii)~establish a customer master key and complete the SAP/Salesforce join; (iii)~execute Phases~3--4 within the framework we provide; and (iv)~use stratified negotiation baselines rather than pursuing literal dynamic pricing. The repository artefacts are intended to make this continuation straightforward.
 
 \appendix
 % <<REGISTER_BEGIN>>
