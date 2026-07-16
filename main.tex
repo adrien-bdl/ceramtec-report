@@ -29,6 +29,7 @@
 \usepackage{overpic}
 \usepackage{fancyhdr}
 \usepackage{setspace}
+\usepackage{etoc}
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta, shadows.blur, fit}
 \usepackage{geometry}
@@ -210,6 +211,10 @@ This report therefore delivers three things: (i)~a critical reframing of the cli
 \textcolor{red}{CeramTec and people from CeramTec}
 
 \newpage
+% Main TOC: narrative sections only (appendix tagged separately below)
+\etocdepthtag.toc{main}
+\etocsettagdepth{main}{subsection}
+\etocsettagdepth{appendix}{none}
 \tableofcontents
 \newpage
 
@@ -675,7 +680,20 @@ The \textbf{dominant challenge} was \textbf{external data retrieval}. Healthcare
 
 For CeramTec, we recommend: (i)~maintain and refresh the external register on a schedule; (ii)~establish a customer master key and complete the SAP/Salesforce join; (iii)~execute Phases~3--4 within the framework we provide; and (iv)~use stratified negotiation baselines rather than pursuing literal dynamic pricing. The repository artefacts are intended to make this continuation straightforward.
 
+\clearpage
 \appendix
+\etocdepthtag.toc{appendix}
+
+\section*{Appendix}
+
+% Local outline of appendix contents only (excluded from the main TOC above)
+\vspace{0.5em}
+{\large\bfseries Contents of the appendix\par}
+\vspace{0.25em}
+\etocsettagdepth{main}{none}
+\etocsettagdepth{appendix}{subsection}
+\tableofcontents
+
 % <<REGISTER_BEGIN>>
 \section{External Data Source Register}
 \label{app:external-data-register}
