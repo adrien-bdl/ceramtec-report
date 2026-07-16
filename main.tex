@@ -29,6 +29,20 @@
 \usepackage{overpic}
 \usepackage{fancyhdr}
 \usepackage{setspace}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, shadows.blur, fit}
+\usepackage{geometry}
+\usepackage{xcolor}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% Color palette
+\definecolor{navy}{RGB}{28,42,66}
+\definecolor{steel}{RGB}{70,98,133}
+\definecolor{accent}{RGB}{196,155,80}
+\definecolor{lightgray}{RGB}{245,246,248}
+\definecolor{textgray}{RGB}{60,60,60}
+
 
 \definecolor{tableheader}{HTML}{EBF1F2}
 
@@ -225,6 +239,105 @@ The objective of this project is to assess the feasibility of a \textbf{data-dri
 \subsection{CeramTec in the value chain}
 
 CeramTec operates as a \textbf{B2B component supplier} in the orthopaedic value chain: it manufactures high-performance ceramic femoral heads and acetabular liners that implant OEMs integrate into complete hip systems. Hospitals and purchasing organisations negotiate with OEMs under country-specific reimbursement and procurement rules; CeramTec's commercial challenge is therefore \textbf{two-level}---defending component value to OEM buyers whose own margins are capped by payer ceilings, tender outcomes, and episode-based reimbursement.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=0.7cm,
+    every node/.style={font=\sffamily},
+    box/.style={
+        draw=steel,
+        line width=0.9pt,
+        rectangle,
+        rounded corners=3pt,
+        minimum height=7.2cm,
+        align=left,
+        inner sep=0pt,
+        fill=white,
+        blur shadow={shadow blur steps=6, shadow xshift=1pt, shadow yshift=-1pt, shadow opacity=25}
+    },
+    highlight/.style={
+        box,
+        draw=accent,
+        line width=1.3pt
+    },
+    header/.style={
+        fill=navy,
+        text=white,
+        minimum width=\wd0,
+        rounded corners=3pt,
+        font=\sffamily\bfseries
+    },
+    headerhi/.style={
+        header,
+        fill=accent,
+        text=navy
+    },
+    arrow/.style={-Stealth, steel, line width=1.1pt},
+    arrowlabel/.style={font=\sffamily\itshape\small, text=textgray, fill=white, inner sep=2pt}
+]
+
+% ---------- 1. Component Supplier ----------
+\node[highlight, text width=4.4cm] (supplier) at (0,0) {};
+\node[headerhi, anchor=north, text width=4.4cm, minimum height=1.1cm, align=center]
+    at (supplier.north) {CeramTec\\[1pt] \small\normalfont Component Supplier};
+\node[anchor=north, text width=3.8cm, align=left, font=\sffamily\small, text=textgray, yshift=-1.6cm]
+    at (supplier.north) {
+        \textbf{Competitors:}\\
+        Kyocera, CoorsTek, Tosoh,\\
+        NGK Spark Plug / Niterra,\\
+        Mathys
+        \vspace{0.6cm}
+
+        \textbf{Market position:}\\
+        CeramTec holds an estimated \textbf{$\sim$90\%+ global share} in ceramic bearings. Kyocera is the only credible alternative for OEMs seeking dual-sourcing.
+    };
+
+% ---------- 2. OEM ----------
+\node[box, right=of supplier, text width=4.8cm] (oem) {};
+\node[header, anchor=north, text width=4.8cm, minimum height=1.1cm, align=center]
+    at (oem.north) {OEM\\[1pt] \small\normalfont Original Equipment Manufacturer};
+\node[anchor=north, text width=4.2cm, align=left, font=\sffamily\small, text=textgray, yshift=-1.6cm]
+    at (oem.north) {
+        Designs the full implant system. \\ \textcolor{white}{-} \\ \textcolor{white}{-}
+        \vspace{0.6cm}
+
+        \textbf{Examples:}\\
+        Stryker, Zimmer Biomet,\\
+        Smith+Nephew, DePuy Synthes,\\
+        Exactech, MicroPort\\
+        Orthopedics, Corin
+    };
+
+% ---------- 3. Distributor ----------
+\node[box, right=of oem, text width=2.6cm, align=center] (distributor) {};
+\node[header, anchor=north, text width=2.6cm, minimum height=1.1cm, align=center]
+    at (distributor.north) {Distributor};
+\node[anchor=north, text width=2.2cm, align=center, font=\sffamily\small, text=textgray, yshift=-1.6cm]
+    at (distributor.north) {Regional \& hospital-facing sales channel};
+
+% ---------- 4. Hospitals ----------
+\node[box, right=of distributor, text width=2.6cm, align=center] (hospitals) {};
+\node[header, anchor=north, text width=2.6cm, minimum height=1.1cm, align=center]
+    at (hospitals.north) {Hospitals};
+\node[anchor=north, text width=2.2cm, align=center, font=\sffamily\small, text=textgray, yshift=-1.6cm]
+    at (hospitals.north) {End point of use / surgical implantation};
+
+% ---------- Arrows ----------
+\draw[arrow] ($(supplier.south east)+(0,3.7cm)$) -- ($(oem.south west)+(0,3.7cm)$)
+    node[arrowlabel, midway, above] {Supplies components};
+\draw[arrow] ($(oem.south east)+(0,3.7cm)$) -- ($(distributor.south west)+(0,3.7cm)$)
+    node[arrowlabel, midway, above] {Ships finished implants};
+\draw[arrow] ($(distributor.south east)+(0,3.7cm)$) -- ($(hospitals.south west)+(0,3.7cm)$)
+    node[arrowlabel, midway, above] {Delivers to};
+
+\end{tikzpicture}
+
+\caption{CeramTec's positioning in the hip implant value chain}
+\end{figure}
+
+
+
 
 \subsubsection{Customer base and competitive landscape}
 
@@ -443,9 +556,9 @@ Given $14 \times 4 = 56$ primary market--OEM price points at the key-account tie
 \section{Phase 1: Data Collection and Exploration}
 \label{sec:phase1}
 
-Phase 1 starts from a clear initial situation: CeramTec had no centralized external-data system for pricing intelligence. Relevant signals existed across public institutions, registries, procurement portals, reimbursement schedules, macro databases, and company disclosures, but they were fragmented, inconsistent in format, and difficult to use in negotiation timelines.
+Ceramtec currently collects data from two sources: from a Salesforce system for the demand and meeting with the clients, and from an SAP infrastructure for the effective commercial records (number of sales, sales prices, customer name, etc). However, Phase 1 starts from a clear initial situation: CeramTec had no centralized external-data system for pricing intelligence. Relevant signals existed across public institutions, registries, procurement portals, reimbursement schedules, macro databases, and company disclosures, but they were fragmented, inconsistent in format, and difficult to use in negotiation timelines.
 
-Our solution was to build an end-to-end external evidence pipeline across all key pricing dimensions. Instead of collecting one-off files, we organized sources into a unified register and implemented reproducible retrieval and processing scripts so the dataset can be refreshed, extended, and maintained over time. This turns Phase 1 from a static deliverable into a durable capability that can keep tracking market evolution after the project period.
+Our solution was to build an end-to-end external evidence pipeline across all key pricing dimensions. Instead of collecting one-off files, we organized sources into a unified register and implemented reproducible retrieval and processing scripts so the dataset can be refreshed, extended, and maintained over time. This turns Phase 1 from a static deliverable into a durable capability that can keep tracking market evolution after the project period. Combined with the data already collected internally, we expect to encompass all the factors that can define the sale prices of the different products.
 
 \subsection{Categorisation of the data}
 
@@ -457,9 +570,12 @@ Data acquisition was particularly difficult in healthcare due to uneven transpar
 
 \subsection{Exploratory data analysis}
 
-The exploratory analysis phase translated the retrieved evidence into first-order market signals. Initial plots focused on identifying drivers that plausibly explain pricing pressure and negotiation context: procedure volume trajectories, bearing-mix evolution, reimbursement ceilings versus observed procurement dynamics, and input-cost indicators (materials, energy, FX). This first signal layer is not intended as a final causal model; it establishes which variables are most promising for deeper pricing segmentation in later phases.
+The exploratory analysis phase translated the retrieved evidence into first-order market signals. Initial plots focused on identifying drivers that plausibly explain pricing pressure and negotiation context: procedure volume trajectories, bearing-mix evolution, reimbursement ceilings versus observed procurement dynamics, and input-cost indicators (materials, energy, FX). This first signal layer is not intended as a final causal model but it establishes which variables are most promising for deeper pricing segmentation in later phases. Moreover, by exploring the data we managed to retrieved and by exchanging with Ceramtec's marketing and commercial teams about these results, we were able to really understand the market in which they operates and identify drivers that we weren't expecting.
 
 Exploration also surfaced the \textbf{heterogeneity of healthcare systems} as a first-order modelling constraint. Reimbursement in France combines episode tariffs (GHS) with device-level LPPR caps; Italy's regional DRG and prosthetic lists fragment what appears as a single national market; the US splits Medicare DRG episode logic from commercial payer dynamics; China couples implant ceilings to VBP bidding rounds with differentiated CoC/CoP/MoP categories. Any price stratification model must treat \textbf{country} as a structural dimension, not a simple categorical label.
+
+
+\textcolor{red}{include the plots etc}
 
 
 \subsection{Maintainability and durability of the solution}
@@ -564,7 +680,6 @@ For CeramTec, we recommend: (i)~maintain and refresh the external register on a 
 \section{External Data Source Register}
 \label{app:external-data-register}
 
-This appendix mirrors the team Google Sheet \textit{External Data Register} (Drive folder \texttt{data/external}). Last synced: 2026-07-06.
 
 \subsection{Status legend}
 \begin{tabular}{@{}ll@{}}
