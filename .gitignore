@@ -1,0 +1,29 @@
+# LaTeX build outputs (Overleaf compiles these — do not push)
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# latexmk / arara
+*.latexmk
+
+# Editor & OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*~

@@ -198,9 +198,9 @@
 
 CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant manufacturers, initially framed this project as \textbf{dynamic pricing}. After analysing the commercial context, we conclude that true dynamic pricing---continuous price adjustment in response to demand, inventory, or time-to-event, as in airlines or concert ticketing---is \textbf{not feasible nor desirable} for CeramTec. The company negotiates individually with a \textbf{small set of strategic OEM customers} (fourteen key-account-priority OEMs in the large and medium tiers, plus six high-potential accounts per CeramTec's internal register); prices cannot change hourly or daily. The relevant problem is \textbf{price stratification}: establishing evidence-backed \textbf{baseline price ranges} by market and customer to support future negotiations.
 
-Because CeramTec had no prior external-data capability and internal sales data were only accessible from \textbf{7 July 2026} (NDA delays), a substantial share of the project focused on building a reproducible external evidence foundation across four priority markets (US, China, France, Italy). We designed a complete \textbf{four-phase pricing framework} (data collection, feature engineering, segmentation, predictive baselines) and implemented Phase~1 in full. Phases~2--4 are presented as the methodology we would execute once internal and external data are fully linked.
+Because CeramTec had no prior external-data capability and internal sales data were only accessible from \textbf{7 July 2026} (NDA delays), a substantial share of the project focused on building a reproducible external evidence foundation across four priority markets (US, China, France, Italy). We designed a complete \textbf{four-phase pricing framework} (data collection, feature engineering, segmentation, predictive baselines) and implemented Phases~1--3 in full. Phase~4 (predictive negotiation baselines) is specified and partially prototyped but awaits a complete price-outcome label set.
 
-This report therefore delivers three things: (i)~a critical reframing of the client's problem; (ii)~a step-by-step four-phase pricing framework with Phase~1 implemented; and (iii)~a maintainable data pipeline (register, scripts, merged external dataset). The \textbf{main binding constraint} proved to be external data retrieval in regulated healthcare markets, not the soundness of the pricing methodology itself.
+This report therefore delivers three things: (i)~a critical reframing of the client's problem; (ii)~a step-by-step four-phase pricing framework with Phases~1--3 implemented; and (iii)~a maintainable data pipeline (register, scripts, merged external dataset, feature matrix, and OEM segmentation). The \textbf{main binding constraint} proved to be external data retrieval in regulated healthcare markets, not the soundness of the pricing methodology itself.
 
 \section*{Acknowledgments}
 
@@ -529,8 +529,8 @@ Our methodology proceeds in four phases. Table~\ref{tab:phases} summarises objec
 \textbf{Phase} & \textbf{Objective} & \textbf{Deliverables and status} \\
 \midrule
 1 & Data collection and exploration & External Data Register (51 sources); 13-category pipeline; country--year panel; 7 hypotheses; EDA notebooks; \texttt{external\_data\_dataset.csv} --- \textbf{implemented} \\
-2 & Feature engineering & Join SAP revenue and Salesforce activity to external panel; build negotiation features (seasonality, cost indices, reimbursement exposure) --- \textbf{partially started after 7 July internal access} \\
-3 & Market and customer segmentation & Cluster OEMs and markets; define stratification tiers --- \textbf{designed, not fully executed} \\
+2 & Feature engineering & Join SAP revenue and Salesforce activity to external panel; build negotiation features (seasonality, cost indices, reimbursement exposure) --- \textbf{implemented} (\texttt{feature\_matrix.csv}, 84 rows) \\
+3 & Market and customer segmentation & Cluster OEMs and markets; define stratification tiers --- \textbf{implemented} (K-Means + hierarchical, $k{=}4$) \\
 4 & Price baseline model & Predict anchor price ranges per segment; negotiation playbooks --- \textbf{designed, not fully executed} \\
 \bottomrule
 \end{tabular}
@@ -597,47 +597,171 @@ To scale collection, we developed \textbf{AI-assisted scraping and processing sc
 \section{Phase 2: Feature Engineering and Internal Data Integration}
 \label{sec:phase2}
 
-Had internal data been available from project start, Phase~2 would construct the modelling feature matrix by joining CeramTec SAP and Salesforce records to the external country--year panel (and, where possible, account--year slices). Planned steps:
+Phase~2 translates raw CeramTec internal records and the Phase~1 external panel into a \textbf{negotiation feature matrix} at the grain of one row per (country $\times$ customer/OEM). The pipeline is implemented in \texttt{scripts/phase2/feature\_engineering.py} and produces \texttt{scripts/phase2/output/feature\_matrix.csv}.
+
+\subsection{Data sources and integration logic}
+
+Three data layers are joined:
 
 \begin{enumerate}
-  \item \textbf{Customer resolution} --- define a master \texttt{oem\_id} mapping SAP customer names and Salesforce accounts to the tiered key-account register (14 key-account-priority + 6 high-potential OEMs) and reconcile international corporate structures.
-  \item \textbf{Internal commercial features} --- revenue, unit volumes, average realised price, seasonality flags (August/December troughs, June China order spikes), and post-COVID normalisation (2023 peak vs 2024 correction).
-  \item \textbf{External join features} --- reimbursement episode ceilings, ceramic-bearing share, revision proxies, procurement intensity, and USD material-cost basket indices aligned to contract years.
-  \item \textbf{Quality layer} --- document missingness and proxy coverage per country--OEM pair; exclude or down-weight cells with only literature fallbacks.
+  \item \textbf{SAP billing} (\texttt{MED SAP 2020 -- Today Full.xlsx}) --- transactional revenue, unit volumes, realised prices, product-group mix, and sales-lead ownership. Filtered to priority markets US, CN, FR, IT.
+  \item \textbf{Salesforce exports} --- meeting counts, opportunity pipeline (won/lost/open), task activity, and win rate. SAP and Salesforce share \textbf{no common customer key}; accounts are matched via normalised name similarity. Unmatched SAP rows retain \texttt{sf\_is\_known=0}.
+  \item \textbf{External country panel} (\texttt{external\_data\_dataset.csv}) --- latest-year THA volumes, ceramic-bearing share, reimbursement ceilings, material-cost indices, FX, and procurement intensity, joined on country code.
 \end{enumerate}
 
-With internal access from 7 July 2026, we initiated inspection of SAP fields and seasonality patterns but did not complete the full feature store before the report deadline. \textcolor{red}{[TODO: insert summary statistics or charts from internal data once Spencer's accounts summary and SAP revenue extracts are fully integrated.]}
+\subsection{Feature families}
+
+The matrix comprises 55 columns grouped into six families aligned with hip-implant negotiation logic:
+
+\begin{itemize}
+  \item \textbf{SAP commercial} --- total revenue, pieces sold, weighted average unit price, price volatility and monthly trend, revenue CAGR and last-year YoY, active months/years, COVID-era activity flag.
+  \item \textbf{Product portfolio} --- number of product groups, dominant group, revenue shares across revision bearings, CLock, and Forte lines (reflecting CeramTec's hip-specific product architecture).
+  \item \textbf{Contract continuity} --- inferred contract periods from billing gaps ($>$3 months); first/last period prices, renewal discount (\%), price slope across renewals, portfolio additions/drops, and months since last billing.
+  \item \textbf{Salesforce engagement} --- meeting and opportunity counts, new-business meetings, win rate, days since last meeting.
+  \item \textbf{External market context} --- country-level reimbursement, THA volume, ceramic share, material basket, procurement notices, China VBP-era flag.
+  \item \textbf{Structural flags} --- country dummies (US/CN/FR/IT), \texttt{is\_covid\_era\_customer}, \texttt{is\_china\_vbp\_customer}, \texttt{is\_post\_covid\_customer}.
+\end{itemize}
+
+\subsection{Results}
+
+The final matrix contains \textbf{84 country--customer rows} across priority markets: China (43), US (19), France (14), Italy (8). Cumulative SAP revenue in the extract is approximately EUR\,704M; median realised unit price is EUR\,190. Salesforce activity is matched for \textbf{67 of 84 accounts} (80\%).
+
+Figure~\ref{fig:phase2_overview} summarises revenue concentration and unit-price dispersion by market. China dominates total volume but exhibits wider price dispersion, consistent with VBP-era ceiling pressure and distributor fragmentation. Figure~\ref{fig:phase2_contracts} shows contract-renewal dynamics: customers with multiple billing periods often show negative price change at renewal (median discount on renegotiation), supporting the hypothesis that relationship continuity is a lever CeramTec already uses in pricing.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{phase2_phase3/phase2_market_overview.png}
+\caption{Phase~2 market overview: total SAP revenue (left) and unit-price distribution (right) by priority country.}
+\label{fig:phase2_overview}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{phase2_phase3/phase2_contract_renewals.png}
+\caption{Contract-period features: price change from first to last billing period versus number of inferred contract periods. Points below zero indicate renewal discounts.}
+\label{fig:phase2_contracts}
+\end{figure}
 
 \subsection{Constraints encountered and solutions}
 
-Phase~2 was constrained primarily by \textbf{late access to internal data}. Historical sales and pricing existed at CeramTec throughout the project, but NDA clearance delayed handover until \textbf{7 July 2026}, leaving limited time to build and validate the feature matrix within the academic timeline.
+Phase~2 was constrained primarily by \textbf{late access to internal data}. Historical sales and pricing existed at CeramTec throughout the project, but NDA clearance delayed handover until \textbf{7 July 2026}, compressing validation time within the academic timeline.
 
 Additional integration barriers remain:
 \begin{itemize}
   \item \textbf{Salesforce} records demand and meetings but contains \textbf{no revenue data}.
-  \item \textbf{SAP} holds transactional detail (pieces sold, revenue, customer, material, geography) but \textbf{cannot be linked to Salesforce} without a shared customer key.
-  \item Geographic fields in SAP must be interpreted cautiously because OEM corporations operate internationally.
+  \item \textbf{SAP} holds transactional detail (pieces sold, revenue, customer, material, geography) but \textbf{cannot be linked to Salesforce} without a shared customer key; fuzzy name matching resolves most but not all accounts.
+  \item Geographic fields in SAP must be interpreted cautiously because OEM corporations operate internationally; the country dimension reflects billing geography, not corporate HQ.
 \end{itemize}
 
-Spencer committed to sharing supplementary files (accounts summary and SAP revenue data) to support the join. Observable SAP patterns---August/December seasonality, June spikes from Chinese grouped orders, and the 2023 COVID surge followed by 2024 normalisation---motivate time-aware features once the customer master key is defined.
+Observable SAP patterns---August/December seasonality, June spikes from Chinese grouped orders, and the 2023 COVID surge followed by 2024 normalisation---are encoded as time-aware features. Contract-period inference provides a proxy for negotiation history where formal contract metadata are unavailable.
 
 
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 applies unsupervised and rule-based segmentation to group markets and OEMs with similar pricing environments and negotiation leverage. The intended approach:
+Phase~3 applies unsupervised clustering to the Phase~2 feature matrix to derive \textbf{pricing segments}---groups of OEM accounts with similar commercial scale, engagement intensity, and market exposure. The analysis is implemented in \texttt{scripts/phase3/clustering\_engine.py} and documented in \texttt{scripts/phase3/pricing\_segmentation.ipynb}.
+
+\subsection{Methodology}
 
 \begin{itemize}
-  \item \textbf{Country clusters} driven by payer architecture (episode vs device caps, VBP presence, procurement centralisation) and ceramic-bearing adoption trajectories from registry data.
-  \item \textbf{OEM clusters} using SEC financials, patent-search intensity, geographic revenue exposure, and internal volume share where available.
-  \item \textbf{Stratification tiers} (e.g.\ premium-innovation vs cost-constrained) that map to recommended baseline price bands rather than point estimates.
+  \item \textbf{Feature selection} --- 32 numeric columns after excluding identifiers, zero-variance fields, and country dummies (so geography does not dominate the distance metric; country is visualised separately).
+  \item \textbf{Preprocessing} --- median imputation for missing values; \textbf{RobustScaler} to limit the influence of revenue outliers (e.g.\ top Chinese distributors).
+  \item \textbf{K-Means} --- $k$ swept from 2 to 10; $k{=}4$ selected via the elbow curve (Figure~\ref{fig:phase3_elbow}).
+  \item \textbf{Hierarchical clustering} --- Ward linkage on the same scaled matrix; tree cut at $k{=}4$ for comparison (Figure~\ref{fig:phase3_dendrogram}).
+  \item \textbf{Visualisation} --- 2-D PCA projection coloured by cluster and shaped by country (Figure~\ref{fig:phase3_pca}); z-scored centroid heatmap for segment profiling (Figure~\ref{fig:phase3_profiles}).
 \end{itemize}
 
-Seven hypotheses drafted in Phase~1 (e.g.\ ceramic share vs revision rate, COVID structural break in THA volumes, China VBP ceiling step-change) would be tested formally here to validate which dimensions justify separate price bands. Clustering (e.g.\ K-means on standardised OEM features) was specified in the project plan but not fully executed due to the delayed internal join.
+Country $\times$ cluster counts (Figure~\ref{fig:phase3_heatmap}) show that the dominant segment spans all four markets, while smaller segments capture China-only niche accounts and a high-revenue US/IT cluster.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\linewidth]{phase2_phase3/phase3_elbow.png}
+\caption{K-Means elbow curve ($k{=}2$--$10$). We select $k{=}4$ where inertia decline begins to flatten.}
+\label{fig:phase3_elbow}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{phase2_phase3/phase3_dendrogram.png}
+\caption{Hierarchical dendrogram (Ward linkage) with cut line at $k{=}4$. Leaf labels are OEM customer names.}
+\label{fig:phase3_dendrogram}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.48\linewidth}
+\centering
+\includegraphics[width=\linewidth]{phase2_phase3/phase3_pca_kmeans.png}
+\caption{K-Means ($k{=}4$)}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\linewidth}
+\centering
+\includegraphics[width=\linewidth]{phase2_phase3/phase3_pca_hier.png}
+\caption{Hierarchical Ward ($k{=}4$)}
+\end{subfigure}
+\caption{2-D PCA projection of OEM pricing segments. Colour = cluster; marker shape = country (circle US, square CN, triangle FR, diamond IT). Left: K-Means ($k{=}4$); right: hierarchical Ward ($k{=}4$).}
+\label{fig:phase3_pca}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{phase2_phase3/phase3_profiles.png}
+\caption{Z-scored cluster centroid heatmap. Red = above-average; blue = below-average relative to the full sample.}
+\label{fig:phase3_profiles}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{phase2_phase3/phase3_country_cluster_heatmap.png}
+\caption{Number of OEM accounts per K-Means cluster and country.}
+\label{fig:phase3_heatmap}
+\end{figure}
+
+\subsection{Segment interpretation}
+
+Table~\ref{tab:cluster_summary} aggregates key metrics per K-Means cluster. Four interpretable tiers emerge:
+
+\begin{table}[H]
+\centering
+\small
+\caption{K-Means segment summary ($k{=}4$, $n{=}84$ OEM accounts)}
+\label{tab:cluster_summary}
+\begin{tabular}{@{}clrrrrr@{}}
+\toprule
+\textbf{Cl.} & \textbf{Label (proposed)} & \textbf{\# OEMs} & \textbf{Markets} & \textbf{Avg revenue (EUR k)} & \textbf{Avg price (EUR)} & \textbf{Avg meetings} \\
+\midrule
+0 & Core portfolio (breadth) & 74 & CN, FR, IT, US & 8{,}345 & 193 & 5.8 \\
+1 & China niche / early-stage & 2 & CN only & 151 & 185 & 1.0 \\
+2 & Strategic high-value & 7 & CN, IT, US & 12{,}247 & 192 & 5.4 \\
+3 & Single-transaction outlier & 1 & CN only & 21 & 175 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Cluster~0 (core portfolio, $n{=}74$)} captures the bulk of CeramTec's account base across all four markets. Representative accounts include Beijing Chunlizhengda Medical, Beijing AK, and Tianjin Zhengtian (China's largest distributors). Average revenue is moderate (EUR\,8.3M) with broad product-group coverage and steady Salesforce engagement.
+
+\textbf{Cluster~1 (China niche, $n{=}2$)} comprises low-revenue Chinese accounts with high product-group diversity but minimal meeting activity---candidates for either targeted development or deprioritisation in baseline pricing.
+
+\textbf{Cluster~2 (strategic high-value, $n{=}7$)} groups the highest-revenue Western accounts: Limacorporate (IT, EUR\,53M), ENCORE Medical (US, EUR\,19M), and Advita Ortho (US, EUR\,9M). These accounts warrant \textbf{premium baseline bands} reflecting volume commitment, multi-product portfolios, and sustained engagement.
+
+\textbf{Cluster~3 ($n{=}1$)} is a single low-volume Chinese account and should not drive segment-level policy; it illustrates the long tail below strategic tiers.
+
+\subsection{Pricing segmentation implications}
+
+The clustering supports a \textbf{three-tier negotiation playbook} rather than account-by-account ad hoc pricing:
+
+\begin{enumerate}
+  \item \textbf{Strategic tier} (Cluster~2) --- defend value with clinical and volume evidence; allow limited index-linked adjustments; prioritise relationship investment (meetings, joint business planning).
+  \item \textbf{Core tier} (Cluster~0) --- standard baseline ranges indexed to external cost and reimbursement signals from Phase~1; renewal discounts already observable in contract-period features should be benchmarked against segment medians.
+  \item \textbf{Development / exit tier} (Cluster~1 and long-tail outliers) --- higher list anchors with volume gates, or rationalisation if engagement remains minimal.
+\end{enumerate}
+
+Country remains a \textbf{separate stratification axis}: the heatmap confirms that market-specific payer architecture (Section~\ref{sec:phase1}) must modulate baseline ranges within each OEM cluster---a US strategic account and an Italian strategic account share commercial scale but face different reimbursement ceilings.
 
 \subsection{Constraints encountered}
 
-Phase~3 depends on the quality and completeness of Phase~1 external features and Phase~2 internal joins. With incomplete internal integration and uneven external coverage (especially proxies for China and partial OEM financials), segmentation tiers can be \textbf{designed and illustrated} but not fully validated before the report deadline. Hypothesis tests that require account-level price history remain pending.
+Phase~3 depends on Phase~2 feature quality. Residual limitations include: (i)~fuzzy SAP--Salesforce matching leaves 17 accounts without CRM features; (ii)~country dummies were excluded from clustering to avoid geography dominating segments, so explicit \textbf{country$\times$segment} interaction rules must be applied downstream; (iii)~hypothesis tests from Phase~1 (ceramic share vs.\ revision, COVID structural break) are illustrated qualitatively in segment profiles but not yet tested with formal inference. Cluster labels should be refreshed as internal data quality improves and the key-account register is reconciled to SAP customer names.
 
 
 \section{Phase 4: Price Baseline Model and Negotiation Support}
@@ -655,7 +779,7 @@ A baseline notebook (\texttt{price\_signal\_model\_baseline.ipynb}) sketches thi
 
 \subsection{Constraints encountered}
 
-Phase~4 requires labelled internal price outcomes (realised bearing prices or negotiated discounts by account and period). Without a complete SAP--Salesforce--external feature table, predictive baselines remain \textbf{methodological prototypes} rather than deployable negotiation tools. The phase is fully specified; execution awaits internal data integration described in Section~\ref{sec:phase2}.
+Phase~4 requires labelled internal price outcomes (realised bearing prices or negotiated discounts by account and period). Phases~2--3 now provide the feature matrix and OEM segments; Phase~4 can attach supervised models once segment-level baselines are validated with CeramTec commercial leadership.
 
 
 \section{Project Learnings}
@@ -672,13 +796,13 @@ On the technical side, we learned to deploy \textbf{agentic AI at scale} for scr
 
 \section{Conclusion}
 
-The objective of this project was to assess the \textbf{feasibility of a data-driven pricing strategy} for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible in principle} but cannot be fully operationalised within a single academic project given data constraints. Our principal deliverable is a \textbf{four-phase framework}---from evidence collection through feature engineering, segmentation, and negotiation baselines---together with a fully implemented Phase~1 pipeline (register, scripts, notebooks, \texttt{external\_data\_dataset.csv}) that CeramTec can extend.
+The objective of this project was to assess the \textbf{feasibility of a data-driven pricing strategy} for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible in principle} and that Phases~1--3 demonstrate a working path from external evidence through feature engineering to OEM segmentation. Our principal deliverable is a \textbf{four-phase framework}---from evidence collection through feature engineering, segmentation, and negotiation baselines---together with implemented pipelines for Phases~1--3 (register, scripts, \texttt{external\_data\_dataset.csv}, \texttt{feature\_matrix.csv}, and \texttt{clustered\_oems.csv}) that CeramTec can extend.
 
-We reframed the client's initial ``dynamic pricing'' expectation into \textbf{price stratification}: baseline ranges for CeramTec's tiered OEM relationships (fourteen key-account-priority accounts plus six high potentials) across four regulated markets, not minute-by-minute repricing. Phases~2--4 are specified in detail and partially initiated, but completion requires resolving internal-data integration (NDA-delayed access from 7 July 2026, missing Salesforce--SAP linkage).
+We reframed the client's initial ``dynamic pricing'' expectation into \textbf{price stratification}: baseline ranges for CeramTec's tiered OEM relationships (fourteen key-account-priority accounts plus six high potentials) across four regulated markets, not minute-by-minute repricing. Phase~4 (predictive baselines) remains partially prototyped; completion requires resolving residual internal-data integration (missing Salesforce--SAP master key, key-account register reconciliation).
 
 The \textbf{dominant challenge} was \textbf{external data retrieval}. Healthcare pricing signals are buried in institution-specific PDFs and national registries with heterogeneous formats; open APIs are scarce and cross-country parity is limited. AI-assisted scraping and processing materially improved scalability, yet manual validation and partial coverage remain unavoidable. This data environment---not model design---is the binding constraint on moving from framework to live pricing recommendations.
 
-For CeramTec, we recommend: (i)~maintain and refresh the external register on a schedule; (ii)~establish a customer master key and complete the SAP/Salesforce join; (iii)~execute Phases~3--4 within the framework we provide; and (iv)~use stratified negotiation baselines rather than pursuing literal dynamic pricing. The repository artefacts are intended to make this continuation straightforward.
+For CeramTec, we recommend: (i)~maintain and refresh the external register on a schedule; (ii)~establish a customer master key and complete the SAP/Salesforce join; (iii)~execute Phase~4 within the framework we provide, using the Phase~3 segments as fixed effects; and (iv)~use stratified negotiation baselines rather than pursuing literal dynamic pricing. The repository artefacts are intended to make this continuation straightforward.
 
 \clearpage
 \appendix
