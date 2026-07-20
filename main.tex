@@ -597,16 +597,16 @@ To scale collection, we developed \textbf{AI-assisted scraping and processing sc
 \section{Phase 2: Feature Engineering and Internal Data Integration}
 \label{sec:phase2}
 
-Phase~2 translates raw CeramTec internal records and the Phase~1 external panel into a \textbf{negotiation feature matrix} at the grain of one row per (country $\times$ customer/OEM). The pipeline is implemented in \texttt{scripts/phase2/feature\_engineering.py} and produces \texttt{scripts/phase2/output/feature\_matrix.csv}.
+Phase~2 translates raw CeramTec internal records and the Phase~1 external panel into a \textbf{negotiation feature matrix} at the grain of one row per (country $\times$ customer/OEM). 
 
 \subsection{Data sources and integration logic}
 
 Three data layers are joined:
 
 \begin{enumerate}
-  \item \textbf{SAP billing} (\texttt{MED SAP 2020 -- Today Full.xlsx}) --- transactional revenue, unit volumes, realised prices, product-group mix, and sales-lead ownership. Filtered to priority markets US, CN, FR, IT.
+  \item \textbf{SAP billing} --- transactional revenue, unit volumes, realised prices, product-group mix, and sales-lead ownership. Filtered to priority markets US, CN, FR, IT.
   \item \textbf{Salesforce exports} --- meeting counts, opportunity pipeline (won/lost/open), task activity, and win rate. SAP and Salesforce share \textbf{no common customer key}; accounts are matched via normalised name similarity. Unmatched SAP rows retain \texttt{sf\_is\_known=0}.
-  \item \textbf{External country panel} (\texttt{external\_data\_dataset.csv}) --- latest-year THA volumes, ceramic-bearing share, reimbursement ceilings, material-cost indices, FX, and procurement intensity, joined on country code.
+  \item \textbf{External country panel} --- latest-year THA volumes, ceramic-bearing share, reimbursement ceilings, material-cost indices, FX, and procurement intensity, joined on country code.
 \end{enumerate}
 
 \subsection{Feature families}
@@ -659,7 +659,7 @@ Observable SAP patterns---August/December seasonality, June spikes from Chinese 
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 applies unsupervised clustering to the Phase~2 feature matrix to derive \textbf{pricing segments}---groups of OEM accounts with similar commercial scale, engagement intensity, and market exposure. The analysis is implemented in \texttt{scripts/phase3/clustering\_engine.py} and documented in \texttt{scripts/phase3/pricing\_segmentation.ipynb}.
+Phase~3 applies unsupervised clustering to the Phase~2 feature matrix to derive \textbf{pricing segments}---groups of OEM accounts with similar commercial scale, engagement intensity, and market exposure.
 
 \subsection{Methodology}
 
