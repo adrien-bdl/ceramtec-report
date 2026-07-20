@@ -18,4 +18,4 @@ Options: `--dry-run`, `--skip-tex` (markdown only), `--local-export path/to.tsv`
 
 Compile locally when ready: `cd docs/report && pdflatex main.tex` (twice for TOC / longtable).
 
-Phase~2/3 figures live in `docs/report/phase2_phase3/` (regenerate from `scripts/phase2/output/feature_matrix.csv` via `scripts/phase3/clustering_engine.py` and the `pricing_segmentation.ipynb` notebook).
+Phase~2/3 figures live in `docs/report/phase2_phase3/`; Phase~4 figures in `docs/report/phase4/`.
