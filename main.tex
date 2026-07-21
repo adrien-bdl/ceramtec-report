@@ -771,7 +771,7 @@ Phase~4 translates the Phase~2 feature matrix and Phase~3 segments into \textbf{
 
 \subsection{Modelling setup}
 
-\textbf{Target.} Weighted average realised unit price (\EUR{} per bearing component), aggregated from SAP billing over the observation window.
+\textbf{Target.} Weighted average realised unit price (EUR per bearing component), aggregated from SAP billing over the observation window.
 
 \textbf{Predictors.} Forty numeric features from Phase~2, deliberately excluding price-derived columns (historical price volatility, contract-period price slopes, cluster PCA scores) to limit target leakage. Predictors capture commercial scale (revenue, volume, active years), product-portfolio breadth, contract continuity, Salesforce engagement, country dummies, and structural flags (COVID-era, China VBP).
 
@@ -1230,5 +1230,99 @@ competitors & Competitor list / competitor datasets & \textcolor{gray}{Todo} & G
 \normalsize
 
 % <<REGISTER_END>>
+
+\section{Complete Feature Dictionary}
+\label{app:feature_dictionary}
+
+The negotiation feature matrix (Phase~2) contains one row per (country $\times$ OEM) account. Table~\ref{tab:feature_description} describes every engineered column. Prefix conventions: \texttt{sap\_} = SAP billing aggregates; \texttt{contract\_} = inferred contract-period signals; \texttt{sf\_} = Salesforce CRM; \texttt{country\_} = market dummies; \texttt{ext\_} = Phase~1 external panel (country-level, joined on billing country). Phase~3 adds \texttt{cluster\_*} and PCA scores; Phase~4 uses a subset of Phase~2 features as predictors (price-derived columns excluded to avoid target leakage).
+
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{p{6.5cm} p{9.5cm}}
+\toprule
+\textbf{Feature name(s)} & \textbf{Description} \\
+\midrule
+\endfirsthead
+
+\multicolumn{2}{c}%
+{{\bfseries \tablename\ \thetable{} --- continued from previous page}} \\
+\toprule
+\textbf{Feature name(s)} & \textbf{Description} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\caption{Description of each feature in the negotiation feature matrix (Phase~2), segmentation outputs (Phase~3), and baseline model (Phase~4).}
+\label{tab:feature_description} \\
+\endlastfoot
+
+\texttt{country}, \texttt{customer} & Row identifiers: two-letter SAP billing country (US, CN, FR, IT) and normalised OEM customer name. Grain of all Phases~2--4. \\
+
+\texttt{sap\_total\_revenue\_eur} & Cumulative SAP billing revenue (EUR) over the observation window for the country--customer pair. Proxy for account commercial importance. \\
+\texttt{sap\_total\_pieces\_sold} & Total ceramic bearing units invoiced. Captures volume commitment and economies-of-scale leverage in negotiation. \\
+\texttt{sap\_avg\_unit\_price\_eur} & Weighted average realised unit price (EUR per piece). \textbf{Phase~4 target variable} for predictive baselines. \\
+\texttt{sap\_price\_std\_eur} & Standard deviation of monthly weighted-average unit prices. Measures price volatility within the account relationship. \\
+\texttt{sap\_price\_trend\_eur\_pm} & OLS slope of monthly unit price over active billing months (EUR per month). Positive values indicate list-price drift; excluded from Phase~4 predictors (price leakage). \\
+\texttt{sap\_avg\_annual\_revenue} & Mean annual SAP revenue across active years. Normalises scale for accounts with different relationship lengths. \\
+\texttt{sap\_active\_months} & Count of distinct months with at least one positive-quantity billing line. \\
+\texttt{sap\_active\_years} & Count of calendar years with billing activity. \\
+\texttt{sap\_first\_year}, \texttt{sap\_last\_year} & First and last calendar year of observed SAP billing (integer). Used to derive structural era flags. \\
+\texttt{sap\_revenue\_cagr} & Compound annual growth rate of yearly SAP revenue (${\geq}2$ active years required). \\
+\texttt{sap\_revenue\_yoy\_last} & Year-on-year revenue growth in the most recent observed year. \\
+\texttt{sap\_covid\_active} & Binary flag: account had billing activity in 2020 or 2021 (COVID disruption period). \\
+
+\texttt{sap\_n\_product\_groups} & Number of distinct CeramTec product groups purchased (e.g.\ head sizes, revision lines, CLock, Forte). Portfolio breadth indicator. \\
+\texttt{sap\_dominant\_pg} & Name of the product group with highest cumulative revenue share (text identifier, not used in clustering/regression). \\
+\texttt{sap\_rev\_share\_revision} & Revenue share from revision-bearing product lines (pattern match on ``Rev''). \\
+\texttt{sap\_rev\_share\_clock} & Revenue share from CLock/Clock product family. \\
+\texttt{sap\_rev\_share\_forte} & Revenue share from Forte/F~Kugel product family. \\
+\texttt{sap\_dominant\_lead} & Most frequent CeramTec sales lead on the account (text identifier). \\
+
+\texttt{contract\_n\_periods} & Number of inferred contract periods: contiguous billing runs separated by gaps exceeding three months. \\
+\texttt{contract\_is\_continuous} & Binary flag: only one contract period observed (no renewal break). \\
+\texttt{contract\_avg\_duration\_months} & Mean duration (months) across inferred contract periods. \\
+\texttt{contract\_months\_since\_last\_end} & Months from end of last billing period to reference date (July 2026). Recency / churn-risk signal. \\
+\texttt{contract\_first\_avg\_price} & Average unit price in the first contract period. \\
+\texttt{contract\_last\_avg\_price} & Average unit price in the most recent contract period. \\
+\texttt{contract\_price\_chg\_pct} & Percentage change from first to last period average price; negative values indicate renewal discounting. Excluded from Phase~4 predictors. \\
+\texttt{contract\_price\_slope\_per\_period} & Linear slope of period-average prices across renewal index (EUR per renewal). Excluded from Phase~4 predictors. \\
+\texttt{contract\_n\_pg\_first}, \texttt{contract\_n\_pg\_last} & Product-group count in first / last contract period. \\
+\texttt{contract\_pg\_added}, \texttt{contract\_pg\_dropped} & Count of product groups added or dropped between first and last period. \\
+\texttt{contract\_revenue\_first\_period}, \texttt{contract\_revenue\_last\_period} & Total revenue in first / last contract period (EUR). \\
+\texttt{contract\_revenue\_growth\_factor} & Ratio of last-period to first-period revenue (${>}1$ = growth across renewals). \\
+
+\texttt{sf\_is\_known} & Binary flag: account appears in Salesforce exports (1) or SAP-only (0). \\
+\texttt{sf\_matched\_sap} & Binary flag: Salesforce account successfully fuzzy-matched to SAP customer name. \\
+\texttt{sf\_meeting\_count} & Total recorded customer meetings. \\
+\texttt{sf\_meetings\_new\_biz} & Subset of meetings tagged as new-business development. \\
+\texttt{sf\_task\_count} & Total CRM task/activity records. \\
+\texttt{sf\_opp\_count} & Total Salesforce opportunities linked to the account. \\
+\texttt{sf\_opp\_won\_count}, \texttt{sf\_opp\_lost\_count}, \texttt{sf\_opp\_open\_count} & Opportunity counts by pipeline stage outcome. \\
+\texttt{sf\_opp\_win\_rate} & Ratio of won to total opportunities. \\
+\texttt{sf\_latest\_meeting\_date} & Date of most recent meeting (text/date identifier). \\
+\texttt{sf\_days\_since\_last\_meeting} & Days from last meeting to reference date. Engagement recency signal. \\
+
+\texttt{country\_US}, \texttt{country\_CN}, \texttt{country\_FR}, \texttt{country\_IT} & One-hot indicators for priority billing markets. Included in Phase~4; excluded from Phase~3 clustering distance to avoid geography dominating segments. \\
+
+\texttt{is\_covid\_era\_customer} & Alias of \texttt{sap\_covid\_active}: account active during 2020--2021. \\
+\texttt{is\_china\_vbp\_customer} & Binary flag: Chinese account with last billing year ${\geq}2021$ (Volume-Based Procurement era). \\
+\texttt{is\_post\_covid\_customer} & Binary flag: account active from 2022 onward (post-COVID normalisation period). \\
+
+\texttt{ext\_*} & Country-level features from the Phase~1 external panel, prefixed \texttt{ext\_} and joined on billing country (latest available year). Examples include THA procedure volumes, ceramic-bearing share, revision rates, reimbursement episode ceilings, FX rates, material-cost basket indices, and procurement notice counts. Present when the external panel join is enabled. \\
+
+\texttt{cluster\_kmeans} & Integer segment label ($0$--$3$) from K-Means clustering on scaled Phase~2 features (Phase~3). Used for playbook tier assignment; excluded from Phase~4 price predictors. \\
+\texttt{cluster\_hier} & Integer segment label from Ward hierarchical clustering cut at $k{=}4$. \\
+\texttt{pc1}, \texttt{pc2} & First two principal-component coordinates of the scaled feature space (Phase~3 visualisation). \\
+
+\texttt{baseline\_price\_eur} & Phase~4 model point forecast of average unit price (EUR) for the account. \\
+\texttt{band\_low\_eur}, \texttt{band\_high\_eur} & Lower and upper negotiation band bounds: point baseline plus P10/P90 out-of-fold residual offsets. \\
+\texttt{actual\_price\_eur} & Observed \texttt{sap\_avg\_unit\_price\_eur} retained for back-testing. \\
+\texttt{abs\_error\_eur}, \texttt{pct\_error} & Absolute and percentage error between actual and baseline price. \\
+
+\end{longtable}
 
 \end{document}
