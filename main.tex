@@ -60,15 +60,17 @@
 \vspace*{1.5cm}
 {\Large Imperial College Business School}\\[0.3cm]
 {\large Analytics in Business Consulting Project}\\[0.5cm]
-\rule{\textwidth}{1.2pt}
+\rule{\textwidth}{1.2pt}\\[0.2cm]
 \vspace{0.5cm}
 {\Huge Developing a Pricing Framework for CeramTec}\\[0.25cm]
 {\Large Data-Driven Pricing Strategy for Hip Implant Bearings}\\[0.2cm]
 \vspace{0.2cm}
 \rule{\textwidth}{1.2pt}
-\vspace{1cm}
-{\large CID: 02023817, 06070918, 06066256, 06054938}\\[0.2cm]
-{\large Date: 17th August 2026}\\[0.2cm]
+\vspace{0.5cm}
+
+{\large Group H \\ CID: 02023817, 06070918, 06066256, 06054938}\\[0.2cm]
+\vspace{0.5cm}
+{\large 17th August 2026}\\[0.2cm]
 \end{center}
 \end{titlepage}
 %TC:endignore
@@ -81,11 +83,12 @@
 
 \section*{Executive Summary}
 
-CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant manufacturers, initially framed this engagement as \textbf{dynamic pricing}. After analysing the commercial context, we conclude that continuous, algorithmically updated list prices---as used in airlines or ticketing---are \textbf{neither feasible nor desirable}. CeramTec negotiates individually with a concentrated set of OEM customers under long-term, relationship-driven contracts. The relevant problem is therefore \textbf{price stratification}: establishing evidence-backed \textbf{negotiation baselines} by market, product group, and customer behaviour.
+CeramTec, a supplier of ceramic hip-bearing components to orthopaedic implant manufacturers, initially framed this engagement as \textbf{dynamic pricing}. After analysing the commercial context, we conclude that continuous, algorithmically updated list prices (as used in airlines or ticketing) are \textbf{neither feasible nor desirable}. CeramTec negotiates individually with a concentrated set of original equipement manufacturer (OEM) customers under long-term, relationship-driven contracts. The relevant problem is therefore using data to determine the factors driving the price and that can therefore be insisted on in a negotiation context. To do so a customer segmententation to find similar negotiation patterns that can be used and a causal analysis of a predictive pricing model are the approach that have been retained.
 
-Because CeramTec had no prior external-data capability and internal sales extracts were released only after NDA clearance in early July 2026, a substantial share of the project built a reproducible evidence foundation across four priority markets (US, China, France, Italy). We then delivered an end-to-end \textbf{four-phase pricing framework}: external and internal data integration, negotiation feature engineering, pricing-behaviour segmentation, and a temporally validated next-quarter price model.
+Given the singualrity of the healthcare market with each system being different from one country to another, this work focuses on four priority markets (US, China and France and Italy for the Europe). As CeramTec had never ever retrieved any kind of external data to validate data-driven market trends, this project also brings business value by the implementation of automated pipelines to be able to retrieve, clean and aggregate massive and fragmented data publicaly available on the internet.  Another challenge as been the late access to the internal data from CeramTec due to NDA being approved by all parties only on July 8th. 
 
-The implemented pipeline now supports commercial use as negotiation support rather than automated repricing. On a 1{,}744-row quarterly panel, a Random Forest model predicts next-quarter unit prices with out-of-time RMSE of EUR\,10.0, MAE of EUR\,5.4, and $R^2{=}0.96$ on 2025Q4--2026Q3. Pricing inertia, market positioning, volume signals, and relationship maturity dominate the drivers. Residual constraints---missing production costs, incomplete contract terms, and four-country scope---mean the model should be deployed under shadow conditions before any live negotiation mandate.
+In the end, we then delivered an end-to-end \textbf{four-phase pricing framework}: external and internal data integration, negotiation feature engineering, pricing-behaviour segmentation, and a next-quarter price model.
+
 
 \section*{Acknowledgments}
 
