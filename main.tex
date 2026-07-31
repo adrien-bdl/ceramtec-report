@@ -83,7 +83,7 @@
 
 \section*{Executive Summary}
 
-CeramTec can benefit from a \textbf{data-driven pricing strategy}, but not from real-time dynamic pricing. Its prices are negotiated with a concentrated group of original equipment manufacturer (OEM) customers through long-term commercial relationships, rather than adjusted continuously as in airlines or ticketing. We therefore recommend a \textbf{price-stratification approach}: use evidence on each customer's purchasing behaviour, relationship history, market environment, and product portfolio to prepare negotiation anchors and identify the arguments that can best defend value.
+CeramTec can benefit from a \textbf{data-driven pricing strategy}, but not from real-time dynamic pricing. Its prices are negotiated with a concentrated group of original equipment manufacturer (OEM) customers through long-term commercial relationships, rather than adjusted continuously as in airlines or ticketing. We therefore recommend \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: use evidence on each customer's purchasing behaviour, relationship history, market environment, and product portfolio to prepare customer- and product-level anchors and identify the arguments that can best defend value.
 
 A major source of business value is the creation of CeramTec's first structured \textbf{external market-data capability}. Before this engagement, the company had not systematically collected external evidence to complement its internal SAP and Salesforce records. We assembled fragmented public data across reimbursement and procurement, surgery volumes and waiting times, bearing preferences, clinical and revision outcomes, input-cost indicators, OEM performance, and competitive activity in the US, China, France, and Italy. This broader market view enables CeramTec to identify emerging trends, country-specific pricing pressure, and previously underexplored commercial opportunities that cannot be detected from internal transactions alone. The accompanying automated retrieval, cleaning, and aggregation pipelines turn this work into a repeatable capability rather than a one-off analysis.
 
@@ -125,7 +125,7 @@ From Imperial College Business School, we thank our Academic Mentors, \textbf{Es
 
 \section{Introduction}
 
-CeramTec is a global manufacturer of advanced technical ceramics and a leading supplier of ceramic components for orthopaedic implants. This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the client's initial ``dynamic pricing'' framing, argue for \textbf{price stratification} as the appropriate objective (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
+CeramTec is a global manufacturer of advanced technical ceramics and a leading supplier of ceramic components for orthopaedic implants. This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the client's initial ``dynamic pricing'' framing, argue for \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance} as the appropriate objective (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
 
 A total hip implant replaces a damaged hip joint to restore mobility and relieve pain. As illustrated in Figure~\ref{fig:hip_implant}, the implant comprises a femoral stem, femoral head, acetabular shell, and acetabular liner. The bearing is the articulating interface between the femoral head and the acetabular liner.
 
@@ -270,7 +270,7 @@ CeramTec currently prices bearings primarily on a \textbf{cost-plus} basis: prod
 
 \section{Project Scope and Methodology}
 
-\subsection{Problem reframing: price stratification versus dynamic pricing}
+\subsection{Problem reframing: negotiation baselines versus dynamic pricing}
 \label{sec:reframing}
 
 Dynamic pricing in aviation or ticketing adjusts prices frequently in response to remaining capacity and time-to-event. CeramTec's reality differs on three counts:
@@ -281,7 +281,7 @@ Dynamic pricing in aviation or ticketing adjusts prices frequently in response t
   \item Frequent automated changes would undermine trust and conflict with medical-device contracting cycles.
 \end{itemize}
 
-We therefore reframe the objective as \textbf{price stratification} / \textbf{negotiation baselines}: evidence-backed anchor ranges by market, product group, and customer segment that commercial teams can use as a starting position---not a real-time pricing bot.
+We therefore reframe the objective as \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: customer- and product-level anchors informed by market context, purchasing behaviour, and relationship history. Commercial teams can use these as a starting position in negotiation---not as a small set of fixed group prices, and not as a real-time pricing bot.
 
 \subsection{Four-phase pricing framework}
 \label{sec:methodology}
@@ -332,7 +332,7 @@ Internal data complement this external layer:
 EDA translated retrieved evidence into first-order market signals. Four findings structure later modelling.
 
 \paragraph{Market heterogeneity is structural.}
-Only some markets expose device-level prices. France and selected China VBP categories isolate device or implant ceilings more clearly than US episode DRGs or Italian regional lists. Any stratification model must treat country as a structural dimension, not a cosmetic label.
+Only some markets expose device-level prices. France and selected China VBP categories isolate device or implant ceilings more clearly than US episode DRGs or Italian regional lists. Any pricing-guidance model must treat country as a structural dimension, not a cosmetic label.
 
 \paragraph{Bearing mix differs sharply by market.}
 Figure~\ref{fig:bearing_mix} shows hip bearing-surface shares. Ceramic involvement is high and rising in China VBP demand data, while US AJRR remains more CoP/MoP oriented and European registries show intermediate mixes. These patterns affect CeramTec's addressable premium volume.
@@ -495,7 +495,7 @@ CeramTec's current tiers combine revenue size and strategic potential. That logi
   \item \textbf{High-Growth Challengers} --- pair volume gates with clearer expansion pricing rules.
 \end{enumerate}
 
-Country remains a separate stratification axis: a US legacy partner and an Italian legacy partner share behavioural scale but face different payer ceilings.
+Country remains a separate pricing axis: a US legacy partner and an Italian legacy partner share behavioural scale but face different payer ceilings.
 
 \subsection{Constraints encountered}
 
@@ -614,7 +614,7 @@ Source comparability (registry versus VBP demand versus survey) and residual SAP
 \section{Recommendations and Next Steps}
 \label{sec:recommendations}
 
-A data-driven pricing strategy is feasible for CeramTec if framed as stratified negotiation support. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support baselines rather than real-time dynamic pricing.
+A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support customer- and product-level baselines rather than real-time dynamic pricing.
 
 We recommend three implementation steps:
 
@@ -635,7 +635,7 @@ Medical-device pricing is mediated by institutions rather than spot markets. Cro
 
 \subsection{Project management and client delivery}
 
-NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Scope reframing from dynamic pricing to stratification was itself a major consulting deliverable.
+NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Scope reframing from dynamic pricing to negotiation baselines and next-quarter guidance was itself a major consulting deliverable.
 
 \subsection{Technical: agentic AI and platform agility}
 
@@ -643,7 +643,7 @@ Agentic AI accelerated scraping and PDF extraction, but only with disciplined hu
 
 \section{Conclusion}
 
-This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as price stratification and negotiation support. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0; MAE EUR\,5.4; $R^2{=}0.96$).
+This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as evidence-based negotiation baselines and next-quarter price guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0; MAE EUR\,5.4; $R^2{=}0.96$).
 
 Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
 
