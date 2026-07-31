@@ -32,6 +32,12 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta, shadows.blur, calc}
 
+
+% % Define the colors used in the diagram
+% \definecolor{chainblue}{RGB}{0, 85, 150} 
+% \definecolor{arrowdark}{RGB}{30, 45, 65} 
+
+
 \renewcommand{\familydefault}{\sfdefault}
 
 % Color palette
@@ -41,6 +47,9 @@
 \definecolor{lightgray}{RGB}{245,246,248}
 \definecolor{textgray}{RGB}{60,60,60}
 \definecolor{tableheader}{HTML}{EBF1F2}
+% Define the colors used in the diagram
+\definecolor{chainblue}{RGB}{0, 85, 150} 
+\definecolor{arrowdark}{RGB}{30, 45, 65}
 
 \setlength{\parindent}{0pt}
 \graphicspath{{./}{introduction/}{phase1/}{phase2_phase3/}{phase4/}}
@@ -131,7 +140,7 @@ A total hip implant replaces a damaged hip joint to restore mobility and relieve
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{introduction/hip_implant.png}
+\includegraphics[width=0.8\linewidth]{1_introduction/hip_implant.png}
 \caption{Components of a total hip implant.}
 \label{fig:hip_implant}
 \end{figure}
@@ -193,6 +202,70 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
 \caption{CeramTec's positioning in the hip implant value chain.}
 \label{fig:value-chain}
 \end{figure}
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        % Style for the circles
+        chainnode/.style={
+            circle,
+            % draw=chainblue,
+            draw=dark,
+            line width=1.5pt,
+            minimum size=2.2cm,
+            align=center,
+            fill=white,
+            inner sep=0pt
+        },
+        % Style for the text labels below circles
+        chainlabel/.style={
+            % text=chainblue,
+            text=dark,
+            font=\large,
+            align=center,
+            anchor=north
+        },
+        % Style for the connecting arrows
+        chainarrow/.style={
+            -{Triangle[width=4mm,length=4mm]}, % Matches the thick triangle arrowheads
+            line width=3pt,
+            draw=arrowdark,
+            shorten >=2mm, % Adds a small gap before the target node
+            shorten <=2mm  % Adds a small gap after the source node
+        },
+        node distance=1.2cm % Spacing between the circles
+    ]
+
+    % 1. Create the nodes (Circles with images inside)
+    \node[chainnode] (ceramtec) {\includegraphics[width=1.7cm]{2_business_context/ceramtec-logo.png}};
+    \node[chainnode, right=of ceramtec] (oem) {\includegraphics[width=1.7cm]{2_business_context/factory_icon.png}};
+    \node[chainnode, right=of oem] (distributor) {\includegraphics[width=1.7cm]{2_business_context/truck_icon.png}};
+    \node[chainnode, right=of distributor] (hospital) {\includegraphics[width=1.7cm]{2_business_context/hospital_icon.png}};
+    \node[chainnode, right=of hospital] (patient) {\includegraphics[width=1.7cm]{2_business_context/patient_icon.png}};
+
+    % 3. Add the labels below each node
+    \node[chainlabel, below=0.4cm of ceramtec] {CeramTec};
+    \node[chainlabel, below=0.4cm of oem] {OEM};
+    \node[chainlabel, below=0.4cm of distributor] {Distributor};
+    \node[chainlabel, below=0.4cm of hospital] {Hospital};
+    \node[chainlabel, below=0.4cm of patient] {Patient};
+
+    % 4. Draw the arrows between the nodes
+    \draw[chainarrow] (ceramtec) -- (oem);
+    \draw[chainarrow] (oem) -- (distributor);
+    \draw[chainarrow] (distributor) -- (hospital);
+    \draw[chainarrow] (hospital) -- (patient);
+
+    \end{tikzpicture}
+
+    \caption{Value chain diagram}
+    \label{fig:value_chain_diagram}
+\end{figure}
+
+
+
 
 \subsubsection{Customer base and competitive landscape}
 
@@ -339,7 +412,7 @@ Figure~\ref{fig:bearing_mix} shows hip bearing-surface shares. Ceramic involveme
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{phase1/bearing_mix_stacked_by_market.png}
+\includegraphics[width=\linewidth]{4_phase1/bearing_mix_stacked_by_market.png}
 \caption{Hip bearing-surface mix by market (US AJRR, Italy RIAP, France Open LPP, China NHSA VBP demand / COA survey).}
 \label{fig:bearing_mix}
 \end{figure}
@@ -349,7 +422,7 @@ THA procedure volumes and waiting-time pressures indicate that demand is constra
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\linewidth]{phase1/tha_volume_timeseries.png}
+\includegraphics[width=0.92\linewidth]{4_phase1/tha_volume_timeseries.png}
 \caption{THA volume trajectories in priority markets.}
 \label{fig:tha_volume}
 \end{figure}
@@ -409,14 +482,14 @@ Figure~\ref{fig:phase2_overview} shows revenue concentration and unit-price disp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{phase2_phase3/phase2_market_overview.png}
+\includegraphics[width=\linewidth]{5_phase2/phase2_market_overview.png}
 \caption{Phase~2 market overview: total SAP revenue and unit-price distribution by priority country.}
 \label{fig:phase2_overview}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{phase2_phase3/phase2_contract_renewals.png}
+\includegraphics[width=0.85\linewidth]{5_phase2/phase2_contract_renewals.png}
 \caption{Contract-period price change versus number of inferred billing periods.}
 \label{fig:phase2_contracts}
 \end{figure}
@@ -442,14 +515,14 @@ Phase~3 derives \textbf{pricing-behaviour segments}: groups of OEM accounts with
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\linewidth]{phase2_phase3/phase3_elbow.png}
+\includegraphics[width=0.72\linewidth]{6_phase3/phase3_elbow.png}
 \caption{K-Means elbow and silhouette diagnostics on the cleaned feature space.}
 \label{fig:phase3_elbow}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\linewidth]{phase2_phase3/phase3_final_segments.png}
+\includegraphics[width=0.95\linewidth]{6_phase3/phase3_final_segments.png}
 \caption{Final four pricing segments after outlier removal ($n{=}79$).}
 \label{fig:phase3_pca}
 \end{figure}
@@ -477,7 +550,7 @@ Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, wh
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\linewidth]{phase2_phase3/phase3_country_cluster_heatmap.png}
+\includegraphics[width=0.72\linewidth]{6_phase3/phase3_country_cluster_heatmap.png}
 \caption{OEM counts by pricing segment and country.}
 \label{fig:phase3_heatmap}
 \end{figure}
@@ -537,7 +610,7 @@ Random Forest is selected. On the exported test predictions, MAPE is 3.0\%. Figu
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{phase4/model_comparison_mae.png}
+\includegraphics[width=\linewidth]{7_phase4/model_comparison_mae.png}
 \caption{Out-of-time model comparison across RMSE, MAE, and $R^2$.}
 \label{fig:phase4_comparison}
 \end{figure}
@@ -546,13 +619,13 @@ Random Forest is selected. On the exported test predictions, MAPE is 3.0\%. Figu
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{phase4/predicted_vs_actual_oof.png}
+\includegraphics[width=\linewidth]{7_phase4/predicted_vs_actual_oof.png}
 \caption{Predicted vs actual}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{phase4/residuals_oof.png}
+\includegraphics[width=\linewidth]{7_phase4/residuals_oof.png}
 \caption{Residual diagnostics}
 \end{subfigure}
 \caption{Random Forest out-of-time diagnostics on 228 test rows.}
@@ -571,14 +644,14 @@ Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by prev
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\linewidth]{phase4/feature_importance_rf.png}
+\includegraphics[width=0.9\linewidth]{7_phase4/feature_importance_rf.png}
 \caption{Top Random Forest pricing drivers (permutation importance).}
 \label{fig:phase4_importance}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\linewidth]{phase4/baselines_by_segment.png}
+\includegraphics[width=0.75\linewidth]{7_phase4/baselines_by_segment.png}
 \caption{Out-of-time mean absolute error by market.}
 \label{fig:phase4_mae_market}
 \end{figure}
