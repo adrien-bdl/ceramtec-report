@@ -154,118 +154,57 @@ Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-o
 
 CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's EUR\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty, CeramTec operates as a \textbf{B2B component supplier}: it manufactures high-performance ceramic femoral heads and acetabular liners that OEMs integrate into complete implant systems. Hospitals negotiate with OEMs under country-specific reimbursement and procurement rules. CeramTec's pricing problem is therefore two-level---defending component value to OEM buyers whose own margins are capped by payer ceilings, tenders, and episode budgets.
 
+Figure~\ref{fig:value-chain} summarises the commercial chain from component supply through to the patient. CeramTec ships ceramic heads and liners to OEMs, which design and brand the full implant system (examples include Stryker, Zimmer Biomet, DePuy, Smith+Nephew, Exactech, and MicroPort). Finished implants typically reach hospitals through regional, hospital-facing distributors; the hospital is the surgical end-use setting, and the patient is the ultimate clinical beneficiary. CeramTec does not sell bearings directly to hospitals or patients, so negotiation leverage depends on OEM willingness-to-pay under those downstream constraints.
+
 Typical cost bands illustrate the value stack: a hip replacement procedure may cost EUR\,16k--47k; a complete implant roughly EUR\,2.6k--8.7k; a ceramic bearing about EUR\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly EUR\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
 
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-    node distance=0.55cm,
-    every node/.style={font=\sffamily},
-    box/.style={
-        draw=steel, line width=0.9pt, rectangle, rounded corners=3pt,
-        minimum height=5.8cm, align=left, inner sep=0pt, fill=white
-    },
-    highlight/.style={box, draw=accent, line width=1.3pt},
-    header/.style={fill=navy, text=white, rounded corners=3pt, font=\sffamily\bfseries, align=center},
-    headerhi/.style={header, fill=accent, text=navy},
-    arrow/.style={-Stealth, steel, line width=1.1pt},
-    arrowlabel/.style={font=\sffamily\itshape\small, text=textgray, fill=white, inner sep=2pt}
-]
-\node[highlight, text width=3.6cm] (supplier) at (0,0) {};
-\node[headerhi, anchor=north, text width=3.6cm, minimum height=1.0cm]
-    at (supplier.north) {CeramTec};
-\node[anchor=north, text width=3.2cm, align=left, font=\sffamily\small, text=textgray, yshift=-1.3cm]
-    at (supplier.north) {Ceramic heads \& liners.\\[0.2cm] Competitors: Kyocera, CoorsTek, HiPer, Mathys/Enovis.\\[0.2cm] Estimated $\sim$90\%+ share in ceramic bearings.};
-
-\node[box, right=of supplier, text width=3.4cm] (oem) {};
-\node[header, anchor=north, text width=3.4cm, minimum height=1.0cm]
-    at (oem.north) {OEM};
-\node[anchor=north, text width=3.0cm, align=left, font=\sffamily\small, text=textgray, yshift=-1.3cm]
-    at (oem.north) {Designs full implant systems.\\[0.2cm] Examples: Stryker, Zimmer Biomet, DePuy, Smith+Nephew, Exactech, MicroPort.};
-
-\node[box, right=of oem, text width=2.4cm] (dist) {};
-\node[header, anchor=north, text width=2.4cm, minimum height=1.0cm]
-    at (dist.north) {Distributor};
-\node[anchor=north, text width=2.0cm, align=center, font=\sffamily\small, text=textgray, yshift=-1.3cm]
-    at (dist.north) {Regional hospital-facing channel};
-
-\node[box, right=of dist, text width=2.4cm] (hosp) {};
-\node[header, anchor=north, text width=2.4cm, minimum height=1.0cm]
-    at (hosp.north) {Hospital};
-\node[anchor=north, text width=2.0cm, align=center, font=\sffamily\small, text=textgray, yshift=-1.3cm]
-    at (hosp.north) {Surgical end use};
-
-\draw[arrow] ($(supplier.east)+(0,1.4)$) -- ($(oem.west)+(0,1.4)$) node[arrowlabel, midway, above] {Components};
-\draw[arrow] ($(oem.east)+(0,1.4)$) -- ($(dist.west)+(0,1.4)$) node[arrowlabel, midway, above] {Implants};
-\draw[arrow] ($(dist.east)+(0,1.4)$) -- ($(hosp.west)+(0,1.4)$) node[arrowlabel, midway, above] {Delivery};
-\end{tikzpicture}
-\caption{CeramTec's positioning in the hip implant value chain.}
-\label{fig:value-chain}
-\end{figure}
-
-
-
-\begin{figure}[htbp]
     \centering
     \begin{tikzpicture}[
-        % Style for the circles
         chainnode/.style={
             circle,
-            % draw=chainblue,
-            draw=dark,
+            draw=navy,
             line width=1.5pt,
             minimum size=2.2cm,
             align=center,
             fill=white,
             inner sep=0pt
         },
-        % Style for the text labels below circles
         chainlabel/.style={
-            % text=chainblue,
-            text=dark,
+            text=navy,
             font=\large,
             align=center,
             anchor=north
         },
-        % Style for the connecting arrows
         chainarrow/.style={
-            -{Triangle[width=4mm,length=4mm]}, % Matches the thick triangle arrowheads
+            -{Triangle[width=4mm,length=4mm]},
             line width=3pt,
             draw=arrowdark,
-            shorten >=2mm, % Adds a small gap before the target node
-            shorten <=2mm  % Adds a small gap after the source node
+            shorten >=2mm,
+            shorten <=2mm
         },
-        node distance=1.2cm % Spacing between the circles
+        node distance=1.2cm
     ]
-
-    % 1. Create the nodes (Circles with images inside)
     \node[chainnode] (ceramtec) {\includegraphics[width=1.7cm]{2_business_context/ceramtec-logo.png}};
     \node[chainnode, right=of ceramtec] (oem) {\includegraphics[width=1.7cm]{2_business_context/factory_icon.png}};
     \node[chainnode, right=of oem] (distributor) {\includegraphics[width=1.7cm]{2_business_context/truck_icon.png}};
     \node[chainnode, right=of distributor] (hospital) {\includegraphics[width=1.7cm]{2_business_context/hospital_icon.png}};
     \node[chainnode, right=of hospital] (patient) {\includegraphics[width=1.7cm]{2_business_context/patient_icon.png}};
 
-    % 3. Add the labels below each node
     \node[chainlabel, below=0.4cm of ceramtec] {CeramTec};
     \node[chainlabel, below=0.4cm of oem] {OEM};
     \node[chainlabel, below=0.4cm of distributor] {Distributor};
     \node[chainlabel, below=0.4cm of hospital] {Hospital};
     \node[chainlabel, below=0.4cm of patient] {Patient};
 
-    % 4. Draw the arrows between the nodes
     \draw[chainarrow] (ceramtec) -- (oem);
     \draw[chainarrow] (oem) -- (distributor);
     \draw[chainarrow] (distributor) -- (hospital);
     \draw[chainarrow] (hospital) -- (patient);
-
     \end{tikzpicture}
-
-    \caption{Value chain diagram}
-    \label{fig:value_chain_diagram}
+    \caption{CeramTec's positioning in the hip implant value chain: ceramic components flow to OEMs, then via distributors to hospitals and patients.}
+    \label{fig:value-chain}
 \end{figure}
-
-
-
 
 \subsubsection{Customer base and competitive landscape}
 
@@ -331,7 +270,7 @@ Small account & Lima & Italy / San Daniele del Friuli \\
 \end{tabular}
 \end{table}
 
-CeramTec's differentiation is as a dedicated ceramic-component specialist (BIOLOX\textregistered{}), not as a full-system OEM. Substitute ceramic suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys (OEM-owned ceramic supply), plus several China-based technical ceramics producers.
+CeramTec's differentiation is as a dedicated ceramic-component specialist (BIOLOX\textregistered{}), not as a full-system OEM. It is estimated to hold roughly 90\%+ share in ceramic bearings. Substitute ceramic suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys (OEM-owned ceramic supply), plus several China-based technical ceramics producers.
 
 \subsection{Hip bearing products}
 
