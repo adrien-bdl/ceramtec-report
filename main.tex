@@ -382,13 +382,9 @@ The binding Phase~1 constraint was \textbf{external data retrieval} in regulated
 
 Phase~2 converts the 3 sources of raw data into meaningful features that reflect the market dynamic.
 
-\subsection{Data sources and integration logic}
-
-SAP billing contributes revenue, quantity, realised unit price, product group, and sales ownership, filtered to the priority markets and hip divisions (Delta/Forte). Salesforce exports add meetings, opportunities, tasks, and win rates; because SAP and Salesforce share no common key, accounts are matched by normalised name similarity, and unmatched SAP rows retain \texttt{sf\_is\_known=0}. The external country panel joins THA volumes, ceramic share, reimbursement, FX, materials, and related indicators on billing country, using one-year lags where these fields enter prediction.
-
 \subsection{Two modelling datasets}
 
-Rather than forcing both analytical questions into one table, Phase~2 produces two datasets whose granularity matches their intended use (Table~\ref{tab:phase2_datasets}). Phase~3 uses a customer-level view to identify accounts with similar pricing and negotiation behaviours, allowing CeramTec to develop differentiated commercial playbooks. Phase~4 requires a more granular temporal panel: it learns from historical customer--product price movements to provide an evidence-based baseline for each next-quarter negotiation.
+Phase~2 produces two datasets whose granularity matches their intended use for phase 3 and 4. (Table~\ref{tab:phase2_datasets}). Phase~3 uses a customer-level view to identify accounts with similar pricing and negotiation behaviours, allowing CeramTec to develop differentiated commercial playbooks. Phase~4 requires a more granular temporal panel: it learns from historical customer--product price movements to provide an evidence-based baseline for each next-quarter negotiation.
 
 \begin{table}[H]
 \centering
@@ -407,7 +403,7 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 
 \subsection{Features designed for the customer segmentation}
 
-The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level: the 82 rows correspond to 82 distinct SAP names, and only rare multinational groups appear as separate entities in more than one country (for example MicroPort in China and the US). Retaining country in the grain is nevertheless important. CeramTec can sell the same product to one customer group at different prices depending on the destination market, reflecting local reimbursement, procurement pressure, volumes, and commercial arrangements. This design therefore supports a future extension in which more multinational customers appear across several markets without incorrectly averaging their distinct pricing environments.
+The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level because only one multinational group appears as separate entities in more than one country (MicroPort in China and the US). Retaining country in the grain is nevertheless important. CeramTec can sell the same product to one customer group at different prices depending on the destination market, reflecting local reimbursement, procurement pressure, volumes, and commercial arrangements. This design therefore supports a future extension in which more multinational customers appear across several markets without incorrectly averaging their distinct pricing environments.
 
 The feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing EUR\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of EUR\,190.
 
