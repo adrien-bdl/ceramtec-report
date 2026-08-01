@@ -388,50 +388,40 @@ SAP billing contributes revenue, quantity, realised unit price, product group, a
 
 \subsection{Two modelling datasets}
 
-Rather than one catch-all table, Phase~2 produces two grains aligned to later phases (Table~\ref{tab:phase2_datasets}).
+Rather than one catch-all table, Phase~2 produces two grains aligned to later phases (Table~\ref{tab:phase2_datasets}). 
+\textcolor{red}{explain quickly that phase 3 is a segmentation to see if there are similar patterns for a pricing and negotation behaviors, phase 4 predictive pricing to have a baseline for each negotation}
 
 \begin{table}[H]
 \centering
 \small
-\caption{Purpose-built datasets produced in Phase~2}
-\label{tab:phase2_datasets}
-\begin{tabular}{@{}llrrr@{}}
+\begin{tabular}{@{}llrr@{}}
 \toprule
-\textbf{Use} & \textbf{Grain} & \textbf{Rows} & \textbf{Cols} & \textbf{File} \\
+\textbf{Use} & \textbf{Grain} & \textbf{Rows} & \textbf{Cols} \\
 \midrule
-Segmentation & Country $\times$ customer & 82 & 83 & \texttt{feature\_matrix.csv} \\
-Predictive pricing & Country $\times$ customer $\times$ product group $\times$ quarter & 1{,}744 & 31 & \texttt{pricing\_panel.csv} \\
+Segmentation & Country $\times$ customer & 82 & 83 \\
+Predictive pricing & Country $\times$ customer $\times$ product group $\times$ quarter & 1{,}744 & 31 \\
 \bottomrule
 \end{tabular}
+\caption{Purpose-built datasets produced in Phase~2}
+\label{tab:phase2_datasets}
 \end{table}
 
-\paragraph{Customer segmentation matrix.}
+
+
+\textcolor{red}{precise that for the segmentation dataset, only one customer operates on 2 of the 4 countries from the primary focus, so the granularity is almost only at the customers level, however this granularity is relevant in case of a project extension because ceramtec can sell the same product to one customer at two different prices if they are destinated to two different countries.}
+
+\textcolor{red}{precise that 1,744 rows is a decent number to fit machine learning models in phase 4}
+
+\subsection{Features designed for the customer segmentation}
+
 One row per country--customer account. Feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). Cumulative hip-bearing SAP revenue in the matrix is EUR\,690.5M; median account-level unit price is EUR\,190. Country coverage: China 43, US 17, France 14, Italy 8.
 
-\paragraph{Predictive pricing panel.}
+\subsection{Features designed for the predictive pricing }
+
 One row per country--customer--product-group--quarter from 2020Q1 to 2026Q3 (27 quarters; 154 customer--product--country series), including first observations so thin-history accounts are retained. Features emphasise lagged and rolling prices, volume, market benchmarks at $t{-}1$, trend/momentum, and lagged external macros to avoid leakage; missing own-history lags are handled via market benchmarks and median imputation (Section~\ref{sec:phase4}).
 
-\subsection{Selected results}
 
-Figure~\ref{fig:phase2_overview} shows revenue concentration and unit-price dispersion by market. China dominates volume with wider price dispersion, consistent with VBP-era pressure and distributor fragmentation. Figure~\ref{fig:phase2_contracts} shows inferred contract renewals: many multi-period accounts exhibit negative first-to-last price change, confirming that relationship continuity already operates as a discounting lever.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{5_phase2/phase2_market_overview.png}
-\caption{Phase~2 market overview: total SAP revenue and unit-price distribution by priority country.}
-\label{fig:phase2_overview}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\linewidth]{5_phase2/phase2_contract_renewals.png}
-\caption{Contract-period price change versus number of inferred billing periods.}
-\label{fig:phase2_contracts}
-\end{figure}
-
-\subsection{Constraints encountered and solutions}
-
-Late NDA access compressed validation time. Salesforce contains engagement but not revenue; SAP contains transactions but no shared CRM key; billing country reflects shipping geography rather than OEM HQ. Contract periods are inferred from billing gaps ($>$3 months) as a proxy where formal contract metadata are unavailable. These limits are documented as feature completeness flags rather than hidden assumptions.
 
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
