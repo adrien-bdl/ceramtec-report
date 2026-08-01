@@ -380,7 +380,7 @@ The binding Phase~1 constraint was \textbf{external data retrieval} in regulated
 \section{Phase 2: Feature Engineering and Internal Data Integration}
 \label{sec:phase2}
 
-Phase~2 joins SAP billing, Salesforce activity, and the Phase~1 external panel into purpose-built modelling datasets.
+Phase~2 converts the 3 sources of raw data into meaningful features that reflect the market dynamic.
 
 \subsection{Data sources and integration logic}
 
@@ -414,8 +414,6 @@ The feature families comprise SAP commercial and portfolio metrics (19), inferre
 \subsection{Features designed for predictive pricing}
 
 The predictive-pricing panel contains one row per country--customer--product-group--quarter from 2020Q1 to 2026Q3: 1{,}744 observations across 27 quarters and 154 customer--product--country series. This is a workable sample for conventional tabular machine-learning models and supports a genuine temporal train/test split, although it remains too small to justify unnecessarily complex architectures. First observations are retained so thin-history customers remain priceable. Predictors include lagged and rolling prices, prior volume, market benchmarks at $t{-}1$, trend and momentum measures, and lagged external indicators; all time-dependent fields are computed from information available before the target quarter to prevent leakage. Where customer-specific history is unavailable, market benchmarks and median imputation keep the observation usable, as detailed in Phase~4.
-
-
 
 
 \section{Phase 3: Market and Customer Segmentation}
