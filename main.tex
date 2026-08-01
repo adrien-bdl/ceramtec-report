@@ -90,6 +90,8 @@
 
 \vspace{0.5em}
 
+%TC:ignore
+
 \section*{Executive Summary}
 
 CeramTec can benefit from a \textbf{data-driven pricing strategy}, but not from real-time dynamic pricing. Its prices are negotiated with a concentrated group of original equipment manufacturer (OEM) customers through long-term commercial relationships, rather than adjusted continuously as in airlines or ticketing. We therefore recommend \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: use evidence on each customer's purchasing behaviour, relationship history, market environment, and product portfolio to prepare customer- and product-level anchors and identify the arguments that can best defend value.
@@ -124,12 +126,17 @@ On the data side, we thank \textbf{Abdelrahman Elsharawi}, Data Platform Enginee
 
 From Imperial College Business School, we thank our Academic Mentors, \textbf{Esma} and \textbf{Sadia}, for their continuous coaching and methodological guidance, which helped us maintain analytical rigour while remaining focused on client impact. We also thank \textbf{Martin Lisboa} for a highly valuable rehearsal session that strengthened our presentation delivery, sharpened our messaging, and built our confidence ahead of the final client presentation.
 
+%TC:endignore
 
 \newpage
 \etocdepthtag.toc{main}
 \etocsettagdepth{main}{subsection}
 \etocsettagdepth{appendix}{none}
+
+%TC:ignore
 \tableofcontents
+%TC:endignore
+
 \newpage
 
 \section{Introduction}
@@ -158,6 +165,7 @@ Figure~\ref{fig:value-chain} summarises the commercial chain from component supp
 
 Typical cost bands illustrate the value stack: a hip replacement procedure may cost EUR\,16k--47k; a complete implant roughly EUR\,2.6k--8.7k; a ceramic bearing about EUR\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly EUR\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
 
+\vspace{0.3cm}
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
@@ -166,15 +174,19 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
             draw=navy,
             line width=1.5pt,
             minimum size=2.2cm,
-            align=center,
             fill=white,
-            inner sep=0pt
+            inner sep=0pt,
+            path picture={
+                % anchor=center and inner sep=0pt force absolute perfect centering
+                \node[anchor=center, inner sep=0pt] at (path picture bounding box.center) {
+                    #1
+                };
+            }
         },
         chainlabel/.style={
             text=navy,
             font=\large,
-            align=center,
-            anchor=north
+            align=center
         },
         chainarrow/.style={
             -{Triangle[width=4mm,length=4mm]},
@@ -185,17 +197,21 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
         },
         node distance=1.2cm
     ]
-    \node[chainnode] (ceramtec) {\includegraphics[width=1.7cm]{2_business_context/ceramtec-logo.png}};
-    \node[chainnode, right=of ceramtec] (oem) {\includegraphics[width=1.7cm]{2_business_context/factory_icon.png}};
-    \node[chainnode, right=of oem] (distributor) {\includegraphics[width=1.7cm]{2_business_context/truck_icon.png}};
-    \node[chainnode, right=of distributor] (hospital) {\includegraphics[width=1.7cm]{2_business_context/hospital_icon.png}};
-    \node[chainnode, right=of hospital] (patient) {\includegraphics[width=1.7cm]{2_business_context/patient_icon.png}};
+    
+    % Pass the entire \includegraphics command into the style.
+    % You can now tweak the width for each individual image as you please!
+    \node[chainnode={\includegraphics[width=1.7cm]{2_business_context/ceramtec-logo.png}}] (ceramtec) {};
+    \node[chainnode={\includegraphics[width=1.5cm]{2_business_context/factory_icon.png}}, right=of ceramtec] (oem) {};
+    \node[chainnode={\includegraphics[width=1.8cm]{2_business_context/truck_icon.png}}, right=of oem] (distributor) {};
+    \node[chainnode={\includegraphics[width=1.6cm]{2_business_context/hospital_icon.png}}, right=of distributor] (hospital) {};
+    \node[chainnode={\includegraphics[width=1.5cm]{2_business_context/patient_icon.png}}, right=of hospital] (patient) {};
 
-    \node[chainlabel, below=0.4cm of ceramtec] {CeramTec};
-    \node[chainlabel, below=0.4cm of oem] {OEM};
-    \node[chainlabel, below=0.4cm of distributor] {Distributor};
-    \node[chainlabel, below=0.4cm of hospital] {Hospital};
-    \node[chainlabel, below=0.4cm of patient] {Patient};
+    % Labels remain positioned from the true center of the nodes
+    \node[chainlabel, below=1.5cm of ceramtec.center] {CeramTec};
+    \node[chainlabel, below=1.5cm of oem.center] {OEM};
+    \node[chainlabel, below=1.5cm of distributor.center] {Distributor};
+    \node[chainlabel, below=1.5cm of hospital.center] {Hospital};
+    \node[chainlabel, below=1.5cm of patient.center] {Patient};
 
     \draw[chainarrow] (ceramtec) -- (oem);
     \draw[chainarrow] (oem) -- (distributor);
@@ -205,6 +221,8 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
     \caption{CeramTec's positioning in the hip implant value chain: ceramic components flow to OEMs, then via distributors to hospitals and patients.}
     \label{fig:value-chain}
 \end{figure}
+\vspace{0.3cm}
+
 
 \subsubsection{Customer base and competitive landscape}
 
@@ -660,6 +678,8 @@ This project set out to assess the feasibility of a data-driven pricing strategy
 Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
 
 \clearpage
+
+%TC:ignore
 \appendix
 \etocdepthtag.toc{appendix}
 
@@ -1022,5 +1042,9 @@ Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3
 \texttt{cluster\_kmeans} & Phase~3 segment label (playbook overlay; not a Phase~4 predictor). \\
 \texttt{predicted\_price\_eur}, \texttt{residual\_eur}, \texttt{abs\_error\_eur} & Phase~4 forecast and error diagnostics. \\
 \end{longtable}
+
+
+%TC:endignore
+
 
 \end{document}

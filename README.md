@@ -2,6 +2,25 @@
 
 `main.tex` is the single report source. The external data register appendix is embedded between `% <<REGISTER_BEGIN>>` and `% <<REGISTER_END>>`.
 
+## Guidelines for the report
+
+The final project report should be a maximum of 3,000 words in length (not including appendices, 
+references or Executive Summary). Students will summarise the analysis undertaken and provide 
+concise and targeted insights and recommendations to the client.
+
+To exclude specific sections from the word count, wrap them inside these wraps: (`%TC:ignore` and `%TC:endignore`)
+
+'''
+%TC:ignore
+
+/section{...}
+....
+
+%TC:endignore
+'''
+
+
+
 ## Refresh appendix from Google Sheet
 
 The team master register lives on Google Drive as **External Data Register** (sheet). Pull into the repo (updates `data/external/External Data.md` and patches `main.tex`):
