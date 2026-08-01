@@ -388,8 +388,7 @@ SAP billing contributes revenue, quantity, realised unit price, product group, a
 
 \subsection{Two modelling datasets}
 
-Rather than one catch-all table, Phase~2 produces two grains aligned to later phases (Table~\ref{tab:phase2_datasets}). 
-\textcolor{red}{explain quickly that phase 3 is a segmentation to see if there are similar patterns for a pricing and negotation behaviors, phase 4 predictive pricing to have a baseline for each negotation}
+Rather than forcing both analytical questions into one table, Phase~2 produces two datasets whose granularity matches their intended use (Table~\ref{tab:phase2_datasets}). Phase~3 uses a customer-level view to identify accounts with similar pricing and negotiation behaviours, allowing CeramTec to develop differentiated commercial playbooks. Phase~4 requires a more granular temporal panel: it learns from historical customer--product price movements to provide an evidence-based baseline for each next-quarter negotiation.
 
 \begin{table}[H]
 \centering
@@ -406,19 +405,15 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 \label{tab:phase2_datasets}
 \end{table}
 
-
-
-\textcolor{red}{precise that for the segmentation dataset, only one customer operates on 2 of the 4 countries from the primary focus, so the granularity is almost only at the customers level, however this granularity is relevant in case of a project extension because ceramtec can sell the same product to one customer at two different prices if they are destinated to two different countries.}
-
-\textcolor{red}{precise that 1,744 rows is a decent number to fit machine learning models in phase 4}
-
 \subsection{Features designed for the customer segmentation}
 
-One row per country--customer account. Feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). Cumulative hip-bearing SAP revenue in the matrix is EUR\,690.5M; median account-level unit price is EUR\,190. Country coverage: China 43, US 17, France 14, Italy 8.
+The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level: the 82 rows correspond to 82 distinct SAP names, and only rare multinational groups appear as separate entities in more than one country (for example MicroPort in China and the US). Retaining country in the grain is nevertheless important. CeramTec can sell the same product to one customer group at different prices depending on the destination market, reflecting local reimbursement, procurement pressure, volumes, and commercial arrangements. This design therefore supports a future extension in which more multinational customers appear across several markets without incorrectly averaging their distinct pricing environments.
 
-\subsection{Features designed for the predictive pricing }
+The feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing EUR\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of EUR\,190.
 
-One row per country--customer--product-group--quarter from 2020Q1 to 2026Q3 (27 quarters; 154 customer--product--country series), including first observations so thin-history accounts are retained. Features emphasise lagged and rolling prices, volume, market benchmarks at $t{-}1$, trend/momentum, and lagged external macros to avoid leakage; missing own-history lags are handled via market benchmarks and median imputation (Section~\ref{sec:phase4}).
+\subsection{Features designed for predictive pricing}
+
+The predictive-pricing panel contains one row per country--customer--product-group--quarter from 2020Q1 to 2026Q3: 1{,}744 observations across 27 quarters and 154 customer--product--country series. This is a workable sample for conventional tabular machine-learning models and supports a genuine temporal train/test split, although it remains too small to justify unnecessarily complex architectures. First observations are retained so thin-history customers remain priceable. Predictors include lagged and rolling prices, prior volume, market benchmarks at $t{-}1$, trend and momentum measures, and lagged external indicators; all time-dependent fields are computed from information available before the target quarter to prevent leakage. Where customer-specific history is unavailable, market benchmarks and median imputation keep the observation usable, as detailed in Phase~4.
 
 
 
