@@ -403,14 +403,62 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 
 \subsection{Features designed for the customer segmentation}
 
-The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level because only one multinational group appears as separate entities in more than one country (MicroPort in China and the US). Retaining country in the grain is nevertheless important. CeramTec can sell the same product to one customer group at different prices depending on the destination market, reflecting local reimbursement, procurement pressure, volumes, and commercial arrangements. This design therefore supports a future extension in which more multinational customers appear across several markets without incorrectly averaging their distinct pricing environments.
+The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level because only one multinational group appears as separate entities in more than one country (MicroPort in China and the US). Retaining country in the grain is nevertheless important: CeramTec can sell the same product to one customer group at different prices depending on the destination market. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing EUR\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of EUR\,190.
 
-The feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing EUR\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of EUR\,190.
+Table~\ref{tab:phase2_seg_families} summarises the feature families; the complete dictionary is in Appendix~\ref{app:feature_dictionary}.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3.6cm}c p{7.6cm}@{}}
+\toprule
+\textbf{Feature family} & \textbf{\#} & \textbf{Description} \\
+\midrule
+Identifiers & 2 & Account keys defining the country--customer grain. \\
+SAP commercial and portfolio & 19 & Revenue, volume, realised prices, growth, recency, and product-mix signals from SAP billing. \\
+Inferred contract dynamics & 15 & Renewal structure inferred from billing gaps, including duration, price change across periods, and portfolio shifts. \\
+Salesforce engagement & 12 & CRM activity intensity, opportunity outcomes, and engagement recency after fuzzy matching to SAP. \\
+External market context & 28 & Country-level demand, reimbursement, procurement, FX, and material/energy cost indicators from Phase~1. \\
+Country dummies & 4 & One-hot indicators for the four priority markets. \\
+Structural flags & 3 & Regime markers for COVID-era activity, China VBP exposure, and post-COVID continuity. \\
+\midrule
+\textbf{Total} & \textbf{83} & \\
+\bottomrule
+\end{tabular}
+\caption{Feature families in the country$\times$customer segmentation matrix.}
+\label{tab:phase2_seg_families}
+\end{table}
 
 \subsection{Features designed for predictive pricing}
 
-The predictive-pricing panel contains one row per country--customer--product-group--quarter from 2020Q1 to 2026Q3: 1{,}744 observations across 27 quarters and 154 customer--product--country series. This is a workable sample for conventional tabular machine-learning models and supports a genuine temporal train/test split, although it remains too small to justify unnecessarily complex architectures. First observations are retained so thin-history customers remain priceable. Predictors include lagged and rolling prices, prior volume, market benchmarks at $t{-}1$, trend and momentum measures, and lagged external indicators; all time-dependent fields are computed from information available before the target quarter to prevent leakage. Where customer-specific history is unavailable, market benchmarks and median imputation keep the observation usable, as detailed in Phase~4.
+The predictive-pricing panel contains one row per country--customer--product-group--quarter from 2020Q1 to 2026Q3: 1{,}744 observations across 27 quarters and 154 customer--product--country series. This is a workable sample for conventional tabular machine-learning models and supports a genuine temporal train/test split, although it remains too small to justify unnecessarily complex architectures. First observations are retained so thin-history customers remain priceable. All time-dependent predictors are computed from information available before the target quarter to prevent leakage; where own-history lags are unavailable, market benchmarks and median imputation keep the row usable (Section~\ref{sec:phase4}).
 
+Table~\ref{tab:phase2_panel_families} summarises the feature families; individual definitions appear in Appendix~\ref{app:feature_dictionary}.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3.6cm}c p{7.6cm}@{}}
+\toprule
+\textbf{Feature family} & \textbf{\#} & \textbf{Description} \\
+\midrule
+Identifiers / panel grain & 4 & Keys defining each country--customer--product-group--quarter observation. \\
+Target variables & 2 & Current-quarter realised price (prediction target) and quantity context. \\
+Lagged price and volume & 4 & Own-history price and volume measured strictly before the target quarter. \\
+Rolling statistics & 4 & Short-window smoothed levels and volatility of price and volume. \\
+Cumulative history & 3 & Lifetime price level, cumulative volume, and depth of prior relationship. \\
+Trend and momentum & 3 & Longer-run slopes and recent percentage price change. \\
+Market context (lagged) & 5 & Country--product benchmarks and relative positioning at $t{-}1$. \\
+Customer context (lagged) & 2 & Account-wide revenue and product breadth in the previous quarter. \\
+Product attribute & 1 & Physical product characteristic used as a static control. \\
+Temporal structure & 3 & Calendar timing and relationship age, excluding contemporaneous target leakage. \\
+\midrule
+\textbf{Total} & \textbf{31} & \\
+\bottomrule
+\end{tabular}
+\caption{Feature families in the quarterly predictive-pricing panel.}
+\label{tab:phase2_panel_families}
+\end{table}
 
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
@@ -931,43 +979,182 @@ competitors & Competitor list / competitor datasets & \textcolor{gray}{Todo} & G
 \section{Complete Feature Dictionary}
 \label{app:feature_dictionary}
 
-Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3 segmentation; the quarterly panel supports Phase~4 prediction. Prefix conventions: \texttt{sap\_} = SAP billing; \texttt{contract\_} = inferred contract periods; \texttt{sf\_} = Salesforce; \texttt{ext\_} = external panel; lagged/rolling names appear in the pricing panel.
+Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3 segmentation; the quarterly panel supports Phase~4 prediction. Prefix conventions: \texttt{sap\_} = SAP billing; \texttt{contract\_} = inferred contract periods; \texttt{sf\_} = Salesforce; \texttt{ext\_} = external panel. In the pricing panel, lagged and rolling names are computed strictly from prior quarters to avoid leakage into the next-quarter target.
 
-\renewcommand{\arraystretch}{1.25}
-\begin{longtable}{p{6.2cm} p{9.8cm}}
+\subsection{Segmentation matrix features}
+
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{5.4cm} p{10.6cm}@{}}
+\caption{Complete feature dictionary for the country$\times$customer segmentation matrix.}
+\label{tab:feature_dict_segmentation} \\
 \toprule
-\textbf{Feature name(s)} & \textbf{Description} \\
+\textbf{Feature} & \textbf{Description} \\
 \midrule
 \endfirsthead
 \multicolumn{2}{c}{{\bfseries \tablename\ \thetable{} --- continued}} \\
 \toprule
-\textbf{Feature name(s)} & \textbf{Description} \\
+\textbf{Feature} & \textbf{Description} \\
 \midrule
 \endhead
 \midrule
 \multicolumn{2}{r}{{Continued on next page}} \\
 \endfoot
 \bottomrule
-\caption{Selected feature descriptions for Phases~2--4.}
-\label{tab:feature_description} \\
 \endlastfoot
-
-\texttt{country}, \texttt{customer} & Billing country and OEM name. \\
-\texttt{product\_group}, \texttt{quarter} & Product family and calendar quarter (panel grain). \\
-\texttt{target\_unit\_price} & Realised unit price (EUR); Phase~4 target. \\
-\texttt{sap\_total\_revenue\_eur}, \texttt{sap\_total\_pieces\_sold} & Cumulative revenue and volume. \\
-\texttt{sap\_avg\_unit\_price\_eur} & Weighted average realised unit price. \\
-\texttt{sap\_n\_product\_groups} & Portfolio breadth. \\
-\texttt{contract\_n\_periods}, \texttt{contract\_price\_chg\_pct} & Inferred renewals and first-to-last price change. \\
-\texttt{sf\_meeting\_count}, \texttt{sf\_opp\_win\_rate}, \texttt{sf\_days\_since\_last\_meeting} & Engagement intensity and recency. \\
-\texttt{is\_china\_vbp\_customer}, \texttt{is\_covid\_era\_customer}, \texttt{is\_post\_covid\_customer} & Structural regime flags. \\
-\texttt{price\_lag\_1q}, \texttt{price\_rolling\_mean\_4q}, \texttt{cum\_avg\_price} & Dominant Phase~4 persistence drivers. \\
-\texttt{market\_mean\_price\_lag1}, \texttt{market\_median\_price\_lag1} & Lagged country-market benchmarks. \\
-\texttt{volume\_lag\_1q}, \texttt{price\_change\_last\_pct}, \texttt{n\_prior\_quarters} & Volume leverage, momentum, and history depth. \\
-\texttt{cluster\_kmeans} & Phase~3 segment label (playbook overlay; not a Phase~4 predictor). \\
-\texttt{predicted\_price\_eur}, \texttt{residual\_eur}, \texttt{abs\_error\_eur} & Phase~4 forecast and error diagnostics. \\
+\multicolumn{2}{@{}l}{\textit{Identifiers}} \\
+\texttt{country} & 2-char ISO country code of the ordering entity (US, CN, FR, IT). Reflects where the order is placed from, not necessarily the end-market. \\
+\texttt{customer} & Customer name (OEM or distributor) as registered in SAP, with numeric SAP ID stripped. \\
+\multicolumn{2}{@{}l}{\textit{SAP commercial and portfolio}} \\
+\texttt{sap\_total\_revenue\_eur} & Total cumulative revenue in EUR across all billing months (2020-2026). \\
+\texttt{sap\_total\_pieces\_sold} & Total cumulative units (pieces) invoiced across all billing months. \\
+\texttt{sap\_avg\_unit\_price\_eur} & Weighted average unit price in EUR (total revenue / total pieces). \\
+\texttt{sap\_price\_std\_eur} & Standard deviation of monthly weighted-average unit prices; measures price volatility over time. \\
+\texttt{sap\_price\_trend\_eur\_pm} & OLS slope of monthly weighted-average price over time (EUR per month). Positive = prices rising. \\
+\texttt{sap\_avg\_annual\_revenue} & Mean annual revenue in EUR (total revenue / n active years). \\
+\texttt{sap\_active\_months} & Number of distinct billing months with at least one transaction. \\
+\texttt{sap\_active\_years} & Number of distinct calendar years with at least one transaction. \\
+\texttt{sap\_first\_year} & Earliest calendar year with billing activity. \\
+\texttt{sap\_last\_year} & Most recent calendar year with billing activity. \\
+\texttt{sap\_revenue\_cagr} & Compound annual growth rate of yearly revenue. Requires at least two years with positive first-year revenue. \\
+\texttt{sap\_revenue\_yoy\_last} & Year-over-year revenue growth rate for the most recent pair of active years. \\
+\texttt{sap\_covid\_active} & Binary flag: 1 if the customer had any billing in 2020 or 2021 (COVID era). \\
+\texttt{sap\_n\_product\_groups} & Count of distinct product groups purchased by this customer. \\
+\texttt{sap\_dominant\_pg} & Product group contributing the largest share of total revenue for this customer. \\
+\texttt{sap\_rev\_share\_revision} & Share of total revenue from Revision-type product groups. \\
+\texttt{sap\_rev\_share\_clock} & Share of total revenue from CLock-type product groups (ceramic liners). \\
+\texttt{sap\_rev\_share\_forte} & Share of total revenue from Forte-type product groups. \\
+\texttt{sap\_dominant\_lead} & Most frequent sales lead / seller group associated with this customer's transactions. \\
+\multicolumn{2}{@{}l}{\textit{Inferred contract dynamics}} \\
+\texttt{contract\_n\_periods} & Number of distinct contract periods: contiguous billing blocks separated by gaps greater than 3 months. \\
+\texttt{contract\_is\_continuous} & Binary flag: 1 if the customer has only one contract period (never interrupted billing). \\
+\texttt{contract\_avg\_duration\_months} & Mean duration in months of each contract period. \\
+\texttt{contract\_months\_since\_last\_end} & Months between the end of the last billing period and the reference date (Jul 2026). Measures recency. \\
+\texttt{contract\_first\_avg\_price} & Average unit price during the first contract period. \\
+\texttt{contract\_last\_avg\_price} & Average unit price during the most recent contract period. \\
+\texttt{contract\_price\_chg\_pct} & Percentage change in average unit price from first to last contract period. Negative = accumulated discount at renewal. \\
+\texttt{contract\_price\_slope\_per\_period} & Linear slope of average price versus contract-period index (EUR per renewal step). Negative = systematic price erosion. \\
+\texttt{contract\_n\_pg\_first} & Number of distinct product groups in the first contract period. \\
+\texttt{contract\_n\_pg\_last} & Number of distinct product groups in the most recent contract period. \\
+\texttt{contract\_pg\_added} & Product groups present in the last period but not the first (portfolio expansion at renewal). \\
+\texttt{contract\_pg\_dropped} & Product groups present in the first period but not the last (portfolio concentration at renewal). \\
+\texttt{contract\_revenue\_first\_period} & Total revenue (EUR) during the first contract period. \\
+\texttt{contract\_revenue\_last\_period} & Total revenue (EUR) during the most recent contract period. \\
+\texttt{contract\_revenue\_growth\_factor} & Ratio of last-period revenue to first-period revenue. Greater than 1 = growing account across renewals. \\
+\multicolumn{2}{@{}l}{\textit{Salesforce engagement}} \\
+\texttt{sf\_is\_known} & Binary flag: 1 if the customer was found in Salesforce data (meetings, opportunities, or tasks). \\
+\texttt{sf\_matched\_sap} & Binary flag: 1 if the Salesforce account was successfully fuzzy-matched to a SAP customer name. \\
+\texttt{sf\_meeting\_count} & Total number of meetings logged in Salesforce for this account. \\
+\texttt{sf\_task\_count} & Total number of tasks/activities logged in Salesforce for this account. \\
+\texttt{sf\_opp\_count} & Total number of opportunities (all statuses) in Salesforce for this account. \\
+\texttt{sf\_opp\_lost\_count} & Number of opportunities with Closed Lost status. \\
+\texttt{sf\_opp\_open\_count} & Number of opportunities still open (not yet won or lost). \\
+\texttt{sf\_opp\_won\_count} & Number of opportunities with Closed Won status. \\
+\texttt{sf\_meetings\_new\_biz} & Number of meetings tagged as new-business type. \\
+\texttt{sf\_opp\_win\_rate} & Win rate = opportunities won / (won + lost). Ranges 0-1. \\
+\texttt{sf\_latest\_meeting\_date} & Date of the most recent Salesforce meeting for this account. \\
+\texttt{sf\_days\_since\_last\_meeting} & Days between the latest meeting and the reference date. Measures engagement recency. \\
+\multicolumn{2}{@{}l}{\textit{External market context}} \\
+\texttt{ext\_ceramic\_share\_pct} & Country-level ceramic bearing share of hip procedures (\%). \\
+\texttt{ext\_implant\_ceiling\_cny} & China implant/device price ceiling in CNY (VBP-related), where available. \\
+\texttt{ext\_reimbursement\_episode\_eur} & Country episode reimbursement ceiling in EUR. \\
+\texttt{ext\_reimbursement\_episode\_usd} & Country episode reimbursement ceiling in USD. \\
+\texttt{ext\_revision\_rate\_10y\_pct} & 10-year hip revision rate (\%) from registry or survey sources. \\
+\texttt{ext\_tha\_volume\_cases} & Annual total hip arthroplasty procedure volume (cases). \\
+\texttt{ext\_tha\_volume\_rate\_per\_100k} & THA procedure rate per 100,000 population. \\
+\texttt{ext\_procurement\_us\_sam\_notice\_count} & Count of US SAM procurement notices relevant to orthopaedic implants. \\
+\texttt{ext\_procurement\_us\_sam\_awarded\_usd\_sum} & Sum of awarded US SAM contract values (USD). \\
+\texttt{ext\_procurement\_us\_sam\_awarded\_usd\_mean} & Mean awarded US SAM contract value (USD). \\
+\texttt{ext\_procurement\_fr\_boamp\_notice\_count} & Count of French BOAMP procurement notices for relevant categories. \\
+\texttt{ext\_procurement\_fr\_boamp\_unique\_buyers} & Number of unique buyers in French BOAMP notices. \\
+\texttt{ext\_fx\_usd\_per\_eur\_avg} & Average USD per EUR exchange rate (cost and ceiling translation). \\
+\texttt{ext\_material\_usd\_basket\_index} & Composite material/energy cost basket index (USD-based). \\
+\texttt{ext\_material\_usd\_index\_aluminum} & Aluminum price index (USD). \\
+\texttt{ext\_material\_usd\_index\_copper} & Copper price index (USD). \\
+\texttt{ext\_material\_usd\_index\_crude\_oil\_avg} & Crude oil average price index (USD). \\
+\texttt{ext\_material\_usd\_index\_iron\_ore\_spot} & Iron ore spot price index (USD). \\
+\texttt{ext\_material\_usd\_index\_lead} & Lead price index (USD). \\
+\texttt{ext\_material\_usd\_index\_natural\_gas\_europe} & European natural gas price index (USD). \\
+\texttt{ext\_material\_usd\_index\_natural\_gas\_us} & US natural gas price index (USD). \\
+\texttt{ext\_material\_usd\_index\_nickel} & Nickel price index (USD). \\
+\texttt{ext\_material\_usd\_index\_tin} & Tin price index (USD). \\
+\texttt{ext\_material\_usd\_index\_zinc} & Zinc price index (USD). \\
+\texttt{ext\_retrieved} & Date stamp of the latest external-panel retrieval used for this country row. \\
+\texttt{ext\_is\_china\_vbp\_era} & Binary flag: 1 if the country observation falls in China's Volume-Based Procurement era. \\
+\texttt{ext\_reimbursement\_usd} & Unified episode reimbursement ceiling converted to USD. \\
+\texttt{ext\_procurement\_notices} & Country-relevant procurement notice count (US SAM or FR BOAMP). \\
+\multicolumn{2}{@{}l}{\textit{Country dummies}} \\
+\texttt{country\_US} & One-hot dummy: 1 if country = US. \\
+\texttt{country\_CN} & One-hot dummy: 1 if country = CN (China). \\
+\texttt{country\_FR} & One-hot dummy: 1 if country = FR (France). \\
+\texttt{country\_IT} & One-hot dummy: 1 if country = IT (Italy). \\
+\multicolumn{2}{@{}l}{\textit{Structural flags}} \\
+\texttt{is\_covid\_era\_customer} & Binary flag: 1 if customer was active during COVID years (2020-2021). \\
+\texttt{is\_china\_vbp\_customer} & Binary flag: 1 if customer is in China and last active year is 2021 or later (VBP era). \\
+\texttt{is\_post\_covid\_customer} & Binary flag: 1 if last active year is 2022 or later (still transacting post-COVID). \\
 \end{longtable}
 
+\subsection{Predictive pricing panel features}
+
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{5.4cm} p{10.6cm}@{}}
+\caption{Complete feature dictionary for the quarterly predictive-pricing panel.}
+\label{tab:feature_dict_panel} \\
+\toprule
+\textbf{Feature} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{{\bfseries \tablename\ \thetable{} --- continued}} \\
+\toprule
+\textbf{Feature} & \textbf{Description} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{2}{@{}l}{\textit{Identifiers / panel grain}} \\
+\texttt{country} & Billing country of the ordering entity. \\
+\texttt{customer} & OEM or distributor name as registered in SAP. \\
+\texttt{product\_group} & Product category (e.g. D Kugel, D CLock, F Kugel, Contoura, Smat div.). \\
+\texttt{quarter} & Calendar quarter for which the target unit price is measured (e.g. 2023Q2). \\
+\multicolumn{2}{@{}l}{\textit{Target variables}} \\
+\texttt{target\_unit\_price} & Realised unit price (EUR) in the current quarter. This is the Phase 4 prediction target. \\
+\texttt{target\_quantity} & Units sold in the current quarter (context only; not used as a model feature). \\
+\multicolumn{2}{@{}l}{\textit{Lagged price and volume}} \\
+\texttt{price\_lag\_1q} & Unit price in the immediately preceding quarter (t-1). Strongest predictor due to pricing inertia. \\
+\texttt{price\_lag\_2q} & Unit price two quarters ago (t-2). Missing if fewer than two prior quarters exist. \\
+\texttt{price\_lag\_4q} & Unit price four quarters ago (year-ago). Captures annual contract renewal cycles. \\
+\texttt{volume\_lag\_1q} & Quantity sold in the previous quarter (t-1). Volume negotiation leverage signal. \\
+\multicolumn{2}{@{}l}{\textit{Rolling statistics}} \\
+\texttt{price\_rolling\_mean\_4q} & Rolling mean of unit prices over the last four quarters (or all available if fewer). Smoothed price level. \\
+\texttt{price\_rolling\_std\_4q} & Rolling standard deviation of unit prices over the last four quarters. Short-term pricing volatility. \\
+\texttt{volume\_rolling\_mean\_4q} & Rolling mean of quarterly volume over the last four quarters. \\
+\texttt{volume\_rolling\_sum\_4q} & Total volume in the last four quarters. Annualised demand signal. \\
+\multicolumn{2}{@{}l}{\textit{Cumulative history}} \\
+\texttt{cum\_avg\_price} & Cumulative average unit price over all prior quarters. Long-run price anchor. \\
+\texttt{cum\_total\_qty} & Total cumulative quantity purchased over all prior quarters. \\
+\texttt{n\_prior\_quarters} & Number of quarters with transactions before this one. Measures relationship depth. \\
+\multicolumn{2}{@{}l}{\textit{Trend and momentum}} \\
+\texttt{price\_trend\_prior} & OLS slope of unit price over all prior quarters. Negative = systematic price erosion. \\
+\texttt{volume\_trend\_prior} & OLS slope of quarterly volume over all prior quarters. Positive = growing demand. \\
+\texttt{price\_change\_last\_pct} & Percentage change in price from t-2 to t-1. Captures recent momentum. \\
+\multicolumn{2}{@{}l}{\textit{Market context (lagged)}} \\
+\texttt{market\_median\_price\_lag1} & Country-level median price for this product in the previous quarter. Market benchmark. \\
+\texttt{market\_mean\_price\_lag1} & Country-level mean price for this product in the previous quarter. \\
+\texttt{price\_vs\_market\_pct\_lag1} & Customer's price versus country median in t-1 (\%). Positive = premium; negative = discount. \\
+\texttt{market\_n\_customers\_lag1} & Number of customers buying this product in this country in the previous quarter. \\
+\texttt{volume\_market\_share\_lag1} & This customer's share of total market volume for this product in t-1 (0-1). \\
+\multicolumn{2}{@{}l}{\textit{Customer context (lagged)}} \\
+\texttt{cust\_revenue\_lag1} & Customer's total revenue across all products in the previous quarter. \\
+\texttt{cust\_n\_products\_lag1} & Number of product groups purchased by this customer in the previous quarter. \\
+\multicolumn{2}{@{}l}{\textit{Product attribute}} \\
+\texttt{dominant\_diameter\_mm} & Most common head diameter (mm) from material descriptions. Static product attribute. \\
+\multicolumn{2}{@{}l}{\textit{Temporal structure}} \\
+\texttt{quarters\_since\_first} & Number of quarters since the first transaction for this product-customer series. Relationship age. \\
+\texttt{year} & Calendar year of the current quarter. \\
+\texttt{quarter\_of\_year} & Quarter number (1-4). Captures seasonality. \\
+\end{longtable}
 
 %TC:endignore
 
