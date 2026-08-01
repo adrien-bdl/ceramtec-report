@@ -226,14 +226,7 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
 
 \subsubsection{Customer base and competitive landscape}
 
-CeramTec maintains an internal Key Accounts register that ranks OEMs by commercial potential and relationship intensity. Dedicated Key Account Managers cover the large and medium tiers. In the final presentation framing used for pricing discussion, the register is summarised as:
-
-\begin{itemize}
-  \item \textbf{Large customers} (4 OEMs) --- above EUR\,10M revenue, strategic accounts;
-  \item \textbf{Medium customers} (10 OEMs) --- EUR\,3--10M, established market position;
-  \item \textbf{High potentials} (6 OEMs) --- below EUR\,3M with strategic growth opportunity;
-  \item \textbf{Small accounts and long tail} --- remaining OEMs managed by field specialists or Customer Service.
-\end{itemize}
+CeramTec maintains an internal Key Accounts register that ranks OEMs by commercial potential and relationship intensity. Dedicated Key Account Managers cover the large and medium tiers. In the framing used for pricing discussion, the register distinguishes four large strategic customers above EUR\,10M revenue, ten medium customers in the EUR\,3--10M band with established market positions, six high-potential accounts below EUR\,3M with strategic growth opportunity, and a longer tail of small accounts managed by field specialists or Customer Service.
 
 Tables~\ref{tab:key-accounts-large-medium} and~\ref{tab:key-accounts-high-small} reproduce named accounts from the May 2026 register. Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta). Phases~2--4 then used the full SAP customer universe in US/CN/FR/IT rather than restricting to the strategic list alone.
 
@@ -303,13 +296,7 @@ CeramTec currently prices bearings primarily on a \textbf{cost-plus} basis: prod
 \subsection{Problem reframing: negotiation baselines versus dynamic pricing}
 \label{sec:reframing}
 
-Dynamic pricing in aviation or ticketing adjusts prices frequently in response to remaining capacity and time-to-event. CeramTec's reality differs on three counts:
-
-\begin{itemize}
-  \item Contracts are long-term and relationship-based with a concentrated OEM set;
-  \item Prices are negotiated individually, not published on a continuously repriced channel;
-  \item Frequent automated changes would undermine trust and conflict with medical-device contracting cycles.
-\end{itemize}
+Dynamic pricing in aviation or ticketing adjusts prices frequently in response to remaining capacity and time-to-event. CeramTec's reality differs: contracts are long-term and relationship-based with a concentrated OEM set; prices are negotiated individually rather than published on a continuously repriced channel; and frequent automated changes would undermine trust and conflict with medical-device contracting cycles.
 
 We therefore reframe the objective as \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: customer- and product-level anchors informed by market context, purchasing behaviour, and relationship history. Commercial teams can use these as a starting position in negotiation---not as a small set of fixed group prices, and not as a real-time pricing bot.
 
@@ -350,12 +337,7 @@ CeramTec already collected internal commercial data in SAP and behavioural CRM d
 
 External evidence is organised into 13 categories covering the full pricing logic: FX, material and energy cost pressure, reimbursement ceilings, public procurement prices, waiting times, surgery volumes, bearing mix, revision and clinical evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitor context. The synchronised register tracks 51 source rows (Appendix~\ref{app:external-data-register}).
 
-Internal data complement this external layer:
-
-\begin{itemize}
-  \item \textbf{SAP} --- transactional commercial layer: 55{,}240 invoiced transactions across 170 customers in 25 countries and about EUR\,2.17B cumulative revenue in the broader extract; hip-bearing analysis later restricts to Delta/Forte divisions in US/CN/FR/IT.
-  \item \textbf{Salesforce} --- behavioural layer: roughly 1{,}500 records across six report exports, 223 accounts, and 380 meeting notes, describing who is engaged, how often, and with what pipeline outcome.
-\end{itemize}
+Internal data complement this external layer. SAP provides the transactional commercial record---55{,}240 invoiced transactions across 170 customers in 25 countries and about EUR\,2.17B cumulative revenue in the broader extract---with hip-bearing analysis later restricted to Delta/Forte divisions in US/CN/FR/IT. Salesforce supplies the behavioural layer: roughly 1{,}500 records across six report exports, 223 accounts, and 380 meeting notes describing who is engaged, how often, and with what pipeline outcome.
 
 \subsection{Exploratory data analysis}
 
@@ -402,11 +384,7 @@ Phase~2 joins SAP billing, Salesforce activity, and the Phase~1 external panel i
 
 \subsection{Data sources and integration logic}
 
-\begin{enumerate}
-  \item \textbf{SAP billing} --- revenue, quantity, realised unit price, product group, and sales ownership, filtered to priority markets and hip divisions (Delta/Forte).
-  \item \textbf{Salesforce exports} --- meetings, opportunities, tasks, and win rates. SAP and Salesforce share no common key; accounts are matched by normalised name similarity. Unmatched SAP rows retain \texttt{sf\_is\_known=0}.
-  \item \textbf{External country panel} --- THA volumes, ceramic share, reimbursement, FX, materials, and related indicators joined on billing country (with one-year lags where used for prediction).
-\end{enumerate}
+SAP billing contributes revenue, quantity, realised unit price, product group, and sales ownership, filtered to the priority markets and hip divisions (Delta/Forte). Salesforce exports add meetings, opportunities, tasks, and win rates; because SAP and Salesforce share no common key, accounts are matched by normalised name similarity, and unmatched SAP rows retain \texttt{sf\_is\_known=0}. The external country panel joins THA volumes, ceramic share, reimbursement, FX, materials, and related indicators on billing country, using one-year lags where these fields enter prediction.
 
 \subsection{Two modelling datasets}
 
@@ -431,7 +409,7 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 One row per country--customer account. Feature families comprise SAP commercial and portfolio metrics (19), inferred contract-period dynamics (15), Salesforce engagement (12), external market context (28), country dummies (4), and structural flags (3), plus identifiers. Salesforce is matched for 66 of 82 accounts (80.5\%). Cumulative hip-bearing SAP revenue in the matrix is EUR\,690.5M; median account-level unit price is EUR\,190. Country coverage: China 43, US 17, France 14, Italy 8.
 
 \paragraph{Predictive pricing panel.}
-One row per country--customer--product-group--quarter from 2020Q1 to 2026Q3 (27 quarters; 154 customer--product--country series). Features emphasise lagged and rolling prices, volume, market benchmarks at $t{-}1$, trend/momentum, and lagged external macros to avoid leakage into the next-quarter target.
+One row per country--customer--product-group--quarter from 2020Q1 to 2026Q3 (27 quarters; 154 customer--product--country series), including first observations so thin-history accounts are retained. Features emphasise lagged and rolling prices, volume, market benchmarks at $t{-}1$, trend/momentum, and lagged external macros to avoid leakage; missing own-history lags are handled via market benchmarks and median imputation (Section~\ref{sec:phase4}).
 
 \subsection{Selected results}
 
@@ -462,13 +440,7 @@ Phase~3 derives \textbf{pricing-behaviour segments}: groups of OEM accounts with
 
 \subsection{Methodology}
 
-\begin{itemize}
-  \item \textbf{Feature selection} --- 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance.
-  \item \textbf{Preprocessing} --- median imputation and RobustScaler.
-  \item \textbf{Outlier handling} --- a singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids; final $n{=}79$.
-  \item \textbf{Algorithms} --- K-Means with elbow/silhouette sweep; Ward hierarchical clustering for robustness; 2-D/3-D PCA for visualisation.
-  \item \textbf{Selected $k$} --- $k{=}4$ after cleaning (silhouette $\approx 0.71$).
-\end{itemize}
+The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance. Features are median-imputed and Robust-scaled. A singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids, leaving $n{=}79$. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. After cleaning, $k{=}4$ is selected (silhouette $\approx 0.71$).
 
 \begin{figure}[H]
 \centering
@@ -518,18 +490,13 @@ CeramTec's current tiers combine revenue size and strategic potential. That logi
 
 \subsection{Pricing implications}
 
-\begin{enumerate}
-  \item \textbf{Legacy Strategic Partners} --- defend value with clinical and volume evidence; prioritise joint planning.
-  \item \textbf{Mid-Market Core} --- standard baselines indexed to market signals; benchmark renewal discounts against segment medians.
-  \item \textbf{Mature Diversified Accounts} --- manage portfolio breadth and renewal complexity explicitly.
-  \item \textbf{High-Growth Challengers} --- pair volume gates with clearer expansion pricing rules.
-\end{enumerate}
+Legacy Strategic Partners warrant value defence grounded in clinical and volume evidence, with joint planning as the default posture. Mid-Market Core accounts are suited to standard baselines indexed to market signals, with renewal discounts benchmarked against segment medians. Mature Diversified Accounts need explicit management of portfolio breadth and renewal complexity. High-Growth Challengers should pair volume gates with clearer expansion pricing rules.
 
 Country remains a separate pricing axis: a US legacy partner and an Italian legacy partner share behavioural scale but face different payer ceilings.
 
 \subsection{Constraints encountered}
 
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removal is necessary but judgement-based; and cluster labels should be refreshed as the customer master improves. Segment labels are decision aids for playbooks, not immutable customer identities.
+Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removal is necessary but judgement-based; and cluster labels should be refreshed as the customer master improves.
 
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
@@ -591,13 +558,13 @@ Random Forest is selected. On the exported test predictions, MAPE is 3.0\%. Figu
 
 \subsection{Pricing drivers and business value}
 
-Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by previous-quarter price, four-quarter rolling mean price, cumulative average price, and lagged market mean/median prices. Secondary signals include volume, recent price change, and relationship maturity. In business terms:
+Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by previous-quarter price, four-quarter rolling mean price, cumulative average price, and lagged market mean/median prices. Secondary signals include volume, recent price change, and relationship maturity. Commercially, these drivers support next-quarter anchors, early erosion flags relative to the account's own history and market benchmark, and volume-for-discount trade-off analysis.
 
-\begin{itemize}
-  \item Forecast next-quarter price and detect early erosion versus the account's own history and market benchmark;
-  \item Quantify volume-for-discount trade-offs using volume and momentum features;
-  \item Support new or thin-history accounts with cold-start diagnostics (test cold-start RMSE EUR\,11.4 versus full-test EUR\,10.0 on a small $n{=}5$ subset).
-\end{itemize}
+\subsection{Cold-start pricing for thin-history and new customers}
+
+The framework must also guide \textbf{new or thin-history accounts}. The panel keeps every first observation of a country--customer--product series: when no prior quarter exists, own-price lags are missing and \texttt{n\_prior\_quarters}=0, but lagged country--product market benchmarks, product-group indicators, and customer-context fields remain. Missing lags are median-imputed so the Random Forest falls back to market and structural signals rather than dropping the row; after one prior quarter, own-price inertia enters the forecast.
+
+Cold-start accuracy was validated explicitly. On the out-of-time test set, five rows with \texttt{n\_prior\_quarters}$\le$1 yield RMSE EUR\,11.4 and MAE EUR\,8.5, versus full-test RMSE EUR\,10.0 and MAE EUR\,5.4---a modest gap on a small hold-out. In-sample, 149 cold-start rows (RMSE EUR\,7.4) compare with 1{,}042 established accounts that have more than four prior quarters (RMSE EUR\,6.3), about $1.2\times$ the established error. True zero-history cases are harder (in-sample RMSE EUR\,23.6 on 12 rows, partly from atypical product lines), but error falls sharply once one prior quarter is observed (RMSE EUR\,3.4 on 137 rows). New-customer quotes should therefore be treated as market-anchored starting points with closer human review, while guidance tightens quickly as history accumulates.
 
 \begin{figure}[H]
 \centering
@@ -615,14 +582,7 @@ Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by prev
 
 \subsection{How to use the model in negotiation}
 
-The model is a \textbf{negotiation support tool}, not a profit-optimal quote engine:
-
-\begin{enumerate}
-  \item Use the predicted next-quarter price as an anchor relative to the account's recent realised price and market benchmark;
-  \item Investigate accounts where actual quotes deviate persistently beyond recent residual scale;
-  \item Combine Phase~3 segment language with Phase~4 anchors (legacy partners versus high-growth challengers need different playbook tone);
-  \item Keep country payer ceilings as hard external constraints on what OEMs can pass through.
-\end{enumerate}
+The model is a \textbf{negotiation support tool}, not a profit-optimal quote engine. The predicted next-quarter price should be read as an anchor relative to the account's recent realised price and the market benchmark. Accounts whose quotes deviate persistently beyond recent residual scale deserve commercial review. Phase~3 segment language should shape the negotiation tone---legacy partners and high-growth challengers need different playbooks---while country payer ceilings remain hard external constraints on what OEMs can pass through.
 
 \subsection{Constraints encountered}
 
@@ -631,13 +591,7 @@ Production costs, FX hedging, duties, and formal contract clauses are absent, so
 \section{Limitations}
 \label{sec:limitations}
 
-Three limitation classes bound interpretation:
-
-\begin{enumerate}
-  \item \textbf{Cost-side factors missing} --- production costs, hedging, and taxes are not in the model, so outputs are price anchors rather than profit-optimal recommendations.
-  \item \textbf{Incomplete negotiation context} --- transactional SAP data and structured CRM fields omit full contractual terms; meeting notes would require deeper NLP to recover qualitative leverage.
-  \item \textbf{Geographic scope} --- results should not be generalised beyond US, China, France, and Italy without further validation; healthcare systems differ enough that transfer without recalibration is unsafe.
-\end{enumerate}
+Three limitation classes bound interpretation. First, production costs, hedging, and taxes are absent, so outputs are price anchors rather than profit-optimal recommendations. Second, transactional SAP data and structured CRM fields omit full contractual terms; meeting notes would require deeper NLP to recover qualitative leverage. Third, results should not be generalised beyond US, China, France, and Italy without further validation, because healthcare systems differ enough that transfer without recalibration is unsafe.
 
 Source comparability (registry versus VBP demand versus survey) and residual SAP--Salesforce matching gaps remain secondary but material data-quality constraints.
 
@@ -646,36 +600,28 @@ Source comparability (registry versus VBP demand versus survey) and residual SAP
 
 A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support customer- and product-level baselines rather than real-time dynamic pricing.
 
-We recommend three implementation steps:
-
-\begin{enumerate}
-  \item \textbf{Validate findings with commercial stakeholders} --- review segment labels, driver rankings, and contested accounts with Key Account Managers.
-  \item \textbf{Trial the model under shadow conditions} --- generate next-quarter anchors in parallel with live negotiations for one or two quarters without binding the sales force.
-  \item \textbf{Integrate production costs and contract details} --- add cost and contractual features so anchors can evolve toward margin-aware guidance.
-\end{enumerate}
-
-In parallel, maintain the external register on a refresh schedule and establish a shared SAP--Salesforce customer master key.
+We recommend three implementation steps. First, validate segment labels, driver rankings, and contested accounts with Key Account Managers. Second, trial the model under shadow conditions by generating next-quarter anchors in parallel with live negotiations for one or two quarters without binding the sales force. Third, integrate production costs and contract details so anchors can evolve toward margin-aware guidance. In parallel, maintain the external register on a refresh schedule and establish a shared SAP--Salesforce customer master key.
 
 \section{Project Learnings}
 \label{sec:learnings}
 
 \subsection{Healthcare market and regulation}
 
-Medical-device pricing is mediated by institutions rather than spot markets. Cross-country comparison requires simultaneous attention to money-in (reimbursement) and money-out (procurement/tender) logics. China's VBP regime, Italy's regional fragmentation, and France's dual GHS/LPPR structure illustrate why a single global formula fails.
+Medical-device pricing is mediated by institutions rather than spot markets. Cross-country comparison requires simultaneous attention to reimbursement (money-in) and procurement/tender (money-out) logics---illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS/LPPR structure.
 
 \subsection{Project management and client delivery}
 
-NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Scope reframing from dynamic pricing to negotiation baselines and next-quarter guidance was itself a major consulting deliverable.
+NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Reframing from dynamic pricing to negotiation baselines was itself a major consulting deliverable.
 
 \subsection{Technical: agentic AI and platform agility}
 
-Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Building on Databricks for SAP joins while keeping local reproducible notebooks taught platform agility across client and academic environments.
+Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Combining Databricks for SAP joins with local reproducible notebooks reinforced platform agility across client and academic environments.
 
 \section{Conclusion}
 
 This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as evidence-based negotiation baselines and next-quarter price guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0; MAE EUR\,5.4; $R^2{=}0.96$).
 
-Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
+Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow---including cold-start support for thin-history accounts. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
 
 \clearpage
 
