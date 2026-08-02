@@ -227,9 +227,9 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
 
 \subsubsection{Customer base and competitive landscape}
 
-CeramTec maintains an internal Key Accounts register that ranks OEMs by commercial potential and relationship intensity. Dedicated Key Account Managers cover the large and medium tiers. In the framing used for pricing discussion, the register distinguishes four large strategic customers above EUR\,10M revenue, ten medium customers in the EUR\,3--10M band with established market positions, six high-potential accounts below EUR\,3M with strategic growth opportunity, and a longer tail of small accounts managed by field specialists or Customer Service.
+CeramTec maintains an internal Key Accounts register that ranks OEMs by current and potential sales and by strategic-project status. Dedicated Key Account Managers cover the large and medium tiers; high potentials also receive named coverage, while small accounts and the long tail are handled by field specialists or Customer Service. The register is summarised in Section~\ref{sec:phase3}; Phases~2--4 then use the full SAP customer universe in US/CN/FR/IT rather than restricting analysis to the strategic list alone.
 
-Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta). Phases~2--4 then used the full SAP customer universe in US/CN/FR/IT rather than restricting to the strategic list alone.
+Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta).
 
 CeramTec's differentiation is as a dedicated ceramic-component specialist (BIOLOX\textregistered{}), not as a full-system OEM. It is estimated to hold roughly 90\%+ share in ceramic bearings. Substitute ceramic suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys (OEM-owned ceramic supply), plus several China-based technical ceramics producers.
 
@@ -413,51 +413,38 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 derives \textbf{pricing-behaviour segments}: groups of OEM accounts with similar commercial scale, contract dynamics, and engagement intensity. This is distinct from CeramTec's existing revenue/potential tiering, which remains useful for account-management resourcing.
+Phase~3 asks whether CeramTec's customers form natural groups for \textbf{pricing and negotiation}, beyond the company's existing account-management tiers. The answer is a complementary segmentation: CeramTec's Key Accounts register remains the right tool for allocating commercial coverage, while unsupervised clustering on purchasing, contract, and engagement features identifies behavioural segments that can inform negotiation playbooks.
 
-\subsection{CeramTec current internal classification}
+\subsection{CeramTec's current internal classification}
+\label{sec:internal-classification}
 
-CeramTec already uses an internal customer segmentation base on revenue size and strategic potential as presented in Table 
+CeramTec already classifies OEMs in an internal Key Accounts register (May 2026). The register is not a pricing model: it allocates Key Account Managers and field coverage by combining \textbf{sales scale} with \textbf{strategic-project status}. Large customers exceed EUR\,10M and are treated as strategic accounts; medium customers sit in the EUR\,3--10M band with an established market position; high potentials remain below EUR\,3M but are flagged for strategic growth or project potential; and the remaining book is split between named small accounts (field specialists, no dedicated Key Account Manager) and a long tail managed by Customer Service (Table~\ref{tab:internal_tiers}).
 
 \begin{table}[H]
 \centering
-\renewcommand{\arraystretch}{1.4} % Adds a bit of vertical padding to match the image
-\begin{tabular}{|p{7cm}|p{7cm}|}
-\hline
-\textbf{Large Customers} \newline
-$> €10M \text{ revenu}$\newline
-Strategic accounts \newline
-\textbf{4 OEMs} 
-& 
-\textbf{Medium customers} \newline
-$€3-10M \text{ revenu}$ \newline
-Established market position \newline
-\textbf{10 OEMs} 
-\\
-\hline
-\textbf{High potentials} \newline
-$< €3M \text{ revenu}$ \newline
-Strategic growth opportunities \newline
-\textbf{6 OEMs} 
-& 
-\textbf{Small account \& long tail} \newline
-$< €3M \text{ revenu}$ \newline
-Remaining customers \newline
-\textbf{Remaining OEMs} 
-\\
-\hline
+\small
+\begin{tabular}{@{}p{7.2cm}p{7.2cm}@{}}
+\toprule
+\textbf{Large customers} (3 OEMs) &
+\textbf{Medium customers} (11 OEMs) \\
+$>$\,EUR\,10M; strategic accounts with dedicated Key Account Managers (Zimmer Biomet, Stryker incl.\ Serf, Medacta) &
+EUR\,3--10M; established market position with dedicated Key Account Managers (e.g.\ DePuy, AK Medical, Weigao, Mindray, Microport, Aesculap) \\
+\midrule
+\textbf{High potentials} (6 OEMs) &
+\textbf{Small accounts \& long tail} \\
+$<$\,EUR\,3M, but included because of strategic growth or project potential (e.g.\ Meril, Globus Medical, Dedienne) &
+Named small accounts handled by field specialists (e.g.\ Smith+Nephew, Link, Lima), plus all remaining customers managed by Customer Service \\
+\bottomrule
 \end{tabular}
-\caption{Current CeramTec internal classification used for key account managment allocation}
-\label{tab:cluster_summary}
+\caption{CeramTec Key Accounts register: internal classification used to allocate account-management resources (source: Key Accounts PDF, May 2026).}
+\label{tab:internal_tiers}
 \end{table}
 
-
-
-However, this is used only for allocating account management resources and wasn't meant to group group customers or potential customers by similar pricing or negotiation behaviour. This motivate the use of an unsupervise machine learning approach to discover patterns among the customers.
+This taxonomy works well for commercial organisation: the largest and most strategic accounts receive named Key Account Managers, while lower-intensity relationships are covered more lightly. It does \textbf{not}, however, group customers by similar pricing or negotiation behaviour. Two accounts in the same revenue band can differ sharply in contract stickiness, discount trajectory, Salesforce engagement, and portfolio breadth. Phase~3 therefore complements the register with an unsupervised segmentation on the Phase~2 feature matrix, using the full SAP customer universe in the four priority markets rather than the Key Accounts list alone.
 
 \subsection{Methodology}
 
-The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance. Features are median-imputed and Robust-scaled. A singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids, leaving $n{=}79$. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. After cleaning, $k{=}4$ is selected (silhouette $\approx 0.71$).
+The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. A singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids, leaving $n{=}79$. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. After cleaning, $k{=}4$ is selected (silhouette $\approx 0.71$).
 
 \begin{figure}[H]
 \centering
@@ -488,11 +475,11 @@ Orange & Mature Diversified Accounts & 8 & Broader portfolios / renewal diversif
 Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \bottomrule
 \end{tabular}
-\caption{Final K-Means pricing segments ($k{=}4$, cleaned $n{=}79$)}
+\caption{Final K-Means pricing-behaviour segments ($k{=}4$, cleaned $n{=}79$)}
 \label{tab:cluster_summary}
 \end{table}
 
-Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, while smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
+Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, while the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
 
 \begin{figure}[H]
 \centering
@@ -501,19 +488,19 @@ Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, wh
 \label{fig:phase3_heatmap}
 \end{figure}
 
-\subsection{Comparison with CeramTec's current segmentation}
+\subsection{Comparison with CeramTec's current classification}
 
-CeramTec's current tiers combine revenue size and strategic potential. That logic is effective for allocating Key Account Managers, but it does not identify customers with similar pricing or negotiation behaviour. In the cleaned analysis, 11 of 12 PDF Key Accounts remain and are spread across three of the four behavioural clusters. Existing ``strategic importance'' therefore does \textbf{not} form a natural behavioural cluster: data-driven segments split accounts by engagement, growth, and contract dynamics rather than by the register label alone.
+If the Key Accounts register already captured pricing behaviour, strategic OEMs would concentrate in one or two clusters. They do not. Among named Key Accounts that appear in the cleaned four-market matrix, accounts remain spread across three of the four behavioural segments after outlier removal (Double Medical is excluded as the singleton outlier). Concentration within any single cluster is modest. The implication is practical rather than critical of the register: \textbf{strategic importance and negotiation behaviour are different axes}. CeramTec should keep the Key Accounts tiers for coverage and escalation, and use the behavioural segments as an overlay when preparing negotiation baselines and playbooks.
 
 \subsection{Pricing implications}
 
 Legacy Strategic Partners warrant value defence grounded in clinical and volume evidence, with joint planning as the default posture. Mid-Market Core accounts are suited to standard baselines indexed to market signals, with renewal discounts benchmarked against segment medians. Mature Diversified Accounts need explicit management of portfolio breadth and renewal complexity. High-Growth Challengers should pair volume gates with clearer expansion pricing rules.
 
-Country remains a separate pricing axis: a US legacy partner and an Italian legacy partner share behavioural scale but face different payer ceilings.
+Country remains a separate pricing axis: a US legacy partner and an Italian legacy partner may share behavioural scale but still face different payer ceilings. In use, commercial teams should therefore combine three signals---Key Account tier (who owns the relationship), behavioural segment (how to negotiate), and country market context (what the payer environment allows).
 
 \subsection{Constraints encountered}
 
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removal is necessary but judgement-based; and cluster labels should be refreshed as the customer master improves.
+Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removal is necessary but judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
 
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
