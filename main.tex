@@ -476,7 +476,9 @@ The segmenter uses the customer dataset created in phase 2. Features are median-
 
 \subsection{Outlier identification}
 
-Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. Figure~\ref{fig:outlier_1} shows the first step: a $k{=}3$ run isolates Double Medical as a clear singleton, far from the rest of the sample in the 2-D PCA projection. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
+Initial K-Means runs on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. A first $k{=}3$ fit isolates Double Medical as a singleton far from the main cloud in the 2-D PCA projection (Figure~\ref{fig:outlier_1}); retaining it would waste one segment on a single OEM and pull neighbouring centroids away from the core base. After removing Double Medical, a $k{=}4$ run on the remaining 81 accounts isolates a two-OEM micro-cluster of ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}).
+
+All three accounts share thin Salesforce engagement: ITI Medical and b-ONE Medical each have only one logged meeting, while Double Medical has two meetings and no contact for more than five years. These relationships should be investigated independently---out of business, commercially unresponsive, or lost contact---and kept as case-by-case exceptions rather than allowed to drive the segment definitions used for pricing guidance.
 
 %TC:ignore
 \begin{figure}[h]
@@ -494,15 +496,10 @@ Initial clusterings on all 82 country--customer rows produced unstable micro-gro
         \label{fig:outlier_2}
     \end{subfigure}
 
-    \caption{2-D PCA of the clusters, enabling to visualize the outliers.The horizontal direction is...., the vertical direction is...}
+    \caption{2-D PCA projections of successive K-Means fits, used only to visualise outlier isolation (clustering itself is run in the full feature space). Horizontally (PC1; $\approx$99\% of projected variance), separation is driven almost entirely by Salesforce engagement dormancy (days since last meeting); vertically (PC2), residual variation mainly reflects contract-revenue scale and growth.}
     \label{fig:both_outliers}
 \end{figure}
-%TC:endignore
-
-
-Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-OEM micro-cluster comprising ITI Medical and b-ONE Medical. Figure~\ref{fig:outlier_2} shows that these two accounts are again well separated from the main customer cloud. Salesforce engagement is the common commercial signature: each of ITI Medical and b-ONE Medical has only one logged meeting, while Double Medical has only two meetings and no contact for more than five years. In other words, these accounts show essentially inactive relationship management over the recent window.
-
-These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. 
+%TC:endignore 
 
 \subsection{Final segment identification}
 
