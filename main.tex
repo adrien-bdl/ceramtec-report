@@ -533,7 +533,15 @@ Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \end{table}
 %TC:endignore
 
-To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters. For each feature we report $\eta^2$, the share of \emph{that feature's} variance that lies between segments rather than within them. These scores are therefore feature-specific and do \textbf{not} sum to 100\%---unlike normalised model importances in Phase~4. Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
+To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters. For each feature we report $\eta^2$, the share of \emph{that feature's} variance that lies between segments rather than within them:
+\begin{equation}
+\eta^{2}
+=
+\frac{\mathrm{SS}_{\mathrm{between}}}{\mathrm{SS}_{\mathrm{total}}}
+=
+\frac{\sum_{k=1}^{K} n_{k}(\bar{x}_{k}-\bar{x})^{2}}{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}},
+\end{equation}
+where $x_{i}$ is the feature value for account $i$, $\bar{x}$ is the overall mean, $\bar{x}_{k}$ and $n_{k}$ are the mean and size of segment $k$, and $K{=}4$. These scores are therefore feature-specific and do \textbf{not} sum to 100\%---unlike normalised model importances in Phase~4. Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
 
 %TC:ignore
 \begin{figure}[H]
