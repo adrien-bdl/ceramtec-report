@@ -448,9 +448,25 @@ The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesfor
 
 \subsection{Outlier identification}
 
-Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. First, a $k{=}3$ run isolated \textbf{Double Medical} as a singleton cluster: a medium-tier Key Account with atypical engagement and contract dynamics relative to the rest of the sample. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
+Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. Figure~\ref{fig:phase3_outlier_double} shows the first step: a $k{=}3$ run isolates \textbf{Double Medical} as a clear singleton, far from the rest of the sample in the 2-D PCA projection. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
 
-Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produced a two-OEM micro-cluster comprising \textbf{ITI Medical} and \textbf{b-ONE Medical}. Both show very low Salesforce engagement and thin commercial footprints, so they again absorb a cluster without supporting a usable negotiation playbook. Removing this pair leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is selected (silhouette $\approx 0.71$), yielding the four behavioural segments below. The excluded accounts remain visible to commercial teams as exceptions for case-by-case review; they are simply not allowed to drive the segment definitions used for pricing guidance.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_double.png}
+\caption{2-D PCA before cleaning ($k{=}3$, $n{=}82$): Double Medical forms an isolated singleton cluster.}
+\label{fig:phase3_outlier_double}
+\end{figure}
+
+Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-OEM micro-cluster comprising \textbf{ITI Medical} and \textbf{b-ONE Medical}. Figure~\ref{fig:phase3_outlier_micro} shows that these two accounts are again well separated from the main customer cloud. Salesforce engagement is the common commercial signature: each of ITI Medical and b-ONE Medical has only one logged meeting, while Double Medical has only two meetings and no contact for more than five years. In other words, these accounts show essentially inactive relationship management over the recent window.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_iti_bone.png}
+\caption{2-D PCA after removing Double Medical ($k{=}4$, $n{=}81$): ITI Medical and b-ONE Medical form an isolated micro-cluster.}
+\label{fig:phase3_outlier_micro}
+\end{figure}
+
+These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. Removing them leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is selected (silhouette $\approx 0.71$), yielding the four behavioural segments below.
 
 \begin{figure}[H]
 \centering
