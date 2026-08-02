@@ -444,7 +444,13 @@ This taxonomy works well for commercial organisation: the largest and most strat
 
 \subsection{Methodology}
 
-The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. A singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids, leaving $n{=}79$. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. After cleaning, $k{=}4$ is selected (silhouette $\approx 0.71$).
+The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. Before settling on the final solution, extreme accounts that would otherwise force the algorithm to waste clusters are identified and removed, as described below.
+
+\subsection{Outlier identification}
+
+Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. First, a $k{=}3$ run isolated \textbf{Double Medical} as a singleton cluster: a medium-tier Key Account with atypical engagement and contract dynamics relative to the rest of the sample. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
+
+Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produced a two-OEM micro-cluster comprising \textbf{ITI Medical} and \textbf{b-ONE Medical}. Both show very low Salesforce engagement and thin commercial footprints, so they again absorb a cluster without supporting a usable negotiation playbook. Removing this pair leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is selected (silhouette $\approx 0.71$), yielding the four behavioural segments below. The excluded accounts remain visible to commercial teams as exceptions for case-by-case review; they are simply not allowed to drive the segment definitions used for pricing guidance.
 
 \begin{figure}[H]
 \centering
@@ -500,7 +506,7 @@ Country remains a separate pricing axis: a US legacy partner and an Italian lega
 
 \subsection{Constraints encountered}
 
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removal is necessary but judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
+Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; the outlier removals in Section~\ref{sec:phase3} are necessary but partly judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
 
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
