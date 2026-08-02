@@ -533,13 +533,13 @@ Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \end{table}
 %TC:endignore
 
-To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters ($\eta^2$: share of variance explained by segment membership). Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
+To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters. For each feature we report $\eta^2$, the share of \emph{that feature's} variance that lies between segments rather than within them. These scores are therefore feature-specific and do \textbf{not} sum to 100\%---unlike normalised model importances in Phase~4. Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
 
 %TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{6_phase3/phase3_feature_importance.png}
-\caption{Feature importance for the cleaned four-segment solution ($\eta^2$).}
+\caption{Per-feature $\eta^2$ for the cleaned four-segment solution: each bar is the between-cluster share of that feature's own variance (values are independent and do not sum to 100\%).}
 \label{fig:phase3_importance}
 \end{figure}
 %TC:endignore
