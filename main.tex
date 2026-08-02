@@ -478,7 +478,7 @@ The segmenter uses the customer dataset created in phase 2. Features are median-
 
 Initial K-Means runs on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. A first $k{=}3$ fit isolates Double Medical as a singleton far from the main cloud in the 2-D PCA projection (Figure~\ref{fig:outlier_1}); retaining it would waste one segment on a single OEM and pull neighbouring centroids away from the core base. After removing Double Medical, a $k{=}4$ run on the remaining 81 accounts isolates a two-OEM micro-cluster of ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}).
 
-All three accounts share thin Salesforce engagement: ITI Medical and b-ONE Medical each have only one logged meeting, while Double Medical has two meetings and no contact for more than five years. These relationships should be investigated independently---out of business, commercially unresponsive, or lost contact---and kept as case-by-case exceptions rather than allowed to drive the segment definitions used for pricing guidance.
+All three accounts share thin Salesforce engagement: ITI Medical and b-ONE Medical each have only one logged meeting, while Double Medical has two meetings and no contact for more than five years. These relationships should be investigated independently (out of business, commercially unresponsive, or lost contact)and kept as case-by-case exceptions rather than allowed to drive the segment definitions used for pricing guidance.
 
 %TC:ignore
 \begin{figure}[h]
@@ -588,7 +588,7 @@ Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
 \end{table}
 %TC:endignore
 
-The centroids support the commercial labels. \textbf{Legacy Strategic Partners} combine the highest revenue with the most intensive and recent Salesforce engagement. \textbf{Mid-Market Core} is the large average book: moderate scale and moderate engagement across all four countries. \textbf{Mature Diversified Accounts} sit at high revenue with the broadest portfolios and the strongest product expansion at renewal. \textbf{High-Growth Challengers} are smaller in absolute revenue but show the highest opportunity win rate and more fragmented contract histories---consistent with expansion-oriented accounts that still need tighter commercial follow-up.
+The centroids support the commercial labels. Legacy Strategic Partners combine the highest revenue with the most intensive and recent Salesforce engagement. Mid-Market Core is the large average book: moderate scale and moderate engagement across all four countries. Mature Diversified Accounts sit at high revenue with the broadest portfolios and the strongest product expansion at renewal. High-Growth Challengers are smaller in absolute revenue but show the highest opportunity win rate and more fragmented contract histories---consistent with expansion-oriented accounts that still need tighter commercial follow-up.
 
 Figure~\ref{fig:phase3_heatmap} confirms that Mid-Market Core spans all markets, while the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
 
