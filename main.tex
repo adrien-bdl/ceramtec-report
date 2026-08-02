@@ -146,12 +146,14 @@ CeramTec is a global manufacturer of advanced technical ceramics and a leading s
 
 A total hip implant replaces a damaged hip joint to restore mobility and relieve pain. As illustrated in Figure~\ref{fig:hip_implant}, the implant comprises a femoral stem, femoral head, acetabular shell, and acetabular liner. The bearing is the articulating interface between the femoral head and the acetabular liner.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{1_introduction/hip_implant.png}
 \caption{Components of a total hip implant.}
 \label{fig:hip_implant}
 \end{figure}
+%TC:endignore
 
 Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) materially affects wear, fracture risk, revision outcomes, and therefore economic value. CeramTec currently prices primarily on a cost-plus basis, yet operates across markets with different reimbursement systems, procurement regimes, competitive intensity, and OEM profiles. These differences create headroom for differentiated negotiation baselines by market and customer.
 
@@ -167,6 +169,7 @@ Figure~\ref{fig:value-chain} summarises the commercial chain from component supp
 Typical cost bands illustrate the value stack: a hip replacement procedure may cost EUR\,16k--47k; a complete implant roughly EUR\,2.6k--8.7k; a ceramic bearing about EUR\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly EUR\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
 
 \vspace{0.3cm}
+%TC:ignore
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
@@ -222,6 +225,7 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
     \caption{CeramTec's positioning in the hip implant value chain: ceramic components flow to OEMs, then via distributors to hospitals and patients.}
     \label{fig:value-chain}
 \end{figure}
+%TC:endignore
 \vspace{0.3cm}
 
 
@@ -253,6 +257,7 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 \subsection{Four-phase pricing framework}
 \label{sec:methodology}
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -269,6 +274,7 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 \bottomrule
 \end{tabular}
 \end{table}
+%TC:endignore
 
 \subsection{Scope}
 
@@ -299,22 +305,26 @@ Only some markets expose device-level prices. France and selected China VBP cate
 \paragraph{Bearing mix differs sharply by market.}
 Figure~\ref{fig:bearing_mix} shows hip bearing-surface shares. Ceramic involvement is high and rising in China VBP demand data, while US AJRR remains more CoP/MoP oriented and European registries show intermediate mixes. These patterns affect CeramTec's addressable premium volume.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{4_phase1/bearing_mix_stacked_by_market.png}
 \caption{Hip bearing-surface mix by market (US AJRR, Italy RIAP, France Open LPP, China NHSA VBP demand / COA survey).}
 \label{fig:bearing_mix}
 \end{figure}
+%TC:endignore
 
 \paragraph{Demand is volume-capped.}
 THA procedure volumes and waiting-time pressures indicate that demand is constrained by procedure throughput rather than by spot willingness-to-pay (Figure~\ref{fig:tha_volume}). This supports negotiation frameworks based on volume commitments and contract continuity rather than high-frequency price changes.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{4_phase1/tha_volume_timeseries.png}
 \caption{THA volume trajectories in priority markets.}
 \label{fig:tha_volume}
 \end{figure}
+%TC:endignore
 
 \paragraph{Internal prices already encode volume discounts.}
 SAP ceramic-ball pricing shows strong dispersion: the first price decile is about twice the tenth, while the tenth decile buys roughly $52\times$ the volume of the first at about 50\% lower unit price. Salesforce notes reinforce four recurring negotiation dimensions: component type, order size, customer market (especially China competition), and local alternatives. Demand appears near-inelastic at the component level; volume discounting (order of $\sim$30\%) is the dominant commercial lever already in use.
@@ -336,6 +346,7 @@ Phase~2 converts the 3 sources of raw data into meaningful features that reflect
 
 Phase~2 produces two datasets whose granularity matches their intended use for phase 3 and 4. (Table~\ref{tab:phase2_datasets}). Phase~3 uses a customer-level view to identify accounts with similar pricing and negotiation behaviours, allowing CeramTec to develop differentiated commercial playbooks. Phase~4 requires a more granular temporal panel: it learns from historical customer--product price movements to provide an evidence-based baseline for each next-quarter negotiation.
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -350,6 +361,7 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 \caption{Purpose-built datasets produced in Phase~2}
 \label{tab:phase2_datasets}
 \end{table}
+%TC:endignore
 
 \subsection{Features designed for the customer segmentation}
 
@@ -357,6 +369,7 @@ The segmentation matrix contains one row per country--customer pair. In the curr
 
 Table~\ref{tab:phase2_seg_families} summarises the feature families; the complete dictionary is in Appendix~\ref{app:feature_dictionary}.
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -378,6 +391,7 @@ Structural flags & 3 & Regime markers for COVID-era activity, China VBP exposure
 \caption{Feature families in the country$\times$customer segmentation matrix.}
 \label{tab:phase2_seg_families}
 \end{table}
+%TC:endignore
 
 \subsection{Features designed for predictive pricing}
 
@@ -385,6 +399,7 @@ The predictive-pricing panel contains one row per country--customer--product-gro
 
 Table~\ref{tab:phase2_panel_families} summarises the feature families; individual definitions appear in Appendix~\ref{app:feature_dictionary}.
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -409,6 +424,7 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \caption{Feature families in the quarterly predictive-pricing panel.}
 \label{tab:phase2_panel_families}
 \end{table}
+%TC:endignore
 
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
@@ -420,6 +436,7 @@ Phase~3 asks whether CeramTec's customers form natural groups for \textbf{pricin
 
 CeramTec already classifies OEMs in an internal Key Accounts register updated in May 2026. The register is not a pricing model: it allocates Key Account Managers and field coverage by combining sales scale with strategic-project status. Large customers exceed EUR\,10M and are treated as strategic accounts; medium customers sit in the EUR\,3--10M band with an established market position; high potentials remain below EUR\,3M but are flagged for strategic growth or project potential; and the remaining book is split between named small accounts (field specialists, no dedicated Key Account Manager) and a long tail managed by Customer Service (Table~\ref{tab:internal_tiers}).
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -439,6 +456,7 @@ Named small accounts handled by field specialists (e.g.\ Smith+Nephew, Link, Lim
 \caption{CeramTec Key Accounts register: internal classification used to allocate account-management resources}
 \label{tab:internal_tiers}
 \end{table}
+%TC:endignore
 
 This taxonomy works well for commercial organisation: the largest and most strategic accounts receive named Key Account Managers, while lower-intensity relationships are covered more lightly. It does not, however, group customers by similar pricing or negotiation behaviour. Two accounts in the same revenue band can differ sharply in contract stickiness, discount trajectory, Salesforce engagement, and portfolio breadth. Phase~3 therefore complements the register with an unsupervised segmentation on the Phase~2 feature matrix.
 
@@ -450,21 +468,25 @@ The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesfor
 
 Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. Figure~\ref{fig:phase3_outlier_double} shows the first step: a $k{=}3$ run isolates \textbf{Double Medical} as a clear singleton, far from the rest of the sample in the 2-D PCA projection. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_double.png}
 \caption{2-D PCA before cleaning ($k{=}3$, $n{=}82$): Double Medical forms an isolated singleton cluster.}
 \label{fig:phase3_outlier_double}
 \end{figure}
+%TC:endignore
 
 Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-OEM micro-cluster comprising \textbf{ITI Medical} and \textbf{b-ONE Medical}. Figure~\ref{fig:phase3_outlier_micro} shows that these two accounts are again well separated from the main customer cloud. Salesforce engagement is the common commercial signature: each of ITI Medical and b-ONE Medical has only one logged meeting, while Double Medical has only two meetings and no contact for more than five years. In other words, these accounts show essentially inactive relationship management over the recent window.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_iti_bone.png}
 \caption{2-D PCA after removing Double Medical ($k{=}4$, $n{=}81$): ITI Medical and b-ONE Medical form an isolated micro-cluster.}
 \label{fig:phase3_outlier_micro}
 \end{figure}
+%TC:endignore
 
 These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. 
 
@@ -472,22 +494,27 @@ These three accounts should be investigated independently rather than folded int
 
 Removing the three outliers leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is the most natural choice: Figure~\ref{fig:phase3_elbow} shows a clear elbow and the highest silhouette at four clusters.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.72\linewidth]{6_phase3/phase3_elbow.png}
 \caption{K-Means elbow and silhouette diagnostics on the cleaned feature space.}
 \label{fig:phase3_elbow}
 \end{figure}
+%TC:endignore
 
 The resulting segments are plotted on the first two principal components in Figure~\ref{fig:phase3_pca} and summarised in Table~\ref{tab:cluster_summary}.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\linewidth]{6_phase3/phase3_final_segments.png}
 \caption{Final four pricing segments after outlier removal ($n{=}79$).}
 \label{fig:phase3_pca}
 \end{figure}
+%TC:endignore
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -504,16 +531,20 @@ Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \caption{Final K-Means pricing-behaviour segments ($k{=}4$, cleaned $n{=}79$)}
 \label{tab:cluster_summary}
 \end{table}
+%TC:endignore
 
 To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters ($\eta^2$: share of variance explained by segment membership). Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{6_phase3/phase3_feature_importance.png}
 \caption{Feature importance for the cleaned four-segment solution ($\eta^2$).}
 \label{fig:phase3_importance}
 \end{figure}
+%TC:endignore
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -536,17 +567,20 @@ Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
 \caption{Segment centroids on key drivers (cleaned $n{=}79$). Values are within-segment means.}
 \label{tab:phase3_centroids}
 \end{table}
+%TC:endignore
 
 The centroids support the commercial labels. \textbf{Legacy Strategic Partners} combine the highest revenue with the most intensive and recent Salesforce engagement. \textbf{Mid-Market Core} is the large average book: moderate scale and moderate engagement across all four countries. \textbf{Mature Diversified Accounts} sit at high revenue with the broadest portfolios and the strongest product expansion at renewal. \textbf{High-Growth Challengers} are smaller in absolute revenue but show the highest opportunity win rate and more fragmented contract histories---consistent with expansion-oriented accounts that still need tighter commercial follow-up.
 
 Figure~\ref{fig:phase3_heatmap} confirms that Mid-Market Core spans all markets, while the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.72\linewidth]{6_phase3/phase3_country_cluster_heatmap.png}
 \caption{OEM counts by pricing segment and country.}
 \label{fig:phase3_heatmap}
 \end{figure}
+%TC:endignore
 
 \subsection{Comparison with CeramTec's current classification}
 
@@ -577,6 +611,7 @@ Phase~4 builds a \textbf{next-quarter unit-price model} on the Phase~2 panel. Th
 
 \subsection{Model comparison}
 
+%TC:ignore
 \begin{table}[H]
 \centering
 \small
@@ -593,16 +628,20 @@ XGBoost & 11.10 & 6.13 & 0.956 \\
 \bottomrule
 \end{tabular}
 \end{table}
+%TC:endignore
 
 Random Forest is selected. On the exported test predictions, MAPE is 3.0\%. Figure~\ref{fig:phase4_comparison} ranks models; Figure~\ref{fig:phase4_oof} shows predicted-versus-actual parity and residual structure.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{7_phase4/model_comparison_mae.png}
 \caption{Out-of-time model comparison across RMSE, MAE, and $R^2$.}
 \label{fig:phase4_comparison}
 \end{figure}
+%TC:endignore
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
@@ -619,6 +658,7 @@ Random Forest is selected. On the exported test predictions, MAPE is 3.0\%. Figu
 \caption{Random Forest out-of-time diagnostics on 228 test rows.}
 \label{fig:phase4_oof}
 \end{figure}
+%TC:endignore
 
 \subsection{Pricing drivers and business value}
 
@@ -630,19 +670,23 @@ The framework must also guide \textbf{new or thin-history accounts}. The panel k
 
 Cold-start accuracy was validated explicitly. On the out-of-time test set, five rows with \texttt{n\_prior\_quarters}$\le$1 yield RMSE EUR\,11.4 and MAE EUR\,8.5, versus full-test RMSE EUR\,10.0 and MAE EUR\,5.4---a modest gap on a small hold-out. In-sample, 149 cold-start rows (RMSE EUR\,7.4) compare with 1{,}042 established accounts that have more than four prior quarters (RMSE EUR\,6.3), about $1.2\times$ the established error. True zero-history cases are harder (in-sample RMSE EUR\,23.6 on 12 rows, partly from atypical product lines), but error falls sharply once one prior quarter is observed (RMSE EUR\,3.4 on 137 rows). New-customer quotes should therefore be treated as market-anchored starting points with closer human review, while guidance tightens quickly as history accumulates.
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\linewidth]{7_phase4/feature_importance_rf.png}
 \caption{Top Random Forest pricing drivers (permutation importance).}
 \label{fig:phase4_importance}
 \end{figure}
+%TC:endignore
 
+%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\linewidth]{7_phase4/baselines_by_segment.png}
 \caption{Out-of-time mean absolute error by market.}
 \label{fig:phase4_mae_market}
 \end{figure}
+%TC:endignore
 
 \subsection{How to use the model in negotiation}
 
