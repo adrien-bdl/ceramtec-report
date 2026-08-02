@@ -105,7 +105,7 @@ We recommend that CeramTec first validate the proposed segments and pricing driv
 
 Together, these deliverables form a reproducible four-phase framework covering market intelligence and data integration, feature engineering, customer segmentation, and predictive pricing support. The foundation can be refreshed and extended as new internal and external evidence becomes available.
 
-\newpage
+\clearpage
 
 \section*{Acknowledgments}
 
@@ -129,7 +129,7 @@ From Imperial College Business School, we thank our Academic Mentors, Esma and S
 
 %TC:endignore
 
-\newpage
+\clearpage
 \etocdepthtag.toc{main}
 \etocsettagdepth{main}{subsection}
 \etocsettagdepth{appendix}{none}
@@ -138,7 +138,7 @@ From Imperial College Business School, we thank our Academic Mentors, Esma and S
 \tableofcontents
 %TC:endignore
 
-\newpage
+\clearpage
 
 \section{Introduction}
 
@@ -156,6 +156,8 @@ A total hip implant replaces a damaged hip joint to restore mobility and relieve
 %TC:endignore
 
 Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) materially affects wear, fracture risk, revision outcomes, and therefore economic value. CeramTec currently prices primarily on a cost-plus basis, yet operates across markets with different reimbursement systems, procurement regimes, competitive intensity, and OEM profiles. These differences create headroom for differentiated negotiation baselines by market and customer.
+
+\clearpage
 
 \section{Business Context}
 \label{sec:business-context}
@@ -245,6 +247,8 @@ The hip portfolio centres on BIOLOX\textregistered{} forte (alumina) and BIOLOX\
 
 CeramTec currently prices bearings primarily on a \textbf{cost-plus} basis: production cost plus a margin. Informal differentiation already appears in realised SAP prices through volume discounts and account history, but there is no systematic, evidence-backed baseline by market and negotiation behaviour. Given payer ceilings, procurement competition, and OEM heterogeneity, a single global cost-plus formula cannot capture willingness-to-pay differences across France's GHS/LPPR logic, Italy's regional fragmentation, US Medicare/commercial split, or China's Volume-Based Procurement (VBP) rounds.
 
+\clearpage
+
 \section{Project Scope and Methodology}
 
 \subsection{Problem reframing: negotiation baselines versus dynamic pricing}
@@ -283,6 +287,8 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 \textbf{Accounts.} Full SAP hip-bearing customer universe in those markets (82 country--customer rows), with CeramTec's Key Accounts register as the strategic overlay.\\
 \textbf{Evidence families.} Thirteen external categories (FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, competitors), plus SAP commercial and Salesforce behavioural layers.\\
 \textbf{Reproducibility.} Scraping/processing scripts, synchronised register, EDA notebooks, and modelling notebooks under version control.
+
+\clearpage
 
 \section{Phase 1: Data Collection and Exploration}
 \label{sec:phase1}
@@ -336,6 +342,8 @@ Maintainability was a design requirement. Retrieval and processing scripts suppo
 \subsection{Constraints encountered and solutions}
 
 The binding Phase~1 constraint was \textbf{external data retrieval} in regulated healthcare markets: scarce open APIs, PDF-heavy registries, uneven country/year coverage, and China VBP proxies rather than a full clinical registry. AI-assisted scraping improved throughput but still requires human validation and explicit Retrieved / Partial / Todo flags. Despite these limits, Phase~1 delivered the evidence backbone on which Phases~2--4 depend.
+
+\clearpage
 
 \section{Phase 2: Feature Engineering and Internal Data Integration}
 \label{sec:phase2}
@@ -426,6 +434,8 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \end{table}
 %TC:endignore
 
+\clearpage
+
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
@@ -462,7 +472,7 @@ This taxonomy works well for commercial organisation: the largest and most strat
 
 \subsection{Methodology}
 
-The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. K-Means is the algorithm used with an elbow/silhouette sweep for the selection of the number of clusters.
+The segmenter uses the customer dataset created in phase 2. Features are median-imputed and Robust-scaled. K-Means is the algorithm used with an elbow/silhouette sweep for the selection of the number of clusters.
 
 \subsection{Outlier identification}
 
@@ -604,6 +614,8 @@ Country remains a separate pricing axis: a US legacy partner and an Italian lega
 
 Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; the outlier removals above are necessary but partly judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
 
+\clearpage
+
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
 
@@ -704,6 +716,8 @@ The model is a \textbf{negotiation support tool}, not a profit-optimal quote eng
 
 Production costs, FX hedging, duties, and formal contract clauses are absent, so predictions cannot be mapped directly to margin-optimal prices. Negotiation context in meeting notes is only partially structured. Geographic coverage is limited to four markets. High $R^2$ partly reflects strong price persistence; commercial review remains mandatory.
 
+\clearpage
+
 \section{Limitations}
 \label{sec:limitations}
 
@@ -711,12 +725,16 @@ Three limitation classes bound interpretation. First, production costs, hedging,
 
 Source comparability (registry versus VBP demand versus survey) and residual SAP--Salesforce matching gaps remain secondary but material data-quality constraints.
 
+\clearpage
+
 \section{Recommendations and Next Steps}
 \label{sec:recommendations}
 
 A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support customer- and product-level baselines rather than real-time dynamic pricing.
 
 We recommend three implementation steps. First, validate segment labels, driver rankings, and contested accounts with Key Account Managers. Second, trial the model under shadow conditions by generating next-quarter anchors in parallel with live negotiations for one or two quarters without binding the sales force. Third, integrate production costs and contract details so anchors can evolve toward margin-aware guidance. In parallel, maintain the external register on a refresh schedule and establish a shared SAP--Salesforce customer master key.
+
+\clearpage
 
 \section{Project Learnings}
 \label{sec:learnings}
@@ -732,6 +750,8 @@ NDA delays and incremental data releases forced a parallel workstream: framework
 \subsection{Technical: agentic AI and platform agility}
 
 Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Combining Databricks for SAP joins with local reproducible notebooks reinforced platform agility across client and academic environments.
+
+\clearpage
 
 \section{Conclusion}
 

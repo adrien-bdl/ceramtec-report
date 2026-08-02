@@ -38,3 +38,7 @@ Options: `--dry-run`, `--skip-tex` (markdown only), `--local-export path/to.tsv`
 Compile locally when ready: `cd docs/report && pdflatex main.tex` (twice for TOC / longtable).
 
 Phase~2/3 figures live in `docs/report/phase2_phase3/`; Phase~4 figures in `docs/report/phase4/`.
+
+
+
+Note: the file sections.md contains the repartitions for the reviewer and should not be taken into account by the agent
