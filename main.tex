@@ -439,12 +439,12 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 asks whether CeramTec's customers form natural groups for \textbf{pricing and negotiation}, beyond the company's existing account-management tiers. The answer is a complementary segmentation: CeramTec's Key Accounts register remains the right tool for allocating commercial coverage, while unsupervised clustering on purchasing, contract, and engagement features identifies behavioural segments that can inform negotiation playbooks.
+Phase~3 asks whether CeramTec's customers form natural groups for pricing and negotiation. Applying unsupervised clustering on purchasing, contract, and engagement features identifies behavioural segments that can inform negotiation playbooks or decide of a pricing segmentation to simplify negotiations without sacrifying the margins.
 
 \subsection{CeramTec's current internal classification}
 \label{sec:internal-classification}
 
-CeramTec already classifies OEMs in an internal Key Accounts register updated in May 2026. The register is not a pricing model: it allocates Key Account Managers and field coverage by combining sales scale with strategic-project status. Large customers exceed EUR\,10M and are treated as strategic accounts; medium customers sit in the EUR\,3--10M band with an established market position; high potentials remain below EUR\,3M but are flagged for strategic growth or project potential; and the remaining book is split between named small accounts (field specialists, no dedicated Key Account Manager) and a long tail managed by Customer Service (Table~\ref{tab:internal_tiers}).
+CeramTec already classifies OEMs in an internal Key Accounts register updated for the last time in May 2026. The register is not a pricing model, it classifies customers by revenues and strategic potential to support the key account management allocation. The different categories are presented in Table~\ref{tab:internal_tiers}.
 
 %TC:ignore
 \begin{table}[H]
@@ -476,27 +476,31 @@ The segmenter uses the customer dataset created in phase 2. Features are median-
 
 \subsection{Outlier identification}
 
-Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. Figure~\ref{fig:phase3_outlier_double} shows the first step: a $k{=}3$ run isolates \textbf{Double Medical} as a clear singleton, far from the rest of the sample in the 2-D PCA projection. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
+Initial clusterings on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. Figure~\ref{fig:outlier_1} shows the first step: a $k{=}3$ run isolates Double Medical as a clear singleton, far from the rest of the sample in the 2-D PCA projection. Leaving that singleton in place would waste one segment on a single OEM and pull neighbouring centroids away from the core customer base, so Double Medical is removed before re-clustering.
 
 %TC:ignore
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_double.png}
-\caption{2-D PCA before cleaning ($k{=}3$, $n{=}82$): Double Medical forms an isolated singleton cluster.}
-\label{fig:phase3_outlier_double}
+\begin{figure}[h]
+    \centering
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{6_phase3/phase3_outlier_double.png}
+        \caption{First iteration ($k{=}3$, $n{=}82$): Double Medical forms an isolated singleton cluster}
+        \label{fig:outlier_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{6_phase3/phase3_outlier_iti_bone.png}
+        \caption{After removing Double Medical ($k{=}4$, $n{=}81$): ITI Medical and b-ONE Medical form an isolated micro-cluster}
+        \label{fig:outlier_2}
+    \end{subfigure}
+
+    \caption{2-D PCA of the clusters, enabling to visualize the outliers.The horizontal direction is...., the vertical direction is...}
+    \label{fig:both_outliers}
 \end{figure}
 %TC:endignore
 
-Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-OEM micro-cluster comprising \textbf{ITI Medical} and \textbf{b-ONE Medical}. Figure~\ref{fig:phase3_outlier_micro} shows that these two accounts are again well separated from the main customer cloud. Salesforce engagement is the common commercial signature: each of ITI Medical and b-ONE Medical has only one logged meeting, while Double Medical has only two meetings and no contact for more than five years. In other words, these accounts show essentially inactive relationship management over the recent window.
 
-%TC:ignore
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.92\linewidth]{6_phase3/phase3_outlier_iti_bone.png}
-\caption{2-D PCA after removing Double Medical ($k{=}4$, $n{=}81$): ITI Medical and b-ONE Medical form an isolated micro-cluster.}
-\label{fig:phase3_outlier_micro}
-\end{figure}
-%TC:endignore
+Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-OEM micro-cluster comprising ITI Medical and b-ONE Medical. Figure~\ref{fig:outlier_2} shows that these two accounts are again well separated from the main customer cloud. Salesforce engagement is the common commercial signature: each of ITI Medical and b-ONE Medical has only one logged meeting, while Double Medical has only two meetings and no contact for more than five years. In other words, these accounts show essentially inactive relationship management over the recent window.
 
 These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. 
 
