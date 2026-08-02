@@ -30,6 +30,7 @@
 \usepackage{setspace}
 \usepackage{etoc}
 \usepackage{tikz}
+\usepackage[table]{xcolor}
 \usetikzlibrary{positioning, arrows.meta, shadows.blur, calc}
 
 
@@ -94,13 +95,13 @@
 
 \section*{Executive Summary}
 
-CeramTec can benefit from a \textbf{data-driven pricing strategy}, but not from real-time dynamic pricing. Its prices are negotiated with a concentrated group of original equipment manufacturer (OEM) customers through long-term commercial relationships, rather than adjusted continuously as in airlines or ticketing. We therefore recommend \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: use evidence on each customer's purchasing behaviour, relationship history, market environment, and product portfolio to prepare customer- and product-level anchors and identify the arguments that can best defend value.
+CeramTec can benefit from a data-driven pricing strategy, but not from real-time dynamic pricing. Its prices are negotiated with a concentrated group of original equipment manufacturer (OEM) customers through long-term commercial relationships, rather than adjusted continuously as in airlines or ticketing. We therefore recommend evidence-based negotiation baselines and next-quarter price guidance: use evidence on each customer's purchasing behaviour, relationship history, market environment, and product portfolio to prepare customer- and product-level anchors and identify the arguments that can best defend value.
 
-A major source of business value is the creation of CeramTec's first structured \textbf{external market-data capability}. Before this engagement, the company had not systematically collected external evidence to complement its internal SAP and Salesforce records. We assembled fragmented public data across reimbursement and procurement, surgery volumes and waiting times, bearing preferences, clinical and revision outcomes, input-cost indicators, OEM performance, and competitive activity in the US, China, France, and Italy. This broader market view enables CeramTec to identify emerging trends, country-specific pricing pressure, and previously underexplored commercial opportunities that cannot be detected from internal transactions alone. The accompanying automated retrieval, cleaning, and aggregation pipelines turn this work into a repeatable capability rather than a one-off analysis.
+A major source of business value is the creation of CeramTec's first structured external market-data capability. Before this engagement, the company had not systematically collected external evidence to complement its internal SAP and Salesforce records. We assembled fragmented public data across reimbursement and procurement, surgery volumes and waiting times, bearing preferences, clinical and revision outcomes, input-cost indicators, OEM performance, and competitive activity in the US, China, France, and Italy. This broader market view enables CeramTec to identify emerging trends, country-specific pricing pressure, and previously underexplored commercial opportunities that cannot be detected from internal transactions alone. The accompanying automated retrieval, cleaning, and aggregation pipelines turn this work into a repeatable capability rather than a one-off analysis.
 
 The analysis confirms that customer size alone is not sufficient for pricing decisions. CeramTec's existing segmentation remains useful for allocating account-management resources, but customers with similar revenue can display materially different purchasing, engagement, and negotiation behaviours. The project therefore identifies four complementary pricing-behaviour segments and provides next-quarter price guidance at customer and product level. The principal commercial insight is that realised prices are strongly shaped by prior pricing, market position, purchasing volume, and relationship maturity. This supports a more consistent approach to renewal discussions, volume-for-discount trade-offs, price-erosion warnings, and the pricing of customers with limited history.
 
-We recommend that CeramTec first validate the proposed segments and pricing drivers with Key Account Managers, then test the guidance for one or two negotiation cycles under \textbf{shadow conditions}, without making it binding on sales teams. Before operational deployment, production costs, contractual terms, foreign-exchange exposure, duties, and commercial judgement should be incorporated so that predicted market prices can be translated into margin-aware recommendations. The framework should remain a decision-support tool with human review, not an automated quoting engine.
+We recommend that CeramTec first validate the proposed segments and pricing drivers with Key Account Managers, then test the guidance for one or two negotiation cycles under shadow conditions, without making it binding on sales teams. Before operational deployment, production costs, contractual terms, foreign-exchange exposure, duties, and commercial judgement should be incorporated so that predicted market prices can be translated into margin-aware recommendations. The framework should remain a decision-support tool with human review, not an automated quoting engine.
 
 Together, these deliverables form a reproducible four-phase framework covering market intelligence and data integration, feature engineering, customer segmentation, and predictive pricing support. The foundation can be refreshed and extended as new internal and external evidence becomes available.
 
@@ -112,19 +113,19 @@ We are grateful to CeramTec and Imperial College Business School for making this
 
 \vspace{0.4cm}
 
-We especially thank \textbf{Danny Krautz}, Chief Digital Officer at CeramTec and our principal point of contact, for his sponsorship of the project and for framing the digital and commercial challenge with clarity. His openness to reframing the initial brief enabled us to move from a generic dynamic-pricing ambition toward a negotiation-ready pricing framework grounded in CeramTec's real contracting environment.
+We especially thank Danny Krautz, Chief Digital Officer at CeramTec and our principal point of contact, for his sponsorship of the project and for framing the digital and commercial challenge with clarity. His openness to reframing the initial brief enabled us to move from a generic dynamic-pricing ambition toward a negotiation-ready pricing framework grounded in CeramTec's real contracting environment.
 
 \vspace{0.4cm}
 
-We also thank \textbf{Florence Petkow}, Director of Marketing Communication and Services for Medical Products, and \textbf{Markus Boehringer}, Vice President Commercial, for sharing deep domain expertise on CeramTec's market positioning, customer relationships, and commercial practice. Their insight enabled us to interpret the data in a way that is commercially meaningful rather than purely technical.
+We also thank Florence Petkow, Director of Marketing Communication and Services for Medical Products, and Markus Boehringer, Vice President Commercial, for sharing deep domain expertise on CeramTec's market positioning, customer relationships, and commercial practice. Their insight enabled us to interpret the data in a way that is commercially meaningful rather than purely technical.
 
 \vspace{0.4cm}
 
-On the data side, we thank \textbf{Abdelrahman Elsharawi}, Data Platform Engineer, for onboarding us onto CeramTec's data infrastructure and supporting access to the systems required for the analysis. We are equally grateful to the wider CeramTec colleagues who contributed time, documents, and feedback throughout the engagement.
+On the data side, we thank Abdelrahman Elsharawi, Data Platform Engineer, for onboarding us onto CeramTec's data infrastructure and supporting access to the systems required for the analysis. We are equally grateful to the wider CeramTec colleagues who contributed time, documents, and feedback throughout the engagement.
 
 \vspace{0.4cm}
 
-From Imperial College Business School, we thank our Academic Mentors, \textbf{Esma} and \textbf{Sadia}, for their continuous coaching and methodological guidance, which helped us maintain analytical rigour while remaining focused on client impact. We also thank \textbf{Martin Lisboa} for a highly valuable rehearsal session that strengthened our presentation delivery, sharpened our messaging, and built our confidence ahead of the final client presentation.
+From Imperial College Business School, we thank our Academic Mentors, Esma and Sadia, for their continuous coaching and methodological guidance, which helped us maintain analytical rigour while remaining focused on client impact. We also thank Martin Lisboa for a highly valuable rehearsal session that strengthened our presentation delivery, sharpened our messaging, and built our confidence ahead of the final client presentation.
 
 %TC:endignore
 
@@ -228,58 +229,7 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
 
 CeramTec maintains an internal Key Accounts register that ranks OEMs by commercial potential and relationship intensity. Dedicated Key Account Managers cover the large and medium tiers. In the framing used for pricing discussion, the register distinguishes four large strategic customers above EUR\,10M revenue, ten medium customers in the EUR\,3--10M band with established market positions, six high-potential accounts below EUR\,3M with strategic growth opportunity, and a longer tail of small accounts managed by field specialists or Customer Service.
 
-Tables~\ref{tab:key-accounts-large-medium} and~\ref{tab:key-accounts-high-small} reproduce named accounts from the May 2026 register. Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta). Phases~2--4 then used the full SAP customer universe in US/CN/FR/IT rather than restricting to the strategic list alone.
-
-\begin{table}[H]
-\centering
-\small
-\caption{CeramTec key accounts --- large and medium tiers (source: Key Accounts register, May 2026)}
-\label{tab:key-accounts-large-medium}
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Tier} & \textbf{Client} & \textbf{Headquarters} \\
-\midrule
-Large & Zimmer Biomet & USA / Warsaw \\
-Large & Stryker (incl.\ Serf) & USA / Mahwah \\
-Large & Medacta & Switzerland / Castel San Pietro \\
-\midrule
-Medium & AK Medical & China / Beijing \\
-Medium & DePuy & USA / Warsaw \\
-Medium & Weigao & China / Shandong \\
-Medium & Mindray & China / Shenzhen \\
-Medium & Double & China / Xiamen \\
-Medium & UOC & Taiwan / Taipei \\
-Medium & Naton / Zhengtian & China / Beijing \\
-Medium & Aesculap & Germany / Tuttlingen \\
-Medium & Corin (Arthrex) & UK / Gloucestershire \\
-Medium & Microport & China / Shanghai \\
-Medium & Chunli & China / Beijing \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[H]
-\centering
-\small
-\caption{CeramTec key accounts --- high potentials and named small accounts}
-\label{tab:key-accounts-high-small}
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Tier} & \textbf{Client} & \textbf{Headquarters} \\
-\midrule
-High potential & Meril & India / Vapi \\
-High potential & Embody & USA / Norfolk \\
-High potential & MatOrtho & UK / London--Leatherhead \\
-High potential & JRI & UK / Sheffield \\
-High potential & Dedienne & France / Montpellier \\
-High potential & Globus Medical & USA / Audubon \\
-\midrule
-Small account & Smith+Nephew & USA / Memphis \\
-Small account & Waldemar Link & Germany / Hamburg \\
-Small account & Lima & Italy / San Daniele del Friuli \\
-\bottomrule
-\end{tabular}
-\end{table}
+Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta). Phases~2--4 then used the full SAP customer universe in US/CN/FR/IT rather than restricting to the strategic list alone.
 
 CeramTec's differentiation is as a dedicated ceramic-component specialist (BIOLOX\textregistered{}), not as a full-system OEM. It is estimated to hold roughly 90\%+ share in ceramic bearings. Substitute ceramic suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys (OEM-owned ceramic supply), plus several China-based technical ceramics producers.
 
@@ -465,6 +415,46 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 
 Phase~3 derives \textbf{pricing-behaviour segments}: groups of OEM accounts with similar commercial scale, contract dynamics, and engagement intensity. This is distinct from CeramTec's existing revenue/potential tiering, which remains useful for account-management resourcing.
 
+\subsection{CeramTec current internal classification}
+
+CeramTec already uses an internal customer segmentation base on revenue size and strategic potential as presented in Table 
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4} % Adds a bit of vertical padding to match the image
+\begin{tabular}{|p{7cm}|p{7cm}|}
+\hline
+\textbf{Large Customers} \newline
+$> €10M \text{ revenu}$\newline
+Strategic accounts \newline
+\textbf{4 OEMs} 
+& 
+\textbf{Medium customers} \newline
+$€3-10M \text{ revenu}$ \newline
+Established market position \newline
+\textbf{10 OEMs} 
+\\
+\hline
+\textbf{High potentials} \newline
+$< €3M \text{ revenu}$ \newline
+Strategic growth opportunities \newline
+\textbf{6 OEMs} 
+& 
+\textbf{Small account \& long tail} \newline
+$< €3M \text{ revenu}$ \newline
+Remaining customers \newline
+\textbf{Remaining OEMs} 
+\\
+\hline
+\end{tabular}
+\caption{Current CeramTec internal classification used for key account managment allocation}
+\label{tab:cluster_summary}
+\end{table}
+
+
+
+However, this is used only for allocating account management resources and wasn't meant to group group customers or potential customers by similar pricing or negotiation behaviour. This motivate the use of an unsupervise machine learning approach to discover patterns among the customers.
+
 \subsection{Methodology}
 
 The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance. Features are median-imputed and Robust-scaled. A singleton cluster (Double Medical) and a two-OEM micro-cluster (ITI Medical, b-ONE Medical) are removed because extreme low engagement distorts centroids, leaving $n{=}79$. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. After cleaning, $k{=}4$ is selected (silhouette $\approx 0.71$).
@@ -488,8 +478,6 @@ The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesfor
 \begin{table}[H]
 \centering
 \small
-\caption{Final K-Means pricing segments ($k{=}4$, cleaned $n{=}79$)}
-\label{tab:cluster_summary}
 \begin{tabular}{@{}clrp{5.8cm}@{}}
 \toprule
 \textbf{Seg.} & \textbf{Label} & \textbf{\# OEMs} & \textbf{Interpretation} \\
@@ -500,6 +488,8 @@ Orange & Mature Diversified Accounts & 8 & Broader portfolios / renewal diversif
 Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \bottomrule
 \end{tabular}
+\caption{Final K-Means pricing segments ($k{=}4$, cleaned $n{=}79$)}
+\label{tab:cluster_summary}
 \end{table}
 
 Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, while smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
@@ -688,17 +678,17 @@ Cross-border pricing risk — how EUR-based production cost translates into OEM 
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-fx/ & ECB FX & \textcolor{green!60!black}{Retrieved} & Global & Daily & EUR vs USD, GBP, CNY, JPY, CHF \\
+ECB FX & \textcolor{green!60!black}{Retrieved} & Global & Daily & EUR vs USD, GBP, CNY, JPY, CHF \\
 \end{longtable}
 \normalsize
 
@@ -708,19 +698,19 @@ Input-cost pressure on ceramic/metal components\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-materials/ & Fred metals/PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Surgical-appliance PPI, alumina/aluminum/titanium/nickel shapes, IMF metal prices \\
- & World Bank CMO & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Energy and commodity indices; monthly material prices \\
- & USGS MCS (Mineral Commodity Summaries) & \textcolor{green!60!black}{Retrieved} & Global & Annual & Annual unit values: Al, Cr, Co, Fe, Pb, Mo, Ni, Sn, Ti, Zn, Zr/Hf \\
+Fred metals/PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Surgical-appliance PPI, alumina/aluminum/titanium/nickel shapes, IMF metal prices \\
+World Bank CMO & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Energy and commodity indices; monthly material prices \\
+USGS MCS (Mineral Commodity Summaries) & \textcolor{green!60!black}{Retrieved} & Global & Annual & Annual unit values: Al, Cr, Co, Fe, Pb, Mo, Ni, Sn, Ti, Zn, Zr/Hf \\
 \end{longtable}
 \normalsize
 
@@ -730,18 +720,18 @@ Firing/sintering and supply-chain inflation compressing OEM implant margins\\[0.
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-materials/ & FRED energy & \textcolor{green!60!black}{Retrieved} & Global & Monthly/Daily & Natural gas, industrial electricity (ceramics processing cost pressure) \\
- & FRED surgical-appliance / orthopedic PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Manufacturing inflation pressure on OEM implant margins \\
+FRED energy & \textcolor{green!60!black}{Retrieved} & Global & Monthly/Daily & Natural gas, industrial electricity (ceramics processing cost pressure) \\
+FRED surgical-appliance / orthopedic PPI & \textcolor{green!60!black}{Retrieved} & Global & Monthly & Manufacturing inflation pressure on OEM implant margins \\
 \end{longtable}
 \normalsize
 
@@ -751,23 +741,23 @@ Money-In: Total insurer/payer revenue paid to the hospital for the entire episod
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-reimbursement/ & CMS MS-DRG & \textcolor{green!60!black}{Retrieved} & US & Annual & Medicare (public funds) episode payment for hip/knee arthroplasty (DRG 470 family) \\
- & FAIR Health / Definitive & \textcolor{gray}{Todo} & US & Continuous & Private/commercial insurance claims database for private reimbursement benchmarks \\
- & ATIH GHS (the stay at the hospital) & \textcolor{green!60!black}{Retrieved} & France & Annual & Public-hospital episode tariffs (GHM 08C hip family) \\
- & LPPR (Liste des Produits) (the device) & \textcolor{green!60!black}{Retrieved} & France & Continuous & Specific national maximum reimbursement limits for medical devices/implants \\
- & Regional DRG (The Stay + Device) & \textcolor{orange!85!black}{Partial} & Italy & Annual & Inpatient DRG (e.g. Piedmont 209) + national prosthetic list, note that system in italy is highly regionalized \\
- & Nomenclatore / Regional Reference Lists (The Device Cap) & \textcolor{gray}{Todo} & Italy & Dynamic & the Italian health system is highly regionalized, the regions (like Lombardy or Veneto) publish specific medical device tariff lists (often referred to as Tetti di spesa or reference prices) \\
- & NHSA VBP ceiling & \textcolor{orange!85!black}{Partial} & China & per-round & Public-hospital implant max bids (CoC/CoP/MoP differentiated) \\
+CMS MS-DRG & \textcolor{green!60!black}{Retrieved} & US & Annual & Medicare (public funds) episode payment for hip/knee arthroplasty (DRG 470 family) \\
+FAIR Health / Definitive & \textcolor{gray}{Todo} & US & Continuous & Private/commercial insurance claims database for private reimbursement benchmarks \\
+ATIH GHS (the stay at the hospital) & \textcolor{green!60!black}{Retrieved} & France & Annual & Public-hospital episode tariffs (GHM 08C hip family) \\
+LPPR (Liste des Produits) (the device) & \textcolor{green!60!black}{Retrieved} & France & Continuous & Specific national maximum reimbursement limits for medical devices/implants \\
+Regional DRG (The Stay + Device) & \textcolor{orange!85!black}{Partial} & Italy & Annual & Inpatient DRG (e.g. Piedmont 209) + national prosthetic list, note that system in italy is highly regionalized \\
+Nomenclatore / Regional Reference Lists (The Device Cap) & \textcolor{gray}{Todo} & Italy & Dynamic & the Italian health system is highly regionalized, the regions (like Lombardy or Veneto) publish specific medical device tariff lists (often referred to as Tetti di spesa or reference prices) \\
+NHSA VBP ceiling & \textcolor{orange!85!black}{Partial} & China & per-round & Public-hospital implant max bids (CoC/CoP/MoP differentiated) \\
 \end{longtable}
 \normalsize
 
@@ -777,24 +767,24 @@ Money-Out: Actual transaction price paid by hospitals/tenders to the implant man
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-procurement/ & TED (EU) & \textcolor{green!60!black}{Retrieved} & EU & Continuous & EU-orthopaedic procurement notices \\
- & BOAMP / UniHA / Resah & \textcolor{gray}{Todo} & France & Continuous & French national public market announcements and hospital group purchasing awards \\
- & ANAC / Consip / Regional buyers & \textcolor{gray}{Todo} & Italy & Continuous & Italian contract database and regional central purchasing (ARIA, SoReSa) tender awards \\
- & Contracts Finder (UK) & \textcolor{green!60!black}{Retrieved} & UK & Continuous & UK public procurement awards \\
- & SAM.gov (VA Contracts) & \textcolor{gray}{Todo} & US & Continuous & Federal procurement awards for VA and military hospital implant contracts \\
- & ECRI / Definitive Healthcare & \textcolor{gray}{Todo} & US & Continuous & Aggregated hospital GPO transaction prices and private purchasing data \\
- & National Joint Procurement Office & \textcolor{gray}{Todo} & China & per-round & Official VBP winning bid results and volume allocations (Tianjin platform) \\
- & Yaozh / Pharmcube & \textcolor{gray}{Todo} & China & Continuous & Commercial aggregators scraping provincial VBP tender values and price cuts \\
+TED (EU) & \textcolor{green!60!black}{Retrieved} & EU & Continuous & EU-orthopaedic procurement notices \\
+BOAMP / UniHA / Resah & \textcolor{gray}{Todo} & France & Continuous & French national public market announcements and hospital group purchasing awards \\
+ANAC / Consip / Regional buyers & \textcolor{gray}{Todo} & Italy & Continuous & Italian contract database and regional central purchasing (ARIA, SoReSa) tender awards \\
+Contracts Finder (UK) & \textcolor{green!60!black}{Retrieved} & UK & Continuous & UK public procurement awards \\
+SAM.gov (VA Contracts) & \textcolor{gray}{Todo} & US & Continuous & Federal procurement awards for VA and military hospital implant contracts \\
+ECRI / Definitive Healthcare & \textcolor{gray}{Todo} & US & Continuous & Aggregated hospital GPO transaction prices and private purchasing data \\
+National Joint Procurement Office & \textcolor{gray}{Todo} & China & per-round & Official VBP winning bid results and volume allocations (Tianjin platform) \\
+Yaozh / Pharmcube & \textcolor{gray}{Todo} & China & Continuous & Commercial aggregators scraping provincial VBP tender values and price cuts \\
 \end{longtable}
 \normalsize
 
@@ -804,17 +794,17 @@ Demand tension - elective backlog and capacity stress (UK orthopaedic proxy)\\[0
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-waiting\_times/ & NHS RTT & \textcolor{green!60!black}{Retrieved} & UK & Monthly & Elective surgery waiting times including trauma \& orthopaedic \\
+NHS RTT & \textcolor{green!60!black}{Retrieved} & UK & Monthly & Elective surgery waiting times including trauma \& orthopaedic \\
 \end{longtable}
 \normalsize
 
@@ -824,22 +814,22 @@ Market size - THA (total hip arthroplasty) volume and rate per 100k population\\
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-surgeries/ & OECD Health — surgical procedures & \textcolor{green!60!black}{Retrieved} & Global & Annual & Cross-country procedure rates per 100k (hip replacement where available) \\
- & Eurostat — hospital discharges & \textcolor{green!60!black}{Retrieved} & EU & Annual & EU in-patient surgical operations; complements OECD for Europe \\
-surgeries/reference/ & France reference overlays & \textcolor{orange!85!black}{Partial} & France & Ad hoc & Reference overlays where needed for panel consistency \\
- & Italy reference overlays & \textcolor{orange!85!black}{Partial} & Italy & Ad hoc & Reference overlays where needed for panel consistency \\
- & US reference & \textcolor{orange!85!black}{Partial} & US & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
- & China reference & \textcolor{orange!85!black}{Partial} & China & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
+OECD Health — surgical procedures & \textcolor{green!60!black}{Retrieved} & Global & Annual & Cross-country procedure rates per 100k (hip replacement where available) \\
+Eurostat — hospital discharges & \textcolor{green!60!black}{Retrieved} & EU & Annual & EU in-patient surgical operations; complements OECD for Europe \\
+France reference overlays & \textcolor{orange!85!black}{Partial} & France & Ad hoc & Reference overlays where needed for panel consistency \\
+Italy reference overlays & \textcolor{orange!85!black}{Partial} & Italy & Ad hoc & Reference overlays where needed for panel consistency \\
+US reference & \textcolor{orange!85!black}{Partial} & US & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
+China reference & \textcolor{orange!85!black}{Partial} & China & Ad hoc & Fills OECD/registry gaps for Phase 1 panel \\
 \end{longtable}
 \normalsize
 
@@ -849,21 +839,21 @@ Bearing mix (ceramic vs non-ceramic), revision burden, implant usage trend\\[0.5
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-surgeries/ajr & AJRR & \textcolor{green!60!black}{Retrieved} & US & Annual & Data for 2012 - 2024 \\
-surgeries/riap & RIAP (Italy national) & \textcolor{green!60!black}{Retrieved} & Italy & Annual & 2015 - 2022 \\
-reimbursement/lpp & open lpp (data.gouv.fr) & \textcolor{green!60!black}{Retrieved} & France & Annual & national reimbursement proxy contianing component-level, 2014 - 2024 \\
-surgeries/cjar & CJAR / China proxies & \textcolor{green!60!black}{Retrieved} & China & Annual & 2021, 2022, 2024 (VBP demand + COA survey) \\
-reimbursement/reference & NHSA VBP CoC/CoP tariffs & \textcolor{green!60!black}{Retrieved} & China & Per-round & Price ceiling by type, not volume share \\
+AJRR & \textcolor{green!60!black}{Retrieved} & US & Annual & Data for 2012 - 2024 \\
+RIAP (Italy national) & \textcolor{green!60!black}{Retrieved} & Italy & Annual & 2015 - 2022 \\
+open lpp (data.gouv.fr) & \textcolor{green!60!black}{Retrieved} & France & Annual & national reimbursement proxy contianing component-level, 2014 - 2024 \\
+CJAR / China proxies & \textcolor{green!60!black}{Retrieved} & China & Annual & 2021, 2022, 2024 (VBP demand + COA survey) \\
+NHSA VBP CoC/CoP tariffs & \textcolor{green!60!black}{Retrieved} & China & Per-round & Price ceiling by type, not volume share \\
 \end{longtable}
 \normalsize
 
@@ -873,18 +863,18 @@ Clinical value of longer-lasting bearings; revision-risk narrative\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-clinical\_evidence/pubmed & PubMed evidence exports & \textcolor{green!60!black}{Retrieved} & Global & Continuous & Survivorship, bearing-surface, China demographic citations \\
-surgeries/reference/ & Revision-rate reference panel & \textcolor{orange!85!black}{Partial} & US / China / France / Italy & Ad hoc & Literature-anchored country-year revision proxies \\
+PubMed evidence exports & \textcolor{green!60!black}{Retrieved} & Global & Continuous & Survivorship, bearing-surface, China demographic citations \\
+Revision-rate reference panel & \textcolor{orange!85!black}{Partial} & US / China / France / Italy & Ad hoc & Literature-anchored country-year revision proxies \\
 \end{longtable}
 \normalsize
 
@@ -894,17 +884,17 @@ Payer budget envelope, public/private splot, OOP pressure\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-health\_spending/ & WHO GHED & \textcolor{green!60!black}{Retrieved} & Global & Annual & Total health spend, public/private split, out-of-pocket ratios by country \\
+WHO GHED & \textcolor{green!60!black}{Retrieved} & Global & Annual & Total health spend, public/private split, out-of-pocket ratios by country \\
 \end{longtable}
 \normalsize
 
@@ -914,19 +904,19 @@ Orthopaedic market size context (public reports)\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-medtech\_benchmarks/ & MedTech Europe PDFs & \textcolor{orange!85!black}{Partial} & EU (mainly) & Annual & Public orthopaedic market facts \& figures (member-only detail not available) \\
- & US benchmark extracts (if available) & \textcolor{gray}{Todo} & US & Annual &  \\
- & China benchmark extracts (if available) & \textcolor{gray}{Todo} & China & Annual &  \\
+MedTech Europe PDFs & \textcolor{orange!85!black}{Partial} & EU (mainly) & Annual & Public orthopaedic market facts \& figures (member-only detail not available) \\
+US benchmark extracts (if available) & \textcolor{gray}{Todo} & US & Annual &  \\
+China benchmark extracts (if available) & \textcolor{gray}{Todo} & China & Annual &  \\
 \end{longtable}
 \normalsize
 
@@ -936,21 +926,21 @@ Clients, financial health, R\&D, innovation, account prirority\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-oem/Key\_Accounts\_060526.pdf & key accounts register & \textcolor{green!60!black}{Retrieved} & Global & Ad hoc & CeramTec internal tiered OEM list (large/medium/high/small/long tail) \\
-oem/oem\_list.csv & OEM tiers (CSV) & \textcolor{green!60!black}{Derived} & Global & Ad hoc & Machine-readable extract of key accounts PDF \\
-oem/ & SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew; remaining key-account-tier OEMs pending \\
-oem/account\_profiles/ & account profiles & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Key account strategy files \\
-oem/patents & Patent counts & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Innovation proxy snapshots \\
+key accounts register & \textcolor{green!60!black}{Retrieved} & Global & Ad hoc & CeramTec internal tiered OEM list (large/medium/high/small/long tail) \\
+OEM tiers (CSV) & \textcolor{green!60!black}{Derived} & Global & Ad hoc & Machine-readable extract of key accounts PDF \\
+SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/\allowbreak Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew; remaining key-account-tier OEMs pending \\
+account profiles & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Key account strategy files \\
+Patent counts & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Innovation proxy snapshots \\
 \end{longtable}
 \normalsize
 
@@ -960,17 +950,17 @@ Competitive set, subsitute bearing/ceramic suppliers\\[0.5em]
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{longtable}{@{}p{2.1cm}p{2.4cm}p{1.4cm}p{1.5cm}p{1.3cm}p{5.2cm}@{}}
+\begin{longtable}{@{}p{3.0cm}p{2.0cm}p{2.1cm}p{1.9cm}p{5.8cm}@{}}
 \toprule
-\textbf{Folder} & \textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
+\textbf{Dataset} & \textbf{Status} & \textbf{Market} & \textbf{Freq.} & \textbf{Comments} \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{\textit{Continued on next page}} \\
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-competitors & Competitor list / competitor datasets & \textcolor{gray}{Todo} & Global & Ad hoc & Nothing done, CeramTec should have internal data about their competitors, wait for their internal data to see what external data about the competitors need to be retrieved \\
+Competitor list / competitor datasets & \textcolor{gray}{Todo} & Global & Ad hoc & Nothing done, CeramTec should have internal data about their competitors, wait for their internal data to see what external data about the competitors need to be retrieved \\
 \end{longtable}
 \normalsize
 
@@ -1001,96 +991,103 @@ Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3
 \endfoot
 \bottomrule
 \endlastfoot
-\multicolumn{2}{@{}l}{\textit{Identifiers}} \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Identifiers}} \\
 \texttt{country} & 2-char ISO country code of the ordering entity (US, CN, FR, IT). Reflects where the order is placed from, not necessarily the end-market. \\
 \texttt{customer} & Customer name (OEM or distributor) as registered in SAP, with numeric SAP ID stripped. \\
-\multicolumn{2}{@{}l}{\textit{SAP commercial and portfolio}} \\
-\texttt{sap\_total\_revenue\_eur} & Total cumulative revenue in EUR across all billing months (2020-2026). \\
-\texttt{sap\_total\_pieces\_sold} & Total cumulative units (pieces) invoiced across all billing months. \\
-\texttt{sap\_avg\_unit\_price\_eur} & Weighted average unit price in EUR (total revenue / total pieces). \\
-\texttt{sap\_price\_std\_eur} & Standard deviation of monthly weighted-average unit prices; measures price volatility over time. \\
-\texttt{sap\_price\_trend\_eur\_pm} & OLS slope of monthly weighted-average price over time (EUR per month). Positive = prices rising. \\
-\texttt{sap\_avg\_annual\_revenue} & Mean annual revenue in EUR (total revenue / n active years). \\
-\texttt{sap\_active\_months} & Number of distinct billing months with at least one transaction. \\
-\texttt{sap\_active\_years} & Number of distinct calendar years with at least one transaction. \\
-\texttt{sap\_first\_year} & Earliest calendar year with billing activity. \\
-\texttt{sap\_last\_year} & Most recent calendar year with billing activity. \\
-\texttt{sap\_revenue\_cagr} & Compound annual growth rate of yearly revenue. Requires at least two years with positive first-year revenue. \\
-\texttt{sap\_revenue\_yoy\_last} & Year-over-year revenue growth rate for the most recent pair of active years. \\
-\texttt{sap\_covid\_active} & Binary flag: 1 if the customer had any billing in 2020 or 2021 (COVID era). \\
-\texttt{sap\_n\_product\_groups} & Count of distinct product groups purchased by this customer. \\
-\texttt{sap\_dominant\_pg} & Product group contributing the largest share of total revenue for this customer. \\
-\texttt{sap\_rev\_share\_revision} & Share of total revenue from Revision-type product groups. \\
-\texttt{sap\_rev\_share\_clock} & Share of total revenue from CLock-type product groups (ceramic liners). \\
-\texttt{sap\_rev\_share\_forte} & Share of total revenue from Forte-type product groups. \\
-\texttt{sap\_dominant\_lead} & Most frequent sales lead / seller group associated with this customer's transactions. \\
-\multicolumn{2}{@{}l}{\textit{Inferred contract dynamics}} \\
-\texttt{contract\_n\_periods} & Number of distinct contract periods: contiguous billing blocks separated by gaps greater than 3 months. \\
-\texttt{contract\_is\_continuous} & Binary flag: 1 if the customer has only one contract period (never interrupted billing). \\
-\texttt{contract\_avg\_duration\_months} & Mean duration in months of each contract period. \\
-\texttt{contract\_months\_since\_last\_end} & Months between the end of the last billing period and the reference date (Jul 2026). Measures recency. \\
-\texttt{contract\_first\_avg\_price} & Average unit price during the first contract period. \\
-\texttt{contract\_last\_avg\_price} & Average unit price during the most recent contract period. \\
-\texttt{contract\_price\_chg\_pct} & Percentage change in average unit price from first to last contract period. Negative = accumulated discount at renewal. \\
-\texttt{contract\_price\_slope\_per\_period} & Linear slope of average price versus contract-period index (EUR per renewal step). Negative = systematic price erosion. \\
-\texttt{contract\_n\_pg\_first} & Number of distinct product groups in the first contract period. \\
-\texttt{contract\_n\_pg\_last} & Number of distinct product groups in the most recent contract period. \\
-\texttt{contract\_pg\_added} & Product groups present in the last period but not the first (portfolio expansion at renewal). \\
-\texttt{contract\_pg\_dropped} & Product groups present in the first period but not the last (portfolio concentration at renewal). \\
-\texttt{contract\_revenue\_first\_period} & Total revenue (EUR) during the first contract period. \\
-\texttt{contract\_revenue\_last\_period} & Total revenue (EUR) during the most recent contract period. \\
-\texttt{contract\_revenue\_growth\_factor} & Ratio of last-period revenue to first-period revenue. Greater than 1 = growing account across renewals. \\
-\multicolumn{2}{@{}l}{\textit{Salesforce engagement}} \\
-\texttt{sf\_is\_known} & Binary flag: 1 if the customer was found in Salesforce data (meetings, opportunities, or tasks). \\
-\texttt{sf\_matched\_sap} & Binary flag: 1 if the Salesforce account was successfully fuzzy-matched to a SAP customer name. \\
-\texttt{sf\_meeting\_count} & Total number of meetings logged in Salesforce for this account. \\
-\texttt{sf\_task\_count} & Total number of tasks/activities logged in Salesforce for this account. \\
-\texttt{sf\_opp\_count} & Total number of opportunities (all statuses) in Salesforce for this account. \\
-\texttt{sf\_opp\_lost\_count} & Number of opportunities with Closed Lost status. \\
-\texttt{sf\_opp\_open\_count} & Number of opportunities still open (not yet won or lost). \\
-\texttt{sf\_opp\_won\_count} & Number of opportunities with Closed Won status. \\
-\texttt{sf\_meetings\_new\_biz} & Number of meetings tagged as new-business type. \\
-\texttt{sf\_opp\_win\_rate} & Win rate = opportunities won / (won + lost). Ranges 0-1. \\
-\texttt{sf\_latest\_meeting\_date} & Date of the most recent Salesforce meeting for this account. \\
-\texttt{sf\_days\_since\_last\_meeting} & Days between the latest meeting and the reference date. Measures engagement recency. \\
-\multicolumn{2}{@{}l}{\textit{External market context}} \\
-\texttt{ext\_ceramic\_share\_pct} & Country-level ceramic bearing share of hip procedures (\%). \\
-\texttt{ext\_implant\_ceiling\_cny} & China implant/device price ceiling in CNY (VBP-related), where available. \\
-\texttt{ext\_reimbursement\_episode\_eur} & Country episode reimbursement ceiling in EUR. \\
-\texttt{ext\_reimbursement\_episode\_usd} & Country episode reimbursement ceiling in USD. \\
-\texttt{ext\_revision\_rate\_10y\_pct} & 10-year hip revision rate (\%) from registry or survey sources. \\
-\texttt{ext\_tha\_volume\_cases} & Annual total hip arthroplasty procedure volume (cases). \\
-\texttt{ext\_tha\_volume\_rate\_per\_100k} & THA procedure rate per 100,000 population. \\
-\texttt{ext\_procurement\_us\_sam\_notice\_count} & Count of US SAM procurement notices relevant to orthopaedic implants. \\
-\texttt{ext\_procurement\_us\_sam\_awarded\_usd\_sum} & Sum of awarded US SAM contract values (USD). \\
-\texttt{ext\_procurement\_us\_sam\_awarded\_usd\_mean} & Mean awarded US SAM contract value (USD). \\
-\texttt{ext\_procurement\_fr\_boamp\_notice\_count} & Count of French BOAMP procurement notices for relevant categories. \\
-\texttt{ext\_procurement\_fr\_boamp\_unique\_buyers} & Number of unique buyers in French BOAMP notices. \\
-\texttt{ext\_fx\_usd\_per\_eur\_avg} & Average USD per EUR exchange rate (cost and ceiling translation). \\
-\texttt{ext\_material\_usd\_basket\_index} & Composite material/energy cost basket index (USD-based). \\
-\texttt{ext\_material\_usd\_index\_aluminum} & Aluminum price index (USD). \\
-\texttt{ext\_material\_usd\_index\_copper} & Copper price index (USD). \\
-\texttt{ext\_material\_usd\_index\_crude\_oil\_avg} & Crude oil average price index (USD). \\
-\texttt{ext\_material\_usd\_index\_iron\_ore\_spot} & Iron ore spot price index (USD). \\
-\texttt{ext\_material\_usd\_index\_lead} & Lead price index (USD). \\
-\texttt{ext\_material\_usd\_index\_natural\_gas\_europe} & European natural gas price index (USD). \\
-\texttt{ext\_material\_usd\_index\_natural\_gas\_us} & US natural gas price index (USD). \\
-\texttt{ext\_material\_usd\_index\_nickel} & Nickel price index (USD). \\
-\texttt{ext\_material\_usd\_index\_tin} & Tin price index (USD). \\
-\texttt{ext\_material\_usd\_index\_zinc} & Zinc price index (USD). \\
-\texttt{ext\_retrieved} & Date stamp of the latest external-panel retrieval used for this country row. \\
-\texttt{ext\_is\_china\_vbp\_era} & Binary flag: 1 if the country observation falls in China's Volume-Based Procurement era. \\
-\texttt{ext\_reimbursement\_usd} & Unified episode reimbursement ceiling converted to USD. \\
-\texttt{ext\_procurement\_notices} & Country-relevant procurement notice count (US SAM or FR BOAMP). \\
-\multicolumn{2}{@{}l}{\textit{Country dummies}} \\
-\texttt{country\_US} & One-hot dummy: 1 if country = US. \\
-\texttt{country\_CN} & One-hot dummy: 1 if country = CN (China). \\
-\texttt{country\_FR} & One-hot dummy: 1 if country = FR (France). \\
-\texttt{country\_IT} & One-hot dummy: 1 if country = IT (Italy). \\
-\multicolumn{2}{@{}l}{\textit{Structural flags}} \\
-\texttt{is\_covid\_era\_customer} & Binary flag: 1 if customer was active during COVID years (2020-2021). \\
-\texttt{is\_china\_vbp\_customer} & Binary flag: 1 if customer is in China and last active year is 2021 or later (VBP era). \\
-\texttt{is\_post\_covid\_customer} & Binary flag: 1 if last active year is 2022 or later (still transacting post-COVID). \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{SAP commercial and portfolio}} \\
+\texttt{sap\_\allowbreak total\_\allowbreak revenue\_\allowbreak eur} & Total cumulative revenue in EUR across all billing months (2020-2026). \\
+\texttt{sap\_\allowbreak total\_\allowbreak pieces\_\allowbreak sold} & Total cumulative units (pieces) invoiced across all billing months. \\
+\texttt{sap\_\allowbreak avg\_\allowbreak unit\_\allowbreak price\_\allowbreak eur} & Weighted average unit price in EUR (total revenue / total pieces). \\
+\texttt{sap\_\allowbreak price\_\allowbreak std\_\allowbreak eur} & Standard deviation of monthly weighted-average unit prices; measures price volatility over time. \\
+\texttt{sap\_\allowbreak price\_\allowbreak trend\_\allowbreak eur\_\allowbreak pm} & OLS slope of monthly weighted-average price over time (EUR per month). Positive = prices rising. \\
+\texttt{sap\_\allowbreak avg\_\allowbreak annual\_\allowbreak revenue} & Mean annual revenue in EUR (total revenue / n active years). \\
+\texttt{sap\_\allowbreak active\_\allowbreak months} & Number of distinct billing months with at least one transaction. \\
+\texttt{sap\_\allowbreak active\_\allowbreak years} & Number of distinct calendar years with at least one transaction. \\
+\texttt{sap\_\allowbreak first\_\allowbreak year} & Earliest calendar year with billing activity. \\
+\texttt{sap\_\allowbreak last\_\allowbreak year} & Most recent calendar year with billing activity. \\
+\texttt{sap\_\allowbreak revenue\_\allowbreak cagr} & Compound annual growth rate of yearly revenue. Requires at least two years with positive first-year revenue. \\
+\texttt{sap\_\allowbreak revenue\_\allowbreak yoy\_\allowbreak last} & Year-over-year revenue growth rate for the most recent pair of active years. \\
+\texttt{sap\_\allowbreak covid\_\allowbreak active} & Binary flag: 1 if the customer had any billing in 2020 or 2021 (COVID era). \\
+\texttt{sap\_\allowbreak n\_\allowbreak product\_\allowbreak groups} & Count of distinct product groups purchased by this customer. \\
+\texttt{sap\_\allowbreak dominant\_\allowbreak pg} & Product group contributing the largest share of total revenue for this customer. \\
+\texttt{sap\_\allowbreak rev\_\allowbreak share\_\allowbreak revision} & Share of total revenue from Revision-type product groups. \\
+\texttt{sap\_\allowbreak rev\_\allowbreak share\_\allowbreak clock} & Share of total revenue from CLock-type product groups (ceramic liners). \\
+\texttt{sap\_\allowbreak rev\_\allowbreak share\_\allowbreak forte} & Share of total revenue from Forte-type product groups. \\
+\texttt{sap\_\allowbreak dominant\_\allowbreak lead} & Most frequent sales lead / seller group associated with this customer's transactions. \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Inferred contract dynamics}} \\
+\texttt{contract\_\allowbreak n\_\allowbreak periods} & Number of distinct contract periods: contiguous billing blocks separated by gaps greater than 3 months. \\
+\texttt{contract\_\allowbreak is\_\allowbreak continuous} & Binary flag: 1 if the customer has only one contract period (never interrupted billing). \\
+\texttt{contract\_\allowbreak avg\_\allowbreak duration\_\allowbreak months} & Mean duration in months of each contract period. \\
+\texttt{contract\_\allowbreak months\_\allowbreak since\_\allowbreak last\_\allowbreak end} & Months between the end of the last billing period and the reference date (Jul 2026). Measures recency. \\
+\texttt{contract\_\allowbreak first\_\allowbreak avg\_\allowbreak price} & Average unit price during the first contract period. \\
+\texttt{contract\_\allowbreak last\_\allowbreak avg\_\allowbreak price} & Average unit price during the most recent contract period. \\
+\texttt{contract\_\allowbreak price\_\allowbreak chg\_\allowbreak pct} & Percentage change in average unit price from first to last contract period. Negative = accumulated discount at renewal. \\
+\texttt{contract\_\allowbreak price\_\allowbreak slope\_\allowbreak per\_\allowbreak period} & Linear slope of average price versus contract-period index (EUR per renewal step). Negative = systematic price erosion. \\
+\texttt{contract\_\allowbreak n\_\allowbreak pg\_\allowbreak first} & Number of distinct product groups in the first contract period. \\
+\texttt{contract\_\allowbreak n\_\allowbreak pg\_\allowbreak last} & Number of distinct product groups in the most recent contract period. \\
+\texttt{contract\_\allowbreak pg\_\allowbreak added} & Product groups present in the last period but not the first (portfolio expansion at renewal). \\
+\texttt{contract\_\allowbreak pg\_\allowbreak dropped} & Product groups present in the first period but not the last (portfolio concentration at renewal). \\
+\texttt{contract\_\allowbreak revenue\_\allowbreak first\_\allowbreak period} & Total revenue (EUR) during the first contract period. \\
+\texttt{contract\_\allowbreak revenue\_\allowbreak last\_\allowbreak period} & Total revenue (EUR) during the most recent contract period. \\
+\texttt{contract\_\allowbreak revenue\_\allowbreak growth\_\allowbreak factor} & Ratio of last-period revenue to first-period revenue. Greater than 1 = growing account across renewals. \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Salesforce engagement}} \\
+\texttt{sf\_\allowbreak is\_\allowbreak known} & Binary flag: 1 if the customer was found in Salesforce data (meetings, opportunities, or tasks). \\
+\texttt{sf\_\allowbreak matched\_\allowbreak sap} & Binary flag: 1 if the Salesforce account was successfully fuzzy-matched to a SAP customer name. \\
+\texttt{sf\_\allowbreak meeting\_\allowbreak count} & Total number of meetings logged in Salesforce for this account. \\
+\texttt{sf\_\allowbreak task\_\allowbreak count} & Total number of tasks/activities logged in Salesforce for this account. \\
+\texttt{sf\_\allowbreak opp\_\allowbreak count} & Total number of opportunities (all statuses) in Salesforce for this account. \\
+\texttt{sf\_\allowbreak opp\_\allowbreak lost\_\allowbreak count} & Number of opportunities with Closed Lost status. \\
+\texttt{sf\_\allowbreak opp\_\allowbreak open\_\allowbreak count} & Number of opportunities still open (not yet won or lost). \\
+\texttt{sf\_\allowbreak opp\_\allowbreak won\_\allowbreak count} & Number of opportunities with Closed Won status. \\
+\texttt{sf\_\allowbreak meetings\_\allowbreak new\_\allowbreak biz} & Number of meetings tagged as new-business type. \\
+\texttt{sf\_\allowbreak opp\_\allowbreak win\_\allowbreak rate} & Win rate = opportunities won / (won + lost). Ranges 0-1. \\
+\texttt{sf\_\allowbreak latest\_\allowbreak meeting\_\allowbreak date} & Date of the most recent Salesforce meeting for this account. \\
+\texttt{sf\_\allowbreak days\_\allowbreak since\_\allowbreak last\_\allowbreak meeting} & Days between the latest meeting and the reference date. Measures engagement recency. \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{External market context}} \\
+\texttt{ext\_\allowbreak ceramic\_\allowbreak share\_\allowbreak pct} & Country-level ceramic bearing share of hip procedures (\%). \\
+\texttt{ext\_\allowbreak implant\_\allowbreak ceiling\_\allowbreak cny} & China implant/device price ceiling in CNY (VBP-related), where available. \\
+\texttt{ext\_\allowbreak reimbursement\_\allowbreak episode\_\allowbreak eur} & Country episode reimbursement ceiling in EUR. \\
+\texttt{ext\_\allowbreak reimbursement\_\allowbreak episode\_\allowbreak usd} & Country episode reimbursement ceiling in USD. \\
+\texttt{ext\_\allowbreak revision\_\allowbreak rate\_\allowbreak 10y\_\allowbreak pct} & 10-year hip revision rate (\%) from registry or survey sources. \\
+\texttt{ext\_\allowbreak tha\_\allowbreak volume\_\allowbreak cases} & Annual total hip arthroplasty procedure volume (cases). \\
+\texttt{ext\_\allowbreak tha\_\allowbreak volume\_\allowbreak rate\_\allowbreak per\_\allowbreak 100k} & THA procedure rate per 100,000 population. \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak us\_\allowbreak sam\_\allowbreak notice\_\allowbreak count} & Count of US SAM procurement notices relevant to orthopaedic implants. \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak us\_\allowbreak sam\_\allowbreak awarded\_\allowbreak usd\_\allowbreak sum} & Sum of awarded US SAM contract values (USD). \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak us\_\allowbreak sam\_\allowbreak awarded\_\allowbreak usd\_\allowbreak mean} & Mean awarded US SAM contract value (USD). \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak fr\_\allowbreak boamp\_\allowbreak notice\_\allowbreak count} & Count of French BOAMP procurement notices for relevant categories. \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak fr\_\allowbreak boamp\_\allowbreak unique\_\allowbreak buyers} & Number of unique buyers in French BOAMP notices. \\
+\texttt{ext\_\allowbreak fx\_\allowbreak usd\_\allowbreak per\_\allowbreak eur\_\allowbreak avg} & Average USD per EUR exchange rate (cost and ceiling translation). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak basket\_\allowbreak index} & Composite material/energy cost basket index (USD-based). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak aluminum} & Aluminum price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak copper} & Copper price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak crude\_\allowbreak oil\_\allowbreak avg} & Crude oil average price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak iron\_\allowbreak ore\_\allowbreak spot} & Iron ore spot price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak lead} & Lead price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak natural\_\allowbreak gas\_\allowbreak europe} & European natural gas price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak natural\_\allowbreak gas\_\allowbreak us} & US natural gas price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak nickel} & Nickel price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak tin} & Tin price index (USD). \\
+\texttt{ext\_\allowbreak material\_\allowbreak usd\_\allowbreak index\_\allowbreak zinc} & Zinc price index (USD). \\
+\texttt{ext\_\allowbreak retrieved} & Date stamp of the latest external-panel retrieval used for this country row. \\
+\texttt{ext\_\allowbreak is\_\allowbreak china\_\allowbreak vbp\_\allowbreak era} & Binary flag: 1 if the country observation falls in China's Volume-Based Procurement era. \\
+\texttt{ext\_\allowbreak reimbursement\_\allowbreak usd} & Unified episode reimbursement ceiling converted to USD. \\
+\texttt{ext\_\allowbreak procurement\_\allowbreak notices} & Country-relevant procurement notice count (US SAM or FR BOAMP). \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Country dummies}} \\
+\texttt{country\_\allowbreak US} & One-hot dummy: 1 if country = US. \\
+\texttt{country\_\allowbreak CN} & One-hot dummy: 1 if country = CN (China). \\
+\texttt{country\_\allowbreak FR} & One-hot dummy: 1 if country = FR (France). \\
+\texttt{country\_\allowbreak IT} & One-hot dummy: 1 if country = IT (Italy). \\
+
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Structural flags}} \\
+\texttt{is\_\allowbreak covid\_\allowbreak era\_\allowbreak customer} & Binary flag: 1 if customer was active during COVID years (2020-2021). \\
+\texttt{is\_\allowbreak china\_\allowbreak vbp\_\allowbreak customer} & Binary flag: 1 if customer is in China and last active year is 2021 or later (VBP era). \\
+\texttt{is\_\allowbreak post\_\allowbreak covid\_\allowbreak customer} & Binary flag: 1 if last active year is 2022 or later (still transacting post-COVID). \\
 \end{longtable}
 
 \subsection{Predictive pricing panel features}
@@ -1113,47 +1110,47 @@ Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3
 \endfoot
 \bottomrule
 \endlastfoot
-\multicolumn{2}{@{}l}{\textit{Identifiers / panel grain}} \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Identifiers / panel grain}} \\
 \texttt{country} & Billing country of the ordering entity. \\
 \texttt{customer} & OEM or distributor name as registered in SAP. \\
-\texttt{product\_group} & Product category (e.g. D Kugel, D CLock, F Kugel, Contoura, Smat div.). \\
+\texttt{product\_\allowbreak group} & Product category (e.g. D Kugel, D CLock, F Kugel, Contoura, Smat div.). \\
 \texttt{quarter} & Calendar quarter for which the target unit price is measured (e.g. 2023Q2). \\
-\multicolumn{2}{@{}l}{\textit{Target variables}} \\
-\texttt{target\_unit\_price} & Realised unit price (EUR) in the current quarter. This is the Phase 4 prediction target. \\
-\texttt{target\_quantity} & Units sold in the current quarter (context only; not used as a model feature). \\
-\multicolumn{2}{@{}l}{\textit{Lagged price and volume}} \\
-\texttt{price\_lag\_1q} & Unit price in the immediately preceding quarter (t-1). Strongest predictor due to pricing inertia. \\
-\texttt{price\_lag\_2q} & Unit price two quarters ago (t-2). Missing if fewer than two prior quarters exist. \\
-\texttt{price\_lag\_4q} & Unit price four quarters ago (year-ago). Captures annual contract renewal cycles. \\
-\texttt{volume\_lag\_1q} & Quantity sold in the previous quarter (t-1). Volume negotiation leverage signal. \\
-\multicolumn{2}{@{}l}{\textit{Rolling statistics}} \\
-\texttt{price\_rolling\_mean\_4q} & Rolling mean of unit prices over the last four quarters (or all available if fewer). Smoothed price level. \\
-\texttt{price\_rolling\_std\_4q} & Rolling standard deviation of unit prices over the last four quarters. Short-term pricing volatility. \\
-\texttt{volume\_rolling\_mean\_4q} & Rolling mean of quarterly volume over the last four quarters. \\
-\texttt{volume\_rolling\_sum\_4q} & Total volume in the last four quarters. Annualised demand signal. \\
-\multicolumn{2}{@{}l}{\textit{Cumulative history}} \\
-\texttt{cum\_avg\_price} & Cumulative average unit price over all prior quarters. Long-run price anchor. \\
-\texttt{cum\_total\_qty} & Total cumulative quantity purchased over all prior quarters. \\
-\texttt{n\_prior\_quarters} & Number of quarters with transactions before this one. Measures relationship depth. \\
-\multicolumn{2}{@{}l}{\textit{Trend and momentum}} \\
-\texttt{price\_trend\_prior} & OLS slope of unit price over all prior quarters. Negative = systematic price erosion. \\
-\texttt{volume\_trend\_prior} & OLS slope of quarterly volume over all prior quarters. Positive = growing demand. \\
-\texttt{price\_change\_last\_pct} & Percentage change in price from t-2 to t-1. Captures recent momentum. \\
-\multicolumn{2}{@{}l}{\textit{Market context (lagged)}} \\
-\texttt{market\_median\_price\_lag1} & Country-level median price for this product in the previous quarter. Market benchmark. \\
-\texttt{market\_mean\_price\_lag1} & Country-level mean price for this product in the previous quarter. \\
-\texttt{price\_vs\_market\_pct\_lag1} & Customer's price versus country median in t-1 (\%). Positive = premium; negative = discount. \\
-\texttt{market\_n\_customers\_lag1} & Number of customers buying this product in this country in the previous quarter. \\
-\texttt{volume\_market\_share\_lag1} & This customer's share of total market volume for this product in t-1 (0-1). \\
-\multicolumn{2}{@{}l}{\textit{Customer context (lagged)}} \\
-\texttt{cust\_revenue\_lag1} & Customer's total revenue across all products in the previous quarter. \\
-\texttt{cust\_n\_products\_lag1} & Number of product groups purchased by this customer in the previous quarter. \\
-\multicolumn{2}{@{}l}{\textit{Product attribute}} \\
-\texttt{dominant\_diameter\_mm} & Most common head diameter (mm) from material descriptions. Static product attribute. \\
-\multicolumn{2}{@{}l}{\textit{Temporal structure}} \\
-\texttt{quarters\_since\_first} & Number of quarters since the first transaction for this product-customer series. Relationship age. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Target variables}} \\
+\texttt{target\_\allowbreak unit\_\allowbreak price} & Realised unit price (EUR) in the current quarter. This is the Phase 4 prediction target. \\
+\texttt{target\_\allowbreak quantity} & Units sold in the current quarter (context only; not used as a model feature). \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Lagged price and volume}} \\
+\texttt{price\_\allowbreak lag\_\allowbreak 1q} & Unit price in the immediately preceding quarter (t-1). Strongest predictor due to pricing inertia. \\
+\texttt{price\_\allowbreak lag\_\allowbreak 2q} & Unit price two quarters ago (t-2). Missing if fewer than two prior quarters exist. \\
+\texttt{price\_\allowbreak lag\_\allowbreak 4q} & Unit price four quarters ago (year-ago). Captures annual contract renewal cycles. \\
+\texttt{volume\_\allowbreak lag\_\allowbreak 1q} & Quantity sold in the previous quarter (t-1). Volume negotiation leverage signal. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Rolling statistics}} \\
+\texttt{price\_\allowbreak rolling\_\allowbreak mean\_\allowbreak 4q} & Rolling mean of unit prices over the last four quarters (or all available if fewer). Smoothed price level. \\
+\texttt{price\_\allowbreak rolling\_\allowbreak std\_\allowbreak 4q} & Rolling standard deviation of unit prices over the last four quarters. Short-term pricing volatility. \\
+\texttt{volume\_\allowbreak rolling\_\allowbreak mean\_\allowbreak 4q} & Rolling mean of quarterly volume over the last four quarters. \\
+\texttt{volume\_\allowbreak rolling\_\allowbreak sum\_\allowbreak 4q} & Total volume in the last four quarters. Annualised demand signal. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Cumulative history}} \\
+\texttt{cum\_\allowbreak avg\_\allowbreak price} & Cumulative average unit price over all prior quarters. Long-run price anchor. \\
+\texttt{cum\_\allowbreak total\_\allowbreak qty} & Total cumulative quantity purchased over all prior quarters. \\
+\texttt{n\_\allowbreak prior\_\allowbreak quarters} & Number of quarters with transactions before this one. Measures relationship depth. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Trend and momentum}} \\
+\texttt{price\_\allowbreak trend\_\allowbreak prior} & OLS slope of unit price over all prior quarters. Negative = systematic price erosion. \\
+\texttt{volume\_\allowbreak trend\_\allowbreak prior} & OLS slope of quarterly volume over all prior quarters. Positive = growing demand. \\
+\texttt{price\_\allowbreak change\_\allowbreak last\_\allowbreak pct} & Percentage change in price from t-2 to t-1. Captures recent momentum. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Market context (lagged)}} \\
+\texttt{market\_\allowbreak median\_\allowbreak price\_\allowbreak lag1} & Country-level median price for this product in the previous quarter. Market benchmark. \\
+\texttt{market\_\allowbreak mean\_\allowbreak price\_\allowbreak lag1} & Country-level mean price for this product in the previous quarter. \\
+\texttt{price\_\allowbreak vs\_\allowbreak market\_\allowbreak pct\_\allowbreak lag1} & Customer's price versus country median in t-1 (\%). Positive = premium; negative = discount. \\
+\texttt{market\_\allowbreak n\_\allowbreak customers\_\allowbreak lag1} & Number of customers buying this product in this country in the previous quarter. \\
+\texttt{volume\_\allowbreak market\_\allowbreak share\_\allowbreak lag1} & This customer's share of total market volume for this product in t-1 (0-1). \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Customer context (lagged)}} \\
+\texttt{cust\_\allowbreak revenue\_\allowbreak lag1} & Customer's total revenue across all products in the previous quarter. \\
+\texttt{cust\_\allowbreak n\_\allowbreak products\_\allowbreak lag1} & Number of product groups purchased by this customer in the previous quarter. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Product attribute}} \\
+\texttt{dominant\_\allowbreak diameter\_\allowbreak mm} & Most common head diameter (mm) from material descriptions. Static product attribute. \\
+\rowcolor{gray!20} \multicolumn{2}{@{}l}{\textit{Temporal structure}} \\
+\texttt{quarters\_\allowbreak since\_\allowbreak first} & Number of quarters since the first transaction for this product-customer series. Relationship age. \\
 \texttt{year} & Calendar year of the current quarter. \\
-\texttt{quarter\_of\_year} & Quarter number (1-4). Captures seasonality. \\
+\texttt{quarter\_\allowbreak of\_\allowbreak year} & Quarter number (1-4). Captures seasonality. \\
 \end{longtable}
 
 %TC:endignore
