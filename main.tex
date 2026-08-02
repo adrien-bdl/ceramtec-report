@@ -470,7 +470,7 @@ These three accounts should be investigated independently rather than folded int
 
 \subsection{Final segment identification}
 
-Removing the 3 outliers leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ appears as the most natural cluster number choice due to the clear elbow and the highest silhouette visibile in Fugure~\ref{fig:phase3_elbow}.
+Removing the three outliers leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is the most natural choice: Figure~\ref{fig:phase3_elbow} shows a clear elbow and the highest silhouette at four clusters.
 
 \begin{figure}[H]
 \centering
@@ -479,7 +479,7 @@ Removing the 3 outliers leaves a cleaned sample of $n{=}79$. On that cleaned spa
 \label{fig:phase3_elbow}
 \end{figure}
 
-This yields to the four behavioural segments ploted on the 2 main directions identified by PCA in Fugure~\ref{fig:phase3_pca}.
+The resulting segments are plotted on the first two principal components in Figure~\ref{fig:phase3_pca} and summarised in Table~\ref{tab:cluster_summary}.
 
 \begin{figure}[H]
 \centering
@@ -487,9 +487,6 @@ This yields to the four behavioural segments ploted on the 2 main directions ide
 \caption{Final four pricing segments after outlier removal ($n{=}79$).}
 \label{fig:phase3_pca}
 \end{figure}
-
-
-\textcolor{red}{maybe the plot of the feature importance and a table with the centroid value for each of the most important feature would be interesting to justify the cluster labels and draw recommandations for the client}
 
 \begin{table}[H]
 \centering
@@ -508,7 +505,41 @@ Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \label{tab:cluster_summary}
 \end{table}
 
-Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, while the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
+To justify these labels, Figure~\ref{fig:phase3_importance} ranks the features that most separate the four clusters ($\eta^2$: share of variance explained by segment membership). Engagement recency dominates, followed by portfolio expansion at renewal and commercial scale (revenue, volume, tenure). Table~\ref{tab:phase3_centroids} reports segment-mean values on the most commercially readable drivers.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{6_phase3/phase3_feature_importance.png}
+\caption{Feature importance for the cleaned four-segment solution ($\eta^2$).}
+\label{fig:phase3_importance}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Driver (segment mean)} & \textbf{Legacy} & \textbf{Mid-Market} & \textbf{Mature Div.} & \textbf{High-Growth} \\
+\midrule
+\# OEMs & 12 & 50 & 8 & 9 \\
+Days since last meeting & 29 & 121 & 301 & 437 \\
+Meeting count & 9.3 & 4.6 & 5.6 & 3.3 \\
+Total revenue & EUR\,28.7M & EUR\,4.2M & EUR\,10.7M & EUR\,3.1M \\
+Active years & 6.6 & 3.9 & 5.8 & 3.9 \\
+Product groups & 2.3 & 1.8 & 2.6 & 1.8 \\
+Contract periods & 2.8 & 2.6 & 3.5 & 3.2 \\
+Product groups added & 0.17 & 0.04 & 0.75 & 0.22 \\
+Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
+\bottomrule
+\end{tabular}
+\caption{Segment centroids on key drivers (cleaned $n{=}79$). Values are within-segment means.}
+\label{tab:phase3_centroids}
+\end{table}
+
+The centroids support the commercial labels. \textbf{Legacy Strategic Partners} combine the highest revenue with the most intensive and recent Salesforce engagement. \textbf{Mid-Market Core} is the large average book: moderate scale and moderate engagement across all four countries. \textbf{Mature Diversified Accounts} sit at high revenue with the broadest portfolios and the strongest product expansion at renewal. \textbf{High-Growth Challengers} are smaller in absolute revenue but show the highest opportunity win rate and more fragmented contract histories---consistent with expansion-oriented accounts that still need tighter commercial follow-up.
+
+Figure~\ref{fig:phase3_heatmap} confirms that Mid-Market Core spans all markets, while the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split.
 
 \begin{figure}[H]
 \centering
@@ -519,17 +550,17 @@ Figure~\ref{fig:phase3_heatmap} shows that Mid-Market Core spans all markets, wh
 
 \subsection{Comparison with CeramTec's current classification}
 
-If the Key Accounts register already captured pricing behaviour, strategic OEMs would concentrate in one or two clusters. They do not. Among named Key Accounts that appear in the cleaned four-market matrix, accounts remain spread across three of the four behavioural segments after outlier removal (Double Medical is excluded as the singleton outlier). Concentration within any single cluster is modest. The implication is practical rather than critical of the register: \textbf{strategic importance and negotiation behaviour are different axes}. CeramTec should keep the Key Accounts tiers for coverage and escalation, and use the behavioural segments as an overlay when preparing negotiation baselines and playbooks.
+If the Key Accounts register already captured pricing behaviour, strategic OEMs would concentrate in one or two clusters. They do not. Among named Key Accounts that appear in the cleaned four-market matrix, accounts remain spread across three of the four behavioural segments after outlier removal. Concentration within any single cluster is modest. The implication is practical rather than critical of the register: \textbf{strategic importance and negotiation behaviour are different axes}. CeramTec should keep the Key Accounts tiers for coverage and escalation, and use the behavioural segments as an overlay when preparing negotiation baselines and playbooks.
 
 \subsection{Pricing implications}
 
-Legacy Strategic Partners warrant value defence grounded in clinical and volume evidence, with joint planning as the default posture. Mid-Market Core accounts are suited to standard baselines indexed to market signals, with renewal discounts benchmarked against segment medians. Mature Diversified Accounts need explicit management of portfolio breadth and renewal complexity. High-Growth Challengers should pair volume gates with clearer expansion pricing rules.
+The centroids translate directly into negotiation posture. Legacy Strategic Partners warrant value defence grounded in clinical and volume evidence, with joint planning as the default posture and careful protection of already-deep relationships. Mid-Market Core accounts are suited to standard baselines indexed to market signals, with renewal discounts benchmarked against segment medians rather than ad hoc exceptions. Mature Diversified Accounts need explicit management of portfolio breadth and renewal complexity: product adds and multi-period contracts should be priced as a package, not line by line. High-Growth Challengers should pair volume or win-rate gates with clearer expansion pricing rules, while Key Account Managers investigate why meeting cadence remains thin despite strong opportunity outcomes.
 
 Country remains a separate pricing axis: a US legacy partner and an Italian legacy partner may share behavioural scale but still face different payer ceilings. In use, commercial teams should therefore combine three signals---Key Account tier (who owns the relationship), behavioural segment (how to negotiate), and country market context (what the payer environment allows).
 
 \subsection{Constraints encountered}
 
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; the outlier removals in Section~\ref{sec:phase3} are necessary but partly judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
+Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; the outlier removals above are necessary but partly judgement-based; and cluster labels should be refreshed as the customer master improves. The Key Accounts register itself is global and includes OEMs outside the four modelled markets, so not every PDF name maps one-to-one into the Phase~3 sample.
 
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
