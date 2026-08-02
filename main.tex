@@ -444,7 +444,7 @@ This taxonomy works well for commercial organisation: the largest and most strat
 
 \subsection{Methodology}
 
-The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. K-Means with an elbow/silhouette sweep is the primary algorithm, with Ward hierarchical clustering as a robustness check and 2-D/3-D PCA for visualisation. Before settling on the final solution, extreme accounts that would otherwise force the algorithm to waste clusters are identified and removed, as described below.
+The segmenter uses 45 curated numeric features (16 SAP, 15 contract, 11 Salesforce, and 3 structural flags). Country dummies and country-constant external fields are excluded so geography does not dominate distance and behavioural similarity remains visible across markets. Features are median-imputed and Robust-scaled. K-Means is the algorithm used with an elbow/silhouette sweep for the selection of the number of clusters.
 
 \subsection{Outlier identification}
 
@@ -466,7 +466,11 @@ Re-running K-Means at $k{=}4$ on the remaining 81 accounts then produces a two-O
 \label{fig:phase3_outlier_micro}
 \end{figure}
 
-These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. Removing them leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ is selected (silhouette $\approx 0.71$), yielding the four behavioural segments below.
+These three accounts should be investigated independently rather than folded into a negotiation playbook. Plausible explanations include that the customer went out of business, became commercially unresponsive, or that CeramTec simply lost active contact. Until Key Account Managers clarify the status of each relationship, the accounts remain visible as exceptions for case-by-case review, but they are not allowed to drive the segment definitions used for pricing guidance. 
+
+\subsection{Final segment identification}
+
+Removing the 3 outliers leaves a cleaned sample of $n{=}79$. On that cleaned space, $k{=}4$ appears as the most natural cluster number choice due to the clear elbow and the highest silhouette visibile in Fugure~\ref{fig:phase3_elbow}.
 
 \begin{figure}[H]
 \centering
@@ -475,6 +479,8 @@ These three accounts should be investigated independently rather than folded int
 \label{fig:phase3_elbow}
 \end{figure}
 
+This yields to the four behavioural segments ploted on the 2 main directions identified by PCA in Fugure~\ref{fig:phase3_pca}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\linewidth]{6_phase3/phase3_final_segments.png}
@@ -482,7 +488,8 @@ These three accounts should be investigated independently rather than folded int
 \label{fig:phase3_pca}
 \end{figure}
 
-\subsection{Final segment interpretation}
+
+\textcolor{red}{maybe the plot of the feature importance and a table with the centroid value for each of the most important feature would be interesting to justify the cluster labels and draw recommandations for the client}
 
 \begin{table}[H]
 \centering
