@@ -599,19 +599,19 @@ Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin, the three outlier 
 \section{Phase 4: Pricing Predictive Model and Negotiation Support}
 \label{sec:phase4}
 
-Phase~4 builds a next-quarter unit-price model on the Phase~2 panel. The objective is to provide a negotiation baseline price for each product sold for each company on each market. By identifying the key features driving this pricing setting, it also aims to identify drivers to by insisted on during negotiations.
+Phase~4 builds a next-quarter unit-price model on the Phase~2 panel. The objective is a negotiation baseline for each country $\times$ customer $\times$ product group, plus identification of the drivers sales teams should emphasise in discussion.
 
 \subsection{Modelling setup}
 
 \textbf{Target.} Realised unit price (EUR) at country $\times$ customer $\times$ product group $\times$ quarter.\\
 \textbf{Sample.} 1{,}744 panel rows; 35 predictors after excluding direct leakage of the contemporaneous target.\\
-\textbf{Temporal split.} Train on 2020Q1--2025Q3 (1{,}516 rows); test on 2025Q4--2026Q3 (228 rows).\\
-\textbf{Validation.} Five-fold Time Series Split during training (no random shuffle).\\
+\textbf{Temporal split.} Train on 2020Q1--2025Q3 (1{,}516 rows); out-of-time test on 2025Q4--2026Q3 (228 rows).\\
+\textbf{Validation.} Five-fold \texttt{TimeSeriesSplit} during training (no random shuffle).\\
 \textbf{Models compared.} Linear Regression, Random Forest, Gradient Boosting, and XGBoost.
 
 \subsection{Model comparison}
 
-The results for each model is presented in Figure~\ref{tab:phase4_models}. Random Forest present the lowest errors (lowest RMSE and lowest MAE) and the best fit ($R^2$).
+Table~\ref{tab:phase4_models} reports out-of-time performance. Random Forest achieves the lowest error (RMSE EUR\,10.0; MAE EUR\,5.4) and the highest $R^2$ (0.964).
 
 %TC:ignore
 \begin{table}[H]
@@ -627,17 +627,16 @@ Gradient Boosting & 10.01 & 5.67 & 0.964 \\
 XGBoost & 11.10 & 6.13 & 0.956 \\
 \bottomrule
 \end{tabular}
-\caption{Out-of-time model comparison on the test five folds (2025Q4--2026Q3)}
+\caption{Out-of-time model comparison (test: 2025Q4--2026Q3)}
 \label{tab:phase4_models}
 \end{table}
 %TC:endignore
 
-Looking a bit more into detail into the fit of the Random Forest model in Figure~\ref{fig:phase4_oof}, we see that the points are randomly dispersed on both side with no heterokedasticity. Differentiated by country, the predictions fall inside the confidence interval. These confirm the goodness of the fit.
+Diagnostic plots for the Random Forest (Figure~\ref{fig:phase4_oof}) show predictions tightly tracking realised prices, with residuals dispersed on both sides of zero and no clear structure by country. Random Forest is selected because it captures non-linear pricing relationships better than linear regression while generalising more stably than the boosting variants on this panel (MAPE 3.0\% on the test set).
 
 %TC:ignore
 \begin{figure}[H]
 \centering
-% Set the height to whatever size fits your document best (e.g., 5cm, 2in, etc.)
 \subcaptionbox{Predicted vs actual}{%
     \includegraphics[height=4.4cm]{7_phase4/predicted_vs_actual_oof.png}%
 }
@@ -650,13 +649,9 @@ Looking a bit more into detail into the fit of the Random Forest model in Figure
 \end{figure}
 %TC:endignore
 
-THe fact Random Forest appears as the best model is likely due to the fact that it accounts for the non-linearity (compared to a linear regression for example) while avoiding overfitting (compared to a boosting based method). Therefore, we select Random Forest fitted on our data as the model for our predictive pricing.
-
-
-
 \subsection{Pricing drivers and business value}
 
-Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by previous-quarter price, four-quarter rolling mean price, cumulative average price, and lagged market mean/median prices. Secondary signals include volume, recent price change, and relationship maturity. Commercially, these drivers support next-quarter anchors, early erosion flags relative to the account's own history and market benchmark, and volume-for-discount trade-off analysis.
+Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by previous-quarter price, four-quarter rolling mean price, cumulative average price, and lagged market mean/median prices. Secondary signals include volume, recent price change, and relationship maturity. Commercially, these drivers support next-quarter anchors, early erosion flags relative to the account's own history and the market benchmark, and volume-for-discount trade-off analysis.
 
 %TC:ignore
 \begin{figure}[H]
@@ -669,33 +664,55 @@ Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by prev
 
 \subsection{Cold-start pricing for thin-history and new customers}
 
-The framework must also guide \textbf{new or thin-history accounts}. The panel keeps every first observation of a country--customer--product series: when no prior quarter exists, own-price lags are missing and \texttt{n\_prior\_quarters}=0, but lagged country--product market benchmarks, product-group indicators, and customer-context fields remain. Missing lags are median-imputed so the Random Forest falls back to market and structural signals rather than dropping the row; after one prior quarter, own-price inertia enters the forecast.
+The model must also guide new or thin-history accounts. First observations of a country--customer--product series are retained: own-price lags are missing and \texttt{n\_prior\_quarters}${}=0$, but lagged country--product market benchmarks and structural fields remain. Missing lags are median-imputed so the forest falls back to market and product signals rather than dropping the row; after one prior quarter, own-price inertia enters the forecast.
 
-Cold-start accuracy was validated explicitly. On the out-of-time test set, five rows with \texttt{n\_prior\_quarters}$\le$1 yield RMSE EUR\,11.4 and MAE EUR\,8.5, versus full-test RMSE EUR\,10.0 and MAE EUR\,5.4---a modest gap on a small hold-out. In-sample, 149 cold-start rows (RMSE EUR\,7.4) compare with 1{,}042 established accounts that have more than four prior quarters (RMSE EUR\,6.3), about $1.2\times$ the established error. True zero-history cases are harder (in-sample RMSE EUR\,23.6 on 12 rows, partly from atypical product lines), but error falls sharply once one prior quarter is observed (RMSE EUR\,3.4 on 137 rows). New-customer quotes should therefore be treated as market-anchored starting points with closer human review, while guidance tightens quickly as history accumulates.
+Table~\ref{tab:phase4_coldstart} compares out-of-time error for thin-history rows (\texttt{n\_prior\_quarters}${}\le{}$1) with the rest of the test set. The gap is modest, though the cold-start hold-out is small ($n{=}5$). In-sample checks show the same pattern at larger scale: 149 thin-history training rows reach RMSE EUR\,7.4 versus EUR\,6.3 for 1{,}042 established series ($>{}$4 prior quarters). True zero-history cases remain harder, but error falls sharply once one prior quarter is observed. New-customer quotes should therefore be treated as market-anchored starting points with closer human review; guidance tightens quickly as history accumulates.
 
-\textcolor{red}{rather than a long paragraph, create a table to compare the error on the cold start and the rest of the test set}
+%TC:ignore
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Out-of-time cohort} & \textbf{Rows} & \textbf{RMSE (EUR)} & \textbf{MAE (EUR)} \\
+\midrule
+Full test set & 228 & 10.00 & 5.39 \\
+Thin history ($\le$1 prior quarter) & 5 & 11.40 & 8.53 \\
+Rest of test set & 223 & 9.97 & 5.32 \\
+\bottomrule
+\end{tabular}
+\caption{Cold-start versus established out-of-time performance (Random Forest)}
+\label{tab:phase4_coldstart}
+\end{table}
+%TC:endignore
 
 \subsection{How to use the model in negotiation}
 
-\textcolor{red}{ Forecast next-quarter price
-Early warning on price erosion
-Volume-for-discount tradeoffs
-New customer pricing
-}
+The model is a negotiation support tool, not an automated quote engine. Commercial teams should use it to:
 
-\subsection{Constraints encountered}
+\begin{itemize}
+    \item \textbf{Forecast next-quarter price} --- treat the prediction as an evidence-based anchor for the same country--customer--product combination.
+    \item \textbf{Flag price erosion early} --- review accounts whose proposed price sits well below recent residual scale relative to their own history or the market benchmark.
+    \item \textbf{Quantify volume-for-discount trade-offs} --- compare requested discounts with historical price--volume patterns for that account and product.
+    \item \textbf{Price new or thin-history customers} --- start from market and product signals, with tighter human review until one or two realised quarters exist.
+\end{itemize}
 
-Production costs, FX hedging, duties, and formal contract clauses are absent, so predictions cannot be mapped directly to margin-optimal prices. Negotiation context in meeting notes is only partially structured. Geographic coverage is limited to four markets. High $R^2$ partly reflects strong price persistence; commercial review remains mandatory.
-\textcolor{red}{should these point rather be mentioned in the limitations section?}
+Phase~3 segment language should shape negotiation tone (e.g.\ legacy partners versus high-growth challengers), while country payer ceilings remain hard external constraints. Broader data and generalisation limits are summarised in Section~\ref{sec:limitations}.
 
 \clearpage
 
 \section{Limitations}
 \label{sec:limitations}
 
-Three limitation classes bound interpretation. First, production costs, hedging, and taxes are absent, so outputs are price anchors rather than profit-optimal recommendations. Second, transactional SAP data and structured CRM fields omit full contractual terms; meeting notes would require deeper NLP to recover qualitative leverage. Third, results should not be generalised beyond US, China, France, and Italy without further validation, because healthcare systems differ enough that transfer without recalibration is unsafe.
+Several constraints bound how the results should be used.
 
-Source comparability (registry versus VBP demand versus survey) and residual SAP--Salesforce matching gaps remain secondary but material data-quality constraints.
+\textbf{No cost or contractual completeness.} Production costs, FX hedging, duties, and formal contract clauses are outside the model, so outputs are price anchors rather than margin-optimal recommendations. Structured SAP and CRM fields also omit full contractual terms; deeper text analysis of meeting notes would be needed to recover qualitative leverage.
+
+\textbf{Strong price persistence.} High $R^2$ partly reflects sticky realised prices. The model is best read as a disciplined extrapolation of recent commercial reality, not as proof that price moves freely with every market signal. Commercial review remains mandatory.
+
+\textbf{Geographic scope.} Results cover US, China, France, and Italy only. Transfer to other markets without recalibration is unsafe because reimbursement and procurement regimes differ.
+
+\textbf{Data quality.} External sources differ in grain (registry versus VBP demand versus survey). Residual SAP--Salesforce matching gaps leave some accounts CRM-thin, and Phase~3 outlier removals remain partly judgement-based. True zero-history product lines are hard; thin-history quotes need closer human oversight.
 
 \clearpage
 
