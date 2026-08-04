@@ -164,11 +164,11 @@ Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-o
 
 \subsection{CeramTec in the value chain}
 
-CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's €\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty, CeramTec operates as a \textbf{B2B component supplier}: it manufactures high-performance ceramic femoral heads and acetabular liners that OEMs integrate into complete implant systems. Hospitals negotiate with OEMs under country-specific reimbursement and procurement rules. CeramTec's pricing problem is therefore two-level---defending component value to OEM buyers whose own margins are capped by payer ceilings, tenders, and episode budgets.
+CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's EUR\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty, CeramTec operates as a \textbf{B2B component supplier}: it manufactures high-performance ceramic femoral heads and acetabular liners that OEMs integrate into complete implant systems. Hospitals negotiate with OEMs under country-specific reimbursement and procurement rules. CeramTec's pricing problem is therefore two-level---defending component value to OEM buyers whose own margins are capped by payer ceilings, tenders, and episode budgets.
 
 Figure~\ref{fig:value-chain} summarises the commercial chain from component supply through to the patient. CeramTec ships ceramic heads and liners to OEMs, which design and brand the full implant system (examples include Stryker, Zimmer Biomet, DePuy, Smith+Nephew, Exactech, and MicroPort). Finished implants typically reach hospitals through regional, hospital-facing distributors; the hospital is the surgical end-use setting, and the patient is the ultimate clinical beneficiary. CeramTec does not sell bearings directly to hospitals or patients, so negotiation leverage depends on OEM willingness-to-pay under those downstream constraints.
 
-Typical cost bands illustrate the value stack: a hip replacement procedure may cost €\,16k--47k; a complete implant roughly €\,2.6k--8.7k; a ceramic bearing about €\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly €\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
+Typical cost bands illustrate the value stack: a hip replacement procedure may cost EUR\,16k--47k; a complete implant roughly EUR\,2.6k--8.7k; a ceramic bearing about EUR\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly EUR\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
 
 \vspace{0.3cm}
 %TC:ignore
@@ -299,7 +299,7 @@ CeramTec already collected internal commercial data in SAP and behavioural CRM d
 
 External evidence is organised into 13 categories covering the full pricing logic: FX, material and energy cost pressure, reimbursement ceilings, public procurement prices, waiting times, surgery volumes, bearing mix, revision and clinical evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitor context. The synchronised register tracks 51 source rows (Appendix~\ref{app:external-data-register}).
 
-Internal data complement this external layer. SAP provides the transactional commercial record---55{,}240 invoiced transactions across 170 customers in 25 countries and about €\,2.17B cumulative revenue in the broader extract---with hip-bearing analysis later restricted to Delta/Forte divisions in US/CN/FR/IT. Salesforce supplies the behavioural layer: roughly 1{,}500 records across six report exports, 223 accounts, and 380 meeting notes describing who is engaged, how often, and with what pipeline outcome.
+Internal data complement this external layer. SAP provides the transactional commercial record---55{,}240 invoiced transactions across 170 customers in 25 countries and about EUR\,2.17B cumulative revenue in the broader extract---with hip-bearing analysis later restricted to Delta/Forte divisions in US/CN/FR/IT. Salesforce supplies the behavioural layer: roughly 1{,}500 records across six report exports, 223 accounts, and 380 meeting notes describing who is engaged, how often, and with what pipeline outcome.
 
 \subsection{Exploratory data analysis}
 
@@ -373,7 +373,7 @@ Predictive pricing & Country $\times$ customer $\times$ product group $\times$ q
 
 \subsection{Features designed for the customer segmentation}
 
-The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level because only one multinational group appears as separate entities in more than one country (MicroPort in China and the US). Retaining country in the grain is nevertheless important: CeramTec can sell the same product to one customer group at different prices depending on the destination market. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing €\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of €\,190.
+The segmentation matrix contains one row per country--customer pair. In the current four-market sample this is nearly customer-level because only one multinational group appears as separate entities in more than one country (MicroPort in China and the US). Retaining country in the grain is nevertheless important: CeramTec can sell the same product to one customer group at different prices depending on the destination market. Salesforce is matched for 66 of 82 accounts (80.5\%). The matrix covers China (43 rows), the US (17), France (14), and Italy (8), representing EUR\,690.5M in cumulative hip-bearing revenue and a median account-level unit price of EUR\,190.
 
 Table~\ref{tab:phase2_seg_families} summarises the feature families; the complete dictionary is in Appendix~\ref{app:feature_dictionary}.
 
@@ -454,12 +454,12 @@ CeramTec already classifies OEMs in an internal Key Accounts register (last upda
 \toprule
 \textbf{Large customers} (3 OEMs) &
 \textbf{Medium customers} (11 OEMs) \\
-$>$\,€\,10M; strategic accounts with dedicated Key Account Managers (Zimmer Biomet, Stryker incl.\ Serf, Medacta) &
-€\,3--10M; established market position with dedicated Key Account Managers (e.g.\ DePuy, AK Medical, Weigao, Mindray, Microport, Aesculap) \\
+$>$\,EUR\,10M; strategic accounts with dedicated Key Account Managers (Zimmer Biomet, Stryker incl.\ Serf, Medacta) &
+EUR\,3--10M; established market position with dedicated Key Account Managers (e.g.\ DePuy, AK Medical, Weigao, Mindray, Microport, Aesculap) \\
 \midrule
 \textbf{High potentials} (6 OEMs) &
 \textbf{Small accounts \& long tail} \\
-$<$\,€\,3M, but included because of strategic growth or project potential (e.g.\ Meril, Globus Medical, Dedienne) &
+$<$\,EUR\,3M, but included because of strategic growth or project potential (e.g.\ Meril, Globus Medical, Dedienne) &
 Named small accounts handled by field specialists (e.g.\ Smith+Nephew, Link, Lima), plus all remaining customers managed by Customer Service \\
 \bottomrule
 \end{tabular}
@@ -547,7 +547,7 @@ Table~\ref{tab:phase3_centroids} reports segment means on the most commercially 
 \# OEMs & 12 & 50 & 8 & 9 \\
 Days since last meeting & 29 & 121 & 301 & 437 \\
 Meeting count & 9.3 & 4.6 & 5.6 & 3.3 \\
-Total revenue & €\,28.7M & €\,4.2M & €\,10.7M & €\,3.1M \\
+Total revenue & EUR\,28.7M & EUR\,4.2M & EUR\,10.7M & EUR\,3.1M \\
 Active years & 6.6 & 3.9 & 5.8 & 3.9 \\
 Product groups & 2.3 & 1.8 & 2.6 & 1.8 \\
 Contract periods & 2.8 & 2.6 & 3.5 & 3.2 \\
@@ -603,7 +603,7 @@ Phase~4 builds a next-quarter unit-price model on the Phase~2 panel. The objecti
 
 \subsection{Modelling setup}
 
-\textbf{Target.} Realised unit price (€) at country $\times$ customer $\times$ product group $\times$ quarter.\\
+\textbf{Target.} Realised unit price (EUR) at country $\times$ customer $\times$ product group $\times$ quarter.\\
 \textbf{Sample.} 1{,}744 panel rows; 35 predictors after excluding direct leakage of the contemporaneous target.\\
 \textbf{Temporal split.} Train on 2020Q1--2025Q3 (1{,}516 rows); out-of-time test on 2025Q4--2026Q3 (228 rows).\\
 \textbf{Validation.} Five-fold \texttt{TimeSeriesSplit} during training (no random shuffle).\\
@@ -611,7 +611,7 @@ Phase~4 builds a next-quarter unit-price model on the Phase~2 panel. The objecti
 
 \subsection{Model comparison}
 
-Table~\ref{tab:phase4_models} reports out-of-time performance. Random Forest achieves the lowest error (RMSE €\,10.0; MAE €\,5.4) and the highest $R^2$ (0.964).
+Table~\ref{tab:phase4_models} reports out-of-time performance. Random Forest achieves the lowest error (RMSE EUR\,10.0; MAE EUR\,5.4) and the highest $R^2$ (0.964).
 
 %TC:ignore
 \begin{table}[H]
@@ -619,7 +619,7 @@ Table~\ref{tab:phase4_models} reports out-of-time performance. Random Forest ach
 \small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Model} & \textbf{Test RMSE (€)} & \textbf{Test MAE (€)} & \textbf{Test $R^2$} \\
+\textbf{Model} & \textbf{Test RMSE (EUR)} & \textbf{Test MAE (EUR)} & \textbf{Test $R^2$} \\
 \midrule
 Linear Regression & 11.69 & 6.41 & 0.951 \\
 \textbf{Random Forest} & \textbf{10.00} & \textbf{5.39} & \textbf{0.964} \\
@@ -664,9 +664,7 @@ Permutation importance (Figure~\ref{fig:phase4_importance}) is dominated by prev
 
 \subsection{Cold-start pricing for thin-history and new customers}
 
-The model must also guide new or thin-history accounts. First observations of a country--customer--product series are retained: own-price lags are missing and \texttt{n\_prior\_quarters}${}=0$, but lagged country--product market benchmarks and structural fields remain. Missing lags are median-imputed so the forest falls back to market and product signals rather than dropping the row; after one prior quarter, own-price inertia enters the forecast.
-
-Table~\ref{tab:phase4_coldstart} compares out-of-time error for thin-history rows (\texttt{n\_prior\_quarters}${}\le{}$1) with the rest of the test set. The gap is modest, though the cold-start hold-out is small ($n{=}5$). In-sample checks show the same pattern at larger scale: 149 thin-history training rows reach RMSE €\,7.4 versus €\,6.3 for 1{,}042 established series ($>{}$4 prior quarters). True zero-history cases remain harder, but error falls sharply once one prior quarter is observed. New-customer quotes should therefore be treated as market-anchored starting points with closer human review; guidance tightens quickly as history accumulates.
+The model also covers new and thin-history clients. Their first panel records are kept in the training data; when account-specific price history is missing, median imputation fills those gaps so the forecast relies on market and product signals until a track record exists. On the out-of-time test set, error for these new/thin-history cases is close to the rest of the hold-out (Table~\ref{tab:phase4_coldstart}), although only five such rows appear in the test window, so the comparison is indicative rather than definitive.
 
 %TC:ignore
 \begin{table}[H]
@@ -674,10 +672,10 @@ Table~\ref{tab:phase4_coldstart} compares out-of-time error for thin-history row
 \small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Out-of-time cohort} & \textbf{Rows} & \textbf{RMSE (€)} & \textbf{MAE (€)} \\
+\textbf{Out-of-time cohort} & \textbf{Rows} & \textbf{RMSE (EUR)} & \textbf{MAE (EUR)} \\
 \midrule
 Full test set & 228 & 10.00 & 5.39 \\
-Thin history ($\le$1 prior quarter) & 5 & 11.40 & 8.53 \\
+New / thin history & 5 & 11.40 & 8.53 \\
 Rest of test set & 223 & 9.97 & 5.32 \\
 \bottomrule
 \end{tabular}
@@ -744,7 +742,7 @@ Agentic AI accelerated scraping and PDF extraction, but only with disciplined hu
 
 \section{Conclusion}
 
-This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as evidence-based negotiation baselines and next-quarter price guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE €\,10.0; MAE €\,5.4; $R^2{=}0.96$).
+This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as evidence-based negotiation baselines and next-quarter price guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0; MAE EUR\,5.4; $R^2{=}0.96$).
 
 Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow---including cold-start support for thin-history accounts. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
 
