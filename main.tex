@@ -706,9 +706,15 @@ Several constraints bound how the results should be used.
 
 \textbf{No cost or contractual completeness.} Production costs, FX hedging, duties, and formal contract clauses are outside the model, so outputs are price anchors rather than margin-optimal recommendations. Structured SAP and CRM fields also omit full contractual terms; deeper text analysis of meeting notes would be needed to recover qualitative leverage.
 
+\vspace{0.4em}
+
 \textbf{Strong price persistence.} High $R^2$ partly reflects sticky realised prices. The model is best read as a disciplined extrapolation of recent commercial reality, not as proof that price moves freely with every market signal. Commercial review remains mandatory.
 
+\vspace{0.4em}
+
 \textbf{Geographic scope.} Results cover US, China, France, and Italy only. Transfer to other markets without recalibration is unsafe because reimbursement and procurement regimes differ.
+
+\vspace{0.4em}
 
 \textbf{Data quality.} External sources differ in grain (registry versus VBP demand versus survey). Residual SAP--Salesforce matching gaps leave some accounts CRM-thin, and Phase~3 outlier removals remain partly judgement-based. True zero-history product lines are hard; thin-history quotes need closer human oversight.
 
@@ -719,24 +725,36 @@ Several constraints bound how the results should be used.
 
 A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support customer- and product-level baselines rather than real-time dynamic pricing.
 
-We recommend three implementation steps. First, validate segment labels, driver rankings, and contested accounts with Key Account Managers. Second, trial the model under shadow conditions by generating next-quarter anchors in parallel with live negotiations for one or two quarters without binding the sales force. Third, integrate production costs and contract details so anchors can evolve toward margin-aware guidance. In parallel, maintain the external register on a refresh schedule and establish a shared SAP--Salesforce customer master key.
+\vspace{0.4em}
+
+\textbf{Validate with commercial owners.} Review segment labels, driver rankings, and contested accounts with Key Account Managers before any operational use of the playbooks or forecasts.
+
+\vspace{0.4em}
+
+\textbf{Shadow-trial next-quarter anchors.} Run the model in parallel with live negotiations for one or two quarters without binding the sales force, so trust and overrides can be assessed under real conditions.
+
+\vspace{0.4em}
+
+\textbf{Move toward margin-aware guidance.} Integrate production costs and contractual terms so anchors can evolve beyond market-price predictions toward commercially viable recommendations.
+
+\vspace{0.4em}
+
+\textbf{Strengthen the data backbone.} Maintain the external register on a regular refresh schedule and establish a shared SAP--Salesforce customer master key so segmentation and forecasting remain reproducible.
 
 \clearpage
 
 \section{Project Learnings}
 \label{sec:learnings}
 
-\subsection{Healthcare market and regulation}
+\textbf{Healthcare market and regulation.} Medical-device pricing is mediated by institutions rather than spot markets. Cross-country comparison requires simultaneous attention to reimbursement (money-in) and procurement/tender (money-out) logics---illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS/LPPR structure.
 
-Medical-device pricing is mediated by institutions rather than spot markets. Cross-country comparison requires simultaneous attention to reimbursement (money-in) and procurement/tender (money-out) logics---illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS/LPPR structure.
+\vspace{0.4em}
 
-\subsection{Project management and client delivery}
+\textbf{Project management and client delivery.} NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Reframing from dynamic pricing to negotiation baselines was itself a major consulting deliverable.
 
-NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Reframing from dynamic pricing to negotiation baselines was itself a major consulting deliverable.
+\vspace{0.4em}
 
-\subsection{Technical: agentic AI and platform agility}
-
-Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Combining Databricks for SAP joins with local reproducible notebooks reinforced platform agility across client and academic environments.
+\textbf{Technical: agentic AI and platform agility.} Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Combining Databricks for SAP joins with local reproducible notebooks reinforced platform agility across client and academic environments.
 
 \clearpage
 
