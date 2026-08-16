@@ -818,74 +818,47 @@ External sources differ in grain, mixing registry counts, VBP demand, and survey
 \clearpage
 
 \section{Recommendations and Next Steps}
- 
-A data-driven pricing strategy is feasible for CeramTec if framed as
-evidence-based negotiation support and next-quarter price guidance.
-Four structural market findings support this conclusion: the COVID-era
-demand shock has been absorbed, component-level demand is
-near-inelastic, contracts are sticky, and the customer base is
-concentrated in a small number of major OEMs. Together these rule out
-real-time dynamic pricing and favour customer- and product-level
-baselines prepared before each negotiation. The model should therefore
-be read as negotiation support: not a real-time pricing engine, but a
-tool that identifies the key levers---price history, volume,
-relationship maturity, and market context---for each customer. The
-steps below are sequenced so that each stage de-risks the next.
- 
-\textbf{Validate findings with commercial stakeholders.} Before any
-operational use, review the four negotiation dimensions
-(Section~4.2), the segment labels and driver rankings (Section~6), and
-contested accounts with Key Account Managers. Two checks matter most:
-whether the volume-for-discount patterns observed in SAP and quoted in
-meeting notes reflect actual contracting structures, and whether the
-competitor price floors reported by Chinese customers remain current.
-The three dormant outlier accounts identified in Section~6.3 should be
-investigated in the same pass. This step costs little and prevents the
-framework from encoding stale or misread commercial reality.
- 
-\textbf{Integrate production costs and contract details.} The current
-model predicts realised market prices; it does not know CeramTec's
-margins. Incorporating production costs, contractual terms, duties,
-and foreign-exchange exposure converts price anchors into
-margin-aware recommendations, and is the precondition for using the
-guidance in price-setting rather than price-benchmarking. A shared
-SAP--Salesforce customer master key is the enabling data step: fuzzy
-matching currently leaves roughly a fifth of segmentation accounts
-CRM-thin, and every downstream output inherits that gap.
- 
-\textbf{Trial the model under shadow conditions.} Run the Phase~4
-guidance in parallel with live negotiations for one or two cycles
-without binding the sales force. For each negotiation, generate the
-baseline before the meeting and have the Key Account Manager record
-acceptance, override, and rationale. This serves two purposes at once:
-it tests trust and accuracy under real conditions, and it produces the
-structured negotiation-outcome data that the current CRM does not
-capture---closing the largest behavioural-data gap identified in
-Phase~1.
- 
-Throughout, the framework should remain decision support with human
-review: analytical recommendation, plus Key Account Manager context,
-plus contract and cost constraints, produce the negotiation
-decision---never an automated quoting engine.
+
+A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Near-inelastic component demand, sticky contracts, and a concentrated OEM base rule out real-time dynamic pricing and favour customer- and product-level baselines prepared before each negotiation. The steps below are sequenced so each stage de-risks the next.
+
+\vspace{0.4em}
+
+\textbf{Validate findings with commercial stakeholders.} Review segment labels, driver rankings, and contested accounts with Key Account Managers before operational use. Confirm that volume-for-discount patterns and competitor floors still match current contracting practice, and clarify the three dormant outlier accounts from Phase~3. This step costs little and prevents the framework from encoding stale commercial reality.
+
+\vspace{0.4em}
+
+\textbf{Integrate production costs and contract details.} The model predicts realised market prices, not CeramTec margins. Adding production costs, contractual terms, duties, and FX exposure turns anchors into margin-aware guidance. In parallel, establish a shared SAP--Salesforce customer master key: fuzzy matching still leaves some accounts CRM-thin, and every downstream output inherits that gap.
+
+\vspace{0.4em}
+
+\textbf{Trial the model under shadow conditions.} Run Phase~4 guidance in parallel with live negotiations for one or two cycles without binding the sales force. Generate the baseline before each meeting and record acceptance, override, and rationale. This tests trust under real conditions and captures the structured negotiation outcomes missing from today's CRM.
+
+\vspace{0.4em}
+
+Throughout, keep the framework as decision support with human review: analytical recommendation, Key Account Manager context, and cost or contract constraints jointly produce the negotiation decision---never an automated quoting engine.
 
 \clearpage
 
 \section{Conclusion and Key Learnings}
 
-This project set out to test whether a data-driven pricing strategy is feasible for CeramTec's ceramic hip bearings. It is \textbf{feasible}, once reframed from literal dynamic pricing to evidence-based negotiation baselines and next-quarter guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0, MAE EUR\,5.4, $R^2{=}0.96$). The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow, including cold-start support for thin-history accounts. The highest-value next steps are to extend the model with costs and contract terms, then validate it under shadow negotiation conditions. 
+This project shows that a data-driven pricing strategy for CeramTec's ceramic hip bearings is \textbf{feasible} once reframed from literal dynamic pricing to evidence-based negotiation baselines and next-quarter guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0, MAE EUR\,5.4, $R^2{=}0.96$). The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow, including cold-start support. Extending the model with costs and contract terms, then validating under shadow negotiations, are the highest-value next steps.
 
-The project delivered technical output, but its main value for the team lay in three transferable areas:
+Beyond the technical deliverables, the engagement developed three transferable capabilities:
+
+\vspace{0.4em}
 
 \paragraph{Healthcare market and regulation.}
-We learned to navigate a highly regulated and fragmented healthcare market in which medical-device pricing is mediated by institutions rather than spot markets. Building usable context from scratch required deep-dive research across reimbursement, procurement, and clinical evidence, and it forced us to adapt to an industry whose economics shift markedly from one country to the next, so that a conclusion drawn in France rarely transferred directly to China. Cross-country comparison in particular demanded simultaneous attention to reimbursement (money-in) and procurement or tender (money-out) logics, illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS and LPPR structure.
+Medical-device pricing is mediated by institutions rather than spot markets. Building usable context from scratch required deep research across reimbursement, procurement, and clinical evidence, and forced adaptation to economics that shift sharply by country: a conclusion drawn in France rarely transfers directly to China. Cross-country comparison in particular demanded simultaneous attention to reimbursement (money-in) and procurement or tender (money-out) logics, illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS and LPPR structure.
+
 \vspace{0.4em}
 
 \paragraph{Project management and client delivery.}
-The engagement behaved like a real consulting mandate rather than an academic exercise. NDA delays and incremental data releases forced a parallel workstream, with framework design and external collection running first and internal modelling following once access opened. We coordinated within the team and directly with the client through those shifting constraints, and much of the work consisted of bridging technical and commercial stakeholders, translating analytical findings into guidance a negotiation team can act on. Reframing the brief from dynamic pricing to negotiation baselines was itself a major consulting deliverable, not a detour.
+The engagement behaved like a real consulting mandate. NDA delays and incremental data releases forced a parallel workstream---framework design and external collection first, internal modelling once access opened---and constant bridging between technical and commercial stakeholders. Reframing the brief from dynamic pricing to negotiation baselines was itself a major consulting deliverable, not a detour.
+
 \vspace{0.4em}
 
 \paragraph{Technical: agentic AI and platform agility.}
-We strengthened our applied analytics practice by working within the client's own Databricks environment and automating collection and processing through reproducible scripts, so that the pipelines can be re-executed and extended as markets, tariffs, and tenders evolve. Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial and Todo flags to keep unverified outputs visible. Combining Databricks for the SAP joins with local reproducible notebooks reinforced platform agility across both client and academic environments.
+Working in CeramTec's Databricks environment and automating collection through reproducible scripts made the pipelines re-executable as markets and tenders evolve. Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial and Todo flags. Combining Databricks for SAP joins with local notebooks reinforced platform agility across client and academic settings.
 
 \clearpage
 
