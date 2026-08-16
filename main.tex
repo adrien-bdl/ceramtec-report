@@ -142,9 +142,11 @@ From Imperial College Business School, we thank our Academic Mentors, Esma and S
 
 \section{Introduction}
 
-CeramTec is a global manufacturer of advanced technical ceramics and a leading supplier of ceramic components for orthopaedic implants. This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the client's initial ``dynamic pricing'' framing, argue for \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance} as the appropriate objective (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
+CeramTec is a global manufacturer of advanced technical ceramics, producing over 10,000 products across a range of industries, including electronics, energy and industrial manufacturing, and medical technology. Within its Medical Technology division, CeramTec supplies ceramic components for orthopaedic implants used in hip replacements.
 
-A total hip implant replaces a damaged hip joint to restore mobility and relieve pain. As illustrated in Figure~\ref{fig:hip_implant}, the implant comprises a femoral stem, femoral head, acetabular shell, and acetabular liner. The bearing is the articulating interface between the femoral head and the acetabular liner.
+This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the project's initial ``dynamic pricing'' framing, argue for evidence-based negotiation baselines and next-quarter price guidance as the appropriate objective (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
+
+CeramTec's ceramic bearings form part of the total hip implant system shown in Figure~\ref{fig:hip_implant}. Specifically, the bearing is the articulating interface between the femoral head and acetabular liner, where material choice influences wear, durability, and long-term implant performance.
 
 %TC:ignore
 \begin{figure}[H]
@@ -155,7 +157,7 @@ A total hip implant replaces a damaged hip joint to restore mobility and relieve
 \end{figure}
 %TC:endignore
 
-Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-on-polyethylene) materially affects wear, fracture risk, revision outcomes, and therefore economic value. CeramTec currently prices primarily on a cost-plus basis, yet operates across markets with different reimbursement systems, procurement regimes, competitive intensity, and OEM profiles. These differences create headroom for differentiated negotiation baselines by market and customer.
+CeramTec operates as a component supplier to original equipment manufacturers (OEMs), which integrate its ceramic bearings into complete implant systems. While pricing is primarily cost-based, CeramTec operates across markets with different reimbursement systems, procurement regimes, competitive intensity, and customer profiles. These differences motivate the assessment of more differentiated, evidence-based negotiation baselines.
 
 \clearpage
 
@@ -164,11 +166,7 @@ Bearing material choice (ceramic-on-ceramic, ceramic-on-polyethylene, or metal-o
 
 \subsection{CeramTec in the value chain}
 
-CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's EUR\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty, CeramTec operates as a \textbf{B2B component supplier}: it manufactures high-performance ceramic femoral heads and acetabular liners that OEMs integrate into complete implant systems. Hospitals negotiate with OEMs under country-specific reimbursement and procurement rules. CeramTec's pricing problem is therefore two-level---defending component value to OEM buyers whose own margins are capped by payer ceilings, tenders, and episode budgets.
-
-Figure~\ref{fig:value-chain} summarises the commercial chain from component supply through to the patient. CeramTec ships ceramic heads and liners to OEMs, which design and brand the full implant system (examples include Stryker, Zimmer Biomet, DePuy, Smith+Nephew, Exactech, and MicroPort). Finished implants typically reach hospitals through regional, hospital-facing distributors; the hospital is the surgical end-use setting, and the patient is the ultimate clinical beneficiary. CeramTec does not sell bearings directly to hospitals or patients, so negotiation leverage depends on OEM willingness-to-pay under those downstream constraints.
-
-Typical cost bands illustrate the value stack: a hip replacement procedure may cost EUR\,16k--47k; a complete implant roughly EUR\,2.6k--8.7k; a ceramic bearing about EUR\,289--419 in CeramTec SAP data (2020--2026); and a standard non-ceramic bearing roughly EUR\,73--270. Ceramic bearings therefore sit at the high-performance end of a cost-sensitive episode budget.
+CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's EUR\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty (hip replacement surgery), CeramTec operates as a business-to-business (B2B) component supplier, manufacturing high-performance ceramic femoral heads and acetabular liners for original equipment manufacturers (OEMs). These OEMs assemble and commercialise the complete implant systems that are subsequently supplied to healthcare providers. Hospitals purchase these systems under country-specific reimbursement and procurement rules, meaning CeramTec's pricing is influenced by the downstream commercial constraints faced by its OEM customers.
 
 \vspace{0.3cm}
 %TC:ignore
@@ -231,32 +229,67 @@ Typical cost bands illustrate the value stack: a hip replacement procedure may c
 \vspace{0.3cm}
 
 
+Figure~\ref{fig:value-chain} summarises the commercial chain from component supply to the patient. CeramTec manufactures and supplies ceramic heads and liners to OEMs such as Stryker, Zimmer Biomet, DePuy Synthes, Smith\&Nephew, Exactech, and MicroPort. Finished implant systems then reach hospitals either directly or through distributors, with patients as the ultimate clinical beneficiaries. As CeramTec does not sell directly to hospitals or patients, its pricing negotiations depend on OEM willingness-to-pay within these downstream constraints.
+
+
+Table~\ref{tab:typical-costs} illustrates CeramTec's position within the broader value stack. Ceramic bearings account for approximately 5--11\% of the complete implant cost, while commanding a premium over standard non-ceramic bearings. This highlights the component's relatively small share of total implant expenditure despite its importance to implant performance.
+
+%TC:ignore
+\begin{table}[H]
+\centering
+\small
+\label{tab:typical-costs}
+\begin{tabularx}{0.85\textwidth}{@{}X r@{}}
+\toprule
+\textbf{Cost component} & \textbf{Typical cost} \\
+\midrule
+Hip replacement procedure & EUR\,16k--47k \\
+Complete implant & EUR\,2.6k--8.7k \\
+\textbf{Ceramic bearing} & \textbf{EUR\,289--419} \\
+Standard non-ceramic bearing & EUR\,73--270 \\
+\bottomrule
+\end{tabularx}
+\caption{Typical costs across the hip replacement value stack}
+\end{table}
+
+%TC:endignore
+
+
 \subsubsection{Customer base and competitive landscape}
 
-CeramTec maintains an internal Key Accounts register that ranks OEMs by current and potential sales and by strategic-project status. Dedicated Key Account Managers cover the large and medium tiers; high potentials also receive named coverage, while small accounts and the long tail are handled by field specialists or Customer Service. The register is summarised in Section~\ref{sec:phase3}; Phases~2--4 then use the full SAP customer universe in US/CN/FR/IT rather than restricting analysis to the strategic list alone.
+CeramTec's customer base consists primarily of global and regional orthopaedic OEMs. Its internal Key Accounts register categorises these customers according to current and potential sales and strategic-project status. Large and medium accounts are managed by dedicated Key Account Managers, while smaller accounts are covered by field specialists or Customer Service. The Key Accounts register is examined further in Phase 3 (Section~\ref{sec:phase3}); Phases~2--4 use the broader SAP customer universe across the US, China (CN), France (FR), and Italy (IT) to avoid restricting the analysis to strategic accounts alone.
 
-Phase~1 external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith+Nephew, Medacta).
+Phase~1 (Section~\ref{sec:external-data}) external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith\&Nephew, Medacta), to assess differences in scale, geographic exposure, product portfolios, and market positioning.
 
-CeramTec's differentiation is as a dedicated ceramic-component specialist (BIOLOX\textregistered{}), not as a full-system OEM. It is estimated to hold roughly 90\%+ share in ceramic bearings. Substitute ceramic suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys (OEM-owned ceramic supply), plus several China-based technical ceramics producers.
+Within the competitive landscape, CeramTec is differentiated as a specialist ceramic-component supplier rather than a full-system implant manufacturer. Its BIOLOX\textregistered{} platform is estimated to account for over 90\% of the bearing market within this segment. Alternative suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys, alongside a growing number of China-based manufacturers. This strong market position limits direct competition but does not eliminate pressure from alternative bearing materials or OEM cost constraints.
 
 \subsection{Hip bearing products}
+CeramTec's hip bearing portfolio centres on BIOLOX\textregistered{} forte, an alumina ceramic, and BIOLOX\textregistered{} delta, a zirconia-toughened alumina composite. Advanced ceramics offer high hardness, low friction, wear resistance, and biocompatibility, supporting implant durability and long-term performance. BIOLOX\textregistered{} delta further improves fracture resistance relative to conventional alumina.
 
-The hip portfolio centres on BIOLOX\textregistered{} forte (alumina) and BIOLOX\textregistered{} delta (zirconia-toughened alumina), supplied into CoP and CoC bearing couples. CoC minimises polyethylene wear but requires precise engineering; CoP remains the volume segment in most markets. Registry and VBP-proxy evidence collected in Phase~1 shows materially different ceramic-involved shares across US, Italy, France, and China---directly relevant to CeramTec's addressable premium volume.
+These components are supplied in ceramic-on-polyethylene (CoP) and ceramic-on-ceramic (CoC) bearing configurations. CoC offers very low wear, while CoP combines a ceramic femoral head with a polyethylene liner and represents the larger-volume ceramic segment in many markets.
+
+Phase~1 registry and China's Volume-Based Procurement (VBP) proxy evidence indicates substantial variation in ceramic adoption across the US, China, France, and Italy. These differences influence CeramTec's market potential and provide an important market-level input to the pricing analysis.
 
 \subsubsection{Current pricing approach}
 
-CeramTec currently prices bearings primarily on a \textbf{cost-plus} basis: production cost plus a margin. Informal differentiation already appears in realised SAP prices through volume discounts and account history, but there is no systematic, evidence-backed baseline by market and negotiation behaviour. Given payer ceilings, procurement competition, and OEM heterogeneity, a single global cost-plus formula cannot capture willingness-to-pay differences across France's GHS/LPPR logic, Italy's regional fragmentation, US Medicare/commercial split, or China's Volume-Based Procurement (VBP) rounds.
+CeramTec currently prices bearings primarily using a cost-plus approach, whereby production cost is combined with a target margin. Realised SAP prices already reflect some differentiation through volume discounts and account history; however, there is no systematic, evidence-based baseline incorporating market and customer characteristics. Given payer ceilings, procurement competition, and OEM heterogeneity, a single global cost-plus formula cannot capture willingness-to-pay differences across France's GHS/LPPR logic, Italy's regional fragmentation, US Medicare/commercial split, or China's Volume-Based Procurement (VBP) rounds.
 
 \clearpage
 
 \section{Project Scope and Methodology}
 
+Against this background, CeramTec asked: Can existing data support future AI-enabled pricing decisions? The project therefore assessed the feasibility of a data-driven pricing approach by identifying key pricing drivers, evaluating available data and its limitations, and developing a roadmap for future implementation. Ultimately, the objective was to determine where analytics can add value to CeramTec's pricing process while reducing the risk of premature investment in an AI-based solution.
+
+Several project delivery considerations influenced the sequencing and prioritisation of the work. Appendix~\ref{app:project-delivery-considerations} summarises these considerations and the measures taken to maintain progress.
+
 \subsection{Problem reframing: negotiation baselines versus dynamic pricing}
 \label{sec:reframing}
 
-Dynamic pricing in aviation or ticketing adjusts prices frequently in response to remaining capacity and time-to-event. CeramTec's reality differs: contracts are long-term and relationship-based with a concentrated OEM set; prices are negotiated individually rather than published on a continuously repriced channel; and frequent automated changes would undermine trust and conflict with medical-device contracting cycles.
+The project was initially framed around dynamic pricing. Early analysis of CeramTec's commercial model, however, indicated that real-time or high-frequency price adjustment was not well aligned with how ceramic bearings are sold.
 
-We therefore reframe the objective as \textbf{evidence-based negotiation baselines} and \textbf{next-quarter price guidance}: customer- and product-level anchors informed by market context, purchasing behaviour, and relationship history. Commercial teams can use these as a starting position in negotiation---not as a small set of fixed group prices, and not as a real-time pricing bot.
+Dynamic pricing is most applicable where prices can respond frequently to changes in demand, capacity, or timing, as in aviation or ticketing. CeramTec instead operates through a concentrated set of OEM customers, relationship-based contracts, and individually negotiated prices. Pricing decisions are therefore relatively infrequent and embedded within longer medical-device contracting and customer relationship cycles.
+
+The project was therefore reframed towards evidence-based negotiation baselines and next-quarter price guidance, using customer, product, and market data to inform pricing discussions. This shifts analytics from automated price setting to decision support, while preserving commercial judgement, and forms the basis of the four-phase framework below.
 
 \subsection{Four-phase pricing framework}
 \label{sec:methodology}
@@ -265,9 +298,8 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 \begin{table}[H]
 \centering
 \small
-\caption{Four-phase pricing framework: objectives and deliverables}
 \label{tab:phases}
-\begin{tabular}{@{}p{1.3cm}p{4.2cm}p{7.0cm}@{}}
+\begin{tabular}{@{}p{1.5cm}p{5.0cm}p{9.0cm}@{}}
 \toprule
 \textbf{Phase} & \textbf{Objective} & \textbf{Deliverables and status} \\
 \midrule
@@ -277,13 +309,18 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 4 & Negotiation pricing model & Temporally validated Random Forest next-quarter forecasts --- \textbf{implemented} \\
 \bottomrule
 \end{tabular}
+\caption{Four-phase pricing framework: objectives and deliverables}
 \end{table}
 %TC:endignore
 
+Table~\ref{tab:phases} summarises the four-phase framework used to translate available data into actionable pricing support. Phase~1 establishes the evidence base through internal and external data collection and exploratory analysis. Phase~2 transforms these data into structured customer-, country-, and time-level features for pricing analysis. Phase~3 uses purchasing and pricing behaviour to segment 79 OEM customers into four distinct clusters. Finally, Phase~4 incorporates these features into a temporally validated Random Forest model to generate next-quarter price forecasts. Together, the four phases progress from data collection to structured pricing insights and predictive decision support.
+
+
 \subsection{Scope}
+The project combined internal and external data across four priority markets to assess data-driven pricing feasibility.
 
 \textbf{Objective.} Assess feasibility of a data-driven pricing strategy and deliver a maintainable framework for negotiation baselines.\\
-\textbf{Markets.} USA, China, France, Italy.\\
+\textbf{Markets.} US, China, France, Italy.\\
 \textbf{Accounts.} Full SAP hip-bearing customer universe in those markets (82 country--customer rows), with CeramTec's Key Accounts register as the strategic overlay.\\
 \textbf{Evidence families.} Thirteen external categories (FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, competitors), plus SAP commercial and Salesforce behavioural layers.\\
 \textbf{Reproducibility.} Scraping/processing scripts, synchronised register, EDA notebooks, and modelling notebooks under version control.
@@ -291,25 +328,48 @@ We therefore reframe the objective as \textbf{evidence-based negotiation baselin
 \clearpage
 
 \section{Phase 1: Data Collection and Exploration}
-\label{sec:phase1}
+\label{sec:external-data}
 
-CeramTec already collected internal commercial data in SAP and behavioural CRM data in Salesforce, but had no centralised external-data system for pricing intelligence. Phase~1 built that evidence backbone: a unified External Data Register, reproducible retrieval and processing scripts, and exploratory analysis across the four priority markets.
+\subsection{Approach}
 
-\subsection{Categorisation of the data}
+No centralised external evidence base existed at the outset, only qualitative context from stakeholders. We therefore implemented reproducible acquisition and processing pipelines, designed to be re-executed as reimbursement schedules and procurement tenders evolve. Evidence spans thirteen thematic categories across four markets selected for representativeness: France and Italy (mature systems), the United States (fragmented, private-payer dominated) and China (largest, highest-growth). Each source is structured through a \emph{money-in} (reimbursement) versus \emph{money-out} (device tender) framework, isolating the layer at which a device price is actually observable.
 
-External evidence is organised into 13 categories covering the full pricing logic: FX, material and energy cost pressure, reimbursement ceilings, public procurement prices, waiting times, surgery volumes, bearing mix, revision and clinical evidence, macro health spending, medtech benchmarks, OEM fundamentals, and competitor context. The synchronised register tracks 51 source rows (Appendix~\ref{app:external-data-register}).
+\subsection{Reimbursement structure}
 
-Internal data complement this external layer. SAP provides the transactional commercial record---55{,}240 invoiced transactions across 170 customers in 25 countries and about EUR\,2.17B cumulative revenue in the broader extract---with hip-bearing analysis later restricted to Delta/Forte divisions in US/CN/FR/IT. Salesforce supplies the behavioural layer: roughly 1{,}500 records across six report exports, 223 accounts, and 380 meeting notes describing who is engaged, how often, and with what pipeline outcome.
+No market reimburses ceramic bearings distinctly from polyethylene: payment binds at the surgical episode or, in China, through procurement tenders rather than at the component level. Market structures differ substantially, however. China combines explicit implant ceilings with competitive bidding processes for companies on the \emph{money-out} side, following the structural break of the 2021 volume-based procurement reform. The United States has a diverse reimbursement mix involving many private payers, making an overall market view difficult to establish. France provides the cleanest and most transparent reimbursement structure, while Italy's highly regionalised system creates greater variation in payment mechanisms and ceilings. Consequently, any ceramic premium must be justified through clinical value rather than payer coding, with the relevant pricing mechanism depending strongly on market and channel.
 
-\subsection{Exploratory data analysis}
+% <<POLICY_MODEL_BEGIN>>
+\label{app:policy-model}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{1.4cm}>{\raggedright\arraybackslash}p{3.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{4.3cm}p{2.4cm}@{}}
+\toprule
+\textbf{Market} & \textbf{Public episode payment} & \textbf{Implant layer} & \textbf{Private / commercial role} & \textbf{Grain \& isolation} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+USA & Medicare MS-DRG 470 inpatient bundle, $\approx$USD 12{,}456 (FY2025) & Inside the DRG; no SKU-level device tariff & Commercial contracts, bimodal: fee-schedule $\approx$USD 12{,}477 vs case-rate $\approx$USD 21{,}179 & \shortstack[l]{Per procedure\\[2pt] \footnotesize device not isolated} \\
+France & GHS 2886, GHM 08C family, $\approx$EUR 6{,}300 (2024) & LPP/CEPS device code, billed as add-on & Complementary co-pays; private GHS coefficients & \shortstack[l]{Per component\\[2pt] \footnotesize isolated on money-in} \\
+Italy & Regional DRG (Piedmont DRG 209), $\approx$EUR 20{,}200 & National nomenclator (DM 25/11/2024) & Supplementary insurance; private billing above the DRG & \shortstack[l]{Per episode\\[2pt] \footnotesize device not isolated} \\
+China & DRG pilots expanding & NHSA VBP maximum bid is the binding ceiling: CoC CNY 8{,}506 / MoP CNY 8{,}306 (2024) & Private hospitals operating outside VBP & \shortstack[l]{Per system\\[2pt] \footnotesize isolated on money-out} \\
+\end{longtable}
+\normalsize
+\vspace{0.25em}
+\noindent\footnotesize\textit{Notes.} 
+How each priority market pays for a total hip replacement, and where a ceramic bearing sits within that payment. No market reimburses the ceramic bearing as a separate line.
+The binding ceiling is the episode payment or, in China, the procurement tender.
+US commercial rates for MS-DRG 470 are bimodal by contract methodology: hospitals on fee-schedule terms settle near Medicare ($\approx$USD 12{,}477), while case-rate contracts run substantially higher ($\approx$USD 21{,}179); per-diem contracts are excluded. Values are indicative bands, not point estimates.
+\normalsize
+% <<POLICY_MODEL_END>>
 
-EDA translated retrieved evidence into first-order market signals. Four findings structure later modelling.
+\subsection{Bearing mix}
 
-\paragraph{Market heterogeneity is structural.}
-Only some markets expose device-level prices. France and selected China VBP categories isolate device or implant ceilings more clearly than US episode DRGs or Italian regional lists. Any pricing-guidance model must treat country as a structural dimension, not a cosmetic label.
-
-\paragraph{Bearing mix differs sharply by market.}
-Figure~\ref{fig:bearing_mix} shows hip bearing-surface shares. Ceramic involvement is high and rising in China VBP demand data, while US AJRR remains more CoP/MoP oriented and European registries show intermediate mixes. These patterns affect CeramTec's addressable premium volume.
+Bearing-surface adoption differs across markets as regulations and reimbursement policies shape clinical and commercial preferences in different ways. Ceramic involvement is elevated in Italy and China, intermediate in France, and lower in the United States, reflecting differences in both reimbursement structures and market practices. These regulatory and payment environments therefore influence the extent to which ceramic solutions are clinically embedded and commercially accessible. Addressable premium volume consequently concentrates in markets where ceramic adoption is already established.
 
 %TC:ignore
 \begin{figure}[H]
@@ -320,8 +380,10 @@ Figure~\ref{fig:bearing_mix} shows hip bearing-surface shares. Ceramic involveme
 \end{figure}
 %TC:endignore
 
-\paragraph{Demand is volume-capped.}
-THA procedure volumes and waiting-time pressures indicate that demand is constrained by procedure throughput rather than by spot willingness-to-pay (Figure~\ref{fig:tha_volume}). This supports negotiation frameworks based on volume commitments and contract continuity rather than high-frequency price changes.
+\subsection{Demand and price formation}
+
+Rising waiting times alongside flat-to-growing procedure volumes indicate that demand is constrained by surgical throughput rather than by price sensitivity.
+This favours pricing anchored in volume commitments and contractual continuity over frequent repricing. Where US commercial rates are observable, dispersion is governed by contract methodology (fee-schedule rates approximating Medicare versus substantially higher case rates), establishing payer and contract structure as first-order determinants of price.
 
 %TC:ignore
 \begin{figure}[H]
@@ -332,16 +394,60 @@ THA procedure volumes and waiting-time pressures indicate that demand is constra
 \end{figure}
 %TC:endignore
 
-\paragraph{Internal prices already encode volume discounts.}
-SAP ceramic-ball pricing shows strong dispersion: the first price decile is about twice the tenth, while the tenth decile buys roughly $52\times$ the volume of the first at about 50\% lower unit price. Salesforce notes reinforce four recurring negotiation dimensions: component type, order size, customer market (especially China competition), and local alternatives. Demand appears near-inelastic at the component level; volume discounting (order of $\sim$30\%) is the dominant commercial lever already in use.
 
-\subsection{Maintainability and durability of the solution}
+\subsection{Internal Data: SalesForce behavioural signals}
+ 
+With a behavioural layer — conversation around the contracts and transactions of roughly 1,500 records across six report exports, 223 accounts, and 380 meeting notes — the Salesforce meeting notes are the only internal source that records \emph{how} a price is reached rather than merely what it ended up being.
+Read qualitatively, the notes are consistent: the same considerations
+resurface across markets and accounts, and four dimensions shape
+essentially every pricing conversation.
+ 
+\emph{Component type} determines the starting point, as premium
+components are discussed on different terms from base parts; the object
+under negotiation, not the account alone, sets the reference. \emph{Order
+size} operates as a central lever, with larger volumes associated with
+greater unit-price concessions, so a discount is typically framed
+against a volume commitment rather than granted outright. \emph{Customer
+market} exerts a systematic pull, as Chinese customers anchor lower in
+line with domestic competitive intensity and volume-based procurement
+expectations rather than account-specific weakness. \emph{Competitor
+pricing} sets a floor, as locally available alternatives create a
+competitive reference point that customers raise directly in
+discussion, particularly where domestic ceramic suppliers are active.
+ 
+These signals are qualitative rather than numeric, and they are not a
+substitute for the realised prices held in SAP. Their value is
+interpretive: they explain why otherwise similar accounts may negotiate
+differently, and they identify the arguments a negotiation-support tool
+must be able to evidence. On this basis, component, order-size, market,
+and competitive context were carried forward as engagement, market, and
+product-mix features into Phase~2.
 
-Maintainability was a design requirement. Retrieval and processing scripts support refreshable workflows; the external register documents source status and update frequency; and a merged country--year dataset (\texttt{external\_data\_dataset.csv}) combines market-panel indicators with FX and material indices. New registry releases can be ingested through scripts rather than ad hoc spreadsheets.
+\subsection{Internal Data: SAP commercial patterns}
+ 
+SAP constitutes the commercial layer, recording what customers pay and how much they buy: 55{,}240 invoiced transactions across 170 customers and 25 countries (about EUR\,2.17B), with hip-bearing analysis restricted to the Delta and Forte lines in the four focus markets.
+ 
+\paragraph{Strong variations in customer pricing, driven by purchase volume.}
+The decisive signal emerges from the ceramic ball, where unit prices vary strongly and systematically with purchase volume. Dispersion is pronounced: the highest-priced customer decile pays roughly twice the lowest, while that lowest decile absorbs some 52 times the volume at close to 50\% lower unit price. This gradient is driven by a single dominant lever, an upfront volume discount of order 30\%, rather than by post-invoice leakage.
+ 
+\paragraph{Latent pricing power.}
+Demand appears close to inelastic ($r = -0.14$): quantity responds only weakly to price, suggesting that observed discounts reflect established commercial practice more than market necessity. Combined with CeramTec's position as one of the few credible suppliers of ceramic bearings, this indicates genuine pricing power and a tangible margin opportunity. Realizing this opportunity, however, requires re-basing discounts on customer value rather than relying on purchase volume alone.
 
-\subsection{Constraints encountered and solutions}
+\subsection{Challenges and constraints encountered}
 
-The binding Phase~1 constraint was \textbf{external data retrieval} in regulated healthcare markets: scarce open APIs, PDF-heavy registries, uneven country/year coverage, and China VBP proxies rather than a full clinical registry. AI-assisted scraping improved throughput but still requires human validation and explicit Retrieved / Partial / Todo flags. Despite these limits, Phase~1 delivered the evidence backbone on which Phases~2--4 depend.
+Regulated-market opacity constrained access across most of the external evidence base, from macro-financial, cost and reimbursement indicators to demand, clinical and competitive intelligence, leaving coverage uneven. We addressed this through reproducible pipelines and transparent, well-documented assumptions and proxies, converting a fragmented landscape into an auditable base. Collectively, these signals establish country and channel as structural pricing dimensions and reframe the objective from spot pricing toward negotiation-ready, segment-specific guidance. The exercise also yielded a durable insight: pricing signal resides at the episode and tender level, not the component. This backbone, on which Phases~2--4 depend, remains re-executable to support the later modelling phases.
+
+The internal layers posed a different constraint. Salesforce evidence
+sits in free-text notes rather than structured fields, so it reliably
+signals which considerations drive a negotiation but does not support
+robust numerical extraction---hence the behavioural findings are kept
+qualitative. The same OEM also appears under several billing and CRM
+entities, requiring manual normalisation and fuzzy matching that still
+leaves some accounts CRM-thin. A shared customer master key is therefore
+a prerequisite for turning these layers into a reproducible input to
+Phases~2--4.
+
+
 
 \clearpage
 
@@ -460,7 +566,7 @@ EUR\,3--10M; established market position with dedicated Key Account Managers (e.
 \textbf{High potentials} (6 OEMs) &
 \textbf{Small accounts \& long tail} \\
 $<$\,EUR\,3M, but included because of strategic growth or project potential (e.g.\ Meril, Globus Medical, Dedienne) &
-Named small accounts handled by field specialists (e.g.\ Smith+Nephew, Link, Lima), plus all remaining customers managed by Customer Service \\
+Named small accounts handled by field specialists (e.g.\ Smith\&Nephew, Link, Lima), plus all remaining customers managed by Customer Service \\
 \bottomrule
 \end{tabular}
 \caption{CeramTec Key Accounts register: internal classification used to allocate account-management resources}
@@ -701,74 +807,97 @@ Phase~3 segment language should shape negotiation tone (e.g.\ legacy partners ve
 
 \section{Limitations}
 \label{sec:limitations}
+Several constraints bound how the results should be interpreted.
 
-Several constraints bound how the results should be used.
-
-\textbf{No cost or contractual completeness.} Production costs, FX hedging, duties, and formal contract clauses are outside the model, so outputs are price anchors rather than margin-optimal recommendations. Structured SAP and CRM fields also omit full contractual terms; deeper text analysis of meeting notes would be needed to recover qualitative leverage.
-
+\paragraph{No cost or contractual completeness.}
+The analysis works on the revenue side alone, so outputs act as price anchors rather than margin-optimal recommendations: production costs, FX hedging, duties, and contract clauses stay outside the calculation. The internal data compounds this, capturing outcomes but not the negotiation context behind them. SAP and CRM fields record the transaction rather than its contractual terms, so deeper text analysis of meeting notes would be needed to recover qualitative leverage, and negotiation dynamics are therefore only partially reflected.
 \vspace{0.4em}
 
-\textbf{Strong price persistence.} High $R^2$ partly reflects sticky realised prices. The model is best read as a disciplined extrapolation of recent commercial reality, not as proof that price moves freely with every market signal. Commercial review remains mandatory.
-
+\paragraph{Strong price persistence.}
+The high $R^2$ partly reflects sticky realised prices, with the prior quarter's price the dominant driver. This mirrors a genuine feature of the market, since OEM contracts are long-term and relationship-based, but the model is best read as an extrapolation of recent commercial reality, not proof that price moves freely with every signal. Its outputs should frame a negotiation rather than settle it, so commercial review remains mandatory.
 \vspace{0.4em}
 
-\textbf{Geographic scope.} Results cover US, China, France, and Italy only. Transfer to other markets without recalibration is unsafe because reimbursement and procurement regimes differ.
-
+\paragraph{Geographic scope.}
+Results cover US, China, France, and Italy only. The pipeline is built to scale, but pricing drivers vary materially because reimbursement and procurement regimes differ across markets, so transfer elsewhere without recalibration is unsafe.
 \vspace{0.4em}
 
-\textbf{Data quality.} External sources differ in grain (registry versus VBP demand versus survey). Residual SAP--Salesforce matching gaps leave some accounts CRM-thin, and Phase~3 outlier removals remain partly judgement-based. True zero-history product lines are hard; thin-history quotes need closer human oversight.
+\paragraph{Data quality.}
+External sources differ in grain, mixing registry counts, VBP demand, and survey estimates, so cross-market comparisons carry added uncertainty. Residual SAP--Salesforce matching gaps leave some accounts CRM-thin, and Phase~3 outlier removals remain partly judgement-based. Cold-start product lines are the hardest case, so thin-history quotes need closer human oversight.
 
 \clearpage
 
 \section{Recommendations and Next Steps}
-\label{sec:recommendations}
-
-A data-driven pricing strategy is feasible for CeramTec if framed as evidence-based negotiation support and next-quarter price guidance. Structural market findings---post-COVID normalisation, near-inelastic component demand, contract stickiness, and OEM concentration---support customer- and product-level baselines rather than real-time dynamic pricing.
-
-\vspace{0.4em}
-
-\textbf{Validate with commercial owners.} Review segment labels, driver rankings, and contested accounts with Key Account Managers before any operational use of the playbooks or forecasts.
-
-\vspace{0.4em}
-
-\textbf{Shadow-trial next-quarter anchors.} Run the model in parallel with live negotiations for one or two quarters without binding the sales force, so trust and overrides can be assessed under real conditions.
-
-\vspace{0.4em}
-
-\textbf{Move toward margin-aware guidance.} Integrate production costs and contractual terms so anchors can evolve beyond market-price predictions toward commercially viable recommendations.
-
-\vspace{0.4em}
-
-\textbf{Strengthen the data backbone.} Maintain the external register on a regular refresh schedule and establish a shared SAP--Salesforce customer master key so segmentation and forecasting remain reproducible.
+ 
+A data-driven pricing strategy is feasible for CeramTec if framed as
+evidence-based negotiation support and next-quarter price guidance.
+Four structural market findings support this conclusion: the COVID-era
+demand shock has been absorbed, component-level demand is
+near-inelastic, contracts are sticky, and the customer base is
+concentrated in a small number of major OEMs. Together these rule out
+real-time dynamic pricing and favour customer- and product-level
+baselines prepared before each negotiation. The model should therefore
+be read as negotiation support: not a real-time pricing engine, but a
+tool that identifies the key levers---price history, volume,
+relationship maturity, and market context---for each customer. The
+steps below are sequenced so that each stage de-risks the next.
+ 
+\textbf{Validate findings with commercial stakeholders.} Before any
+operational use, review the four negotiation dimensions
+(Section~4.2), the segment labels and driver rankings (Section~6), and
+contested accounts with Key Account Managers. Two checks matter most:
+whether the volume-for-discount patterns observed in SAP and quoted in
+meeting notes reflect actual contracting structures, and whether the
+competitor price floors reported by Chinese customers remain current.
+The three dormant outlier accounts identified in Section~6.3 should be
+investigated in the same pass. This step costs little and prevents the
+framework from encoding stale or misread commercial reality.
+ 
+\textbf{Integrate production costs and contract details.} The current
+model predicts realised market prices; it does not know CeramTec's
+margins. Incorporating production costs, contractual terms, duties,
+and foreign-exchange exposure converts price anchors into
+margin-aware recommendations, and is the precondition for using the
+guidance in price-setting rather than price-benchmarking. A shared
+SAP--Salesforce customer master key is the enabling data step: fuzzy
+matching currently leaves roughly a fifth of segmentation accounts
+CRM-thin, and every downstream output inherits that gap.
+ 
+\textbf{Trial the model under shadow conditions.} Run the Phase~4
+guidance in parallel with live negotiations for one or two cycles
+without binding the sales force. For each negotiation, generate the
+baseline before the meeting and have the Key Account Manager record
+acceptance, override, and rationale. This serves two purposes at once:
+it tests trust and accuracy under real conditions, and it produces the
+structured negotiation-outcome data that the current CRM does not
+capture---closing the largest behavioural-data gap identified in
+Phase~1.
+ 
+Throughout, the framework should remain decision support with human
+review: analytical recommendation, plus Key Account Manager context,
+plus contract and cost constraints, produce the negotiation
+decision---never an automated quoting engine.
 
 \clearpage
 
-\section{Project Learnings}
-\label{sec:learnings}
+\section{Conclusion and Key Learnings}
 
-Throughout the project, we gained transferable skills and insights that we could use in our future career.
+This project set out to test whether a data-driven pricing strategy is feasible for CeramTec's ceramic hip bearings. It is \textbf{feasible}, once reframed from literal dynamic pricing to evidence-based negotiation baselines and next-quarter guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0, MAE EUR\,5.4, $R^2{=}0.96$). The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow, including cold-start support for thin-history accounts. The highest-value next steps are to extend the model with costs and contract terms, then validate it under shadow negotiation conditions. 
 
+The project delivered technical output, but its main value for the team lay in three transferable areas:
+
+\paragraph{Healthcare market and regulation.}
+We learned to navigate a highly regulated and fragmented healthcare market in which medical-device pricing is mediated by institutions rather than spot markets. Building usable context from scratch required deep-dive research across reimbursement, procurement, and clinical evidence, and it forced us to adapt to an industry whose economics shift markedly from one country to the next, so that a conclusion drawn in France rarely transferred directly to China. Cross-country comparison in particular demanded simultaneous attention to reimbursement (money-in) and procurement or tender (money-out) logics, illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS and LPPR structure.
 \vspace{0.4em}
 
-\textbf{Healthcare market and regulation.} Medical-device pricing is mediated by institutions rather than spot markets. Cross-country comparison requires simultaneous attention to reimbursement (money-in) and procurement/tender (money-out) logics---illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS/LPPR structure.
-
+\paragraph{Project management and client delivery.}
+The engagement behaved like a real consulting mandate rather than an academic exercise. NDA delays and incremental data releases forced a parallel workstream, with framework design and external collection running first and internal modelling following once access opened. We coordinated within the team and directly with the client through those shifting constraints, and much of the work consisted of bridging technical and commercial stakeholders, translating analytical findings into guidance a negotiation team can act on. Reframing the brief from dynamic pricing to negotiation baselines was itself a major consulting deliverable, not a detour.
 \vspace{0.4em}
 
-\textbf{Project management and client delivery.} NDA delays and incremental data releases forced a parallel workstream: framework design and external collection first, internal modelling later. Reframing from dynamic pricing to negotiation baselines was itself a major consulting deliverable.
-
-\vspace{0.4em}
-
-\textbf{Technical: agentic AI and platform agility.} Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial/Todo flags. Combining Databricks for SAP joins with local reproducible notebooks reinforced platform agility across client and academic environments.
+\paragraph{Technical: agentic AI and platform agility.}
+We strengthened our applied analytics practice by working within the client's own Databricks environment and automating collection and processing through reproducible scripts, so that the pipelines can be re-executed and extended as markets, tariffs, and tenders evolve. Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial and Todo flags to keep unverified outputs visible. Combining Databricks for the SAP joins with local reproducible notebooks reinforced platform agility across both client and academic environments.
 
 \clearpage
 
-\section{Conclusion}
-
-This project set out to assess the feasibility of a data-driven pricing strategy for CeramTec's ceramic hip bearings. We conclude that such a strategy is \textbf{feasible} when reframed as evidence-based negotiation baselines and next-quarter price guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0; MAE EUR\,5.4; $R^2{=}0.96$).
-
-Literal dynamic pricing is not the right target. The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow---including cold-start support for thin-history accounts. Extending the model with costs and contract terms, then validating under shadow negotiation conditions, are the highest-value next steps.
-
-\clearpage
 
 %TC:ignore
 \appendix
@@ -784,7 +913,13 @@ Literal dynamic pricing is not the right target. The durable assets are the main
 \tableofcontents
 
 
+\section{Project Delivery Considerations}
+\label{app:project-delivery-considerations}
+The project was delivered within several practical constraints that influenced the sequencing and prioritisation of the work. The engagement began on 17 June with an initial focus on assessing the feasibility of dynamic pricing. Access to CeramTec's internal systems required completion of NDA and onboarding processes, with access to Databricks, the company's internal data platform, established on 8 July. To maintain progress during this period, external data collection, market research, and development of the analytical framework were progressed in parallel. Internal data became available from 9 July and was subsequently integrated with the external evidence base as access expanded. This required an iterative delivery approach, with the analytical framework developed first and progressively enriched through internal commercial and behavioural data. In parallel, continued engagement with CeramTec stakeholders led to an evolution of the original project scope. Early analysis indicated that frequent dynamic price adjustment was not well aligned with CeramTec's relationship-based OEM contracting model. The project was therefore reframed towards evidence-based negotiation baselines and next-quarter price guidance, as discussed in Section~\ref{sec:reframing}. This extended the work beyond the initial feasibility assessment towards the development and implementation of a broader pricing decision framework. Finally, the project was delivered by a team of four students rather than the anticipated six to eight. Given the evolving scope and phased data availability, this increased the importance of prioritising the highest-value workstreams and working iteratively. Collectively, these considerations shaped the delivery approach without changing the project's overarching objective, resulting in the phased framework presented in the main report.
+
+
 % <<REGISTER_BEGIN>>
+% ===================== EXTERNAL DATA APPENDICES =====================
 \section{External Data Source Register}
 \label{app:external-data-register}
 
@@ -1066,7 +1201,7 @@ Clients, financial health, R\&D, innovation, account prirority\\[0.5em]
 \endlastfoot
 key accounts register & \textcolor{green!60!black}{Retrieved} & Global & Ad hoc & CeramTec internal tiered OEM list (large/medium/high/small/long tail) \\
 OEM tiers (CSV) & \textcolor{green!60!black}{Derived} & Global & Ad hoc & Machine-readable extract of key accounts PDF \\
-SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/\allowbreak Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith+Nephew; remaining key-account-tier OEMs pending \\
+SEC EDGAR & \textcolor{orange!85!black}{Partial} & Global & Quarterly/\allowbreak Annual & Revenue and R\&D for Stryker, Zimmer Biomet, J\&J/DePuy, Smith\&Nephew; remaining key-account-tier OEMs pending \\
 account profiles & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Key account strategy files \\
 Patent counts & \textcolor{orange!85!black}{Partial} & Global & Ad hoc & Innovation proxy snapshots \\
 \end{longtable}
@@ -1094,6 +1229,34 @@ Competitor list / competitor datasets & \textcolor{gray}{Todo} & Global & Ad hoc
 
 % <<REGISTER_END>>
 
+% <<EXTERNAL_EXHIBITS_BEGIN>>
+\section{External Data Exhibits}
+\label{app:external-exhibits}
+Selected analytical exhibits built from the sources catalogued in Section~\ref{app:external-data-register}. The register lists what was retrieved; this section shows what the retrieved data reveals.
+
+\subsection{US commercial price dispersion (MS-DRG 470)}
+\label{app:us-drg470-dispersion}
+Commercial rates for the same elective procedure (MS-DRG~470, without MCC) split sharply by \emph{contract methodology} rather than by any clinical factor. Fee-schedule contracts cluster at the Medicare benchmark (median $\approx$USD 12{,}477); case-rate contracts sit roughly 1.7$\times$ higher (median $\approx$USD 21{,}112). Per-diem contracts are excluded as a daily rate, not a per-episode price.\\[0.5em]
+\begin{figure}[H]
+\centering
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{us_drg470_dispersionv2.png}
+    \caption{US commercial DRG 470 negotiated rates by contract methodology.}
+    \label{fig:us-drg470-dispersion}
+\end{figure}
+
+\caption{US commercial negotiated rates for MS-DRG~470 by contract methodology (hospital MRF price-transparency data, CMS FY2025 weights; $n{=}1{,}648$). Left panel: the pooled commercial distribution is bimodal, with fee-schedule contracts (teal) bunched at the Medicare benchmark and case-rate contracts (coral) spread higher. Right panel: median and interquartile range by methodology. Per-diem excluded.}
+\label{fig:us-drg470-dispersion}
+\end{figure}
+
+% ---- Add future external exhibits below as new \subsection blocks ----
+% e.g. \subsection{Bearing-mix divergence by market}
+%      \subsection{Demand vs waiting-time proxy}
+% <<EXTERNAL_EXHIBITS_END>>
+
+% ================= INTERNAL DATA & MODELLING APPENDICES =================
 \section{Complete Feature Dictionary}
 \label{app:feature_dictionary}
 
@@ -1281,7 +1444,6 @@ Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3
 \texttt{quarter\_\allowbreak of\_\allowbreak year} & Quarter number (1-4). Captures seasonality. \\
 \end{longtable}
 
-%TC:endignore
 
 \section{Phase 3 Segmentation Diagnostics}
 \label{app:phase3-diagnostics}
@@ -1292,14 +1454,12 @@ This appendix records the technical checks behind the $k{=}4$ solution used in S
 
 On the cleaned feature space ($n{=}79$), both the inertia elbow and the silhouette score peak at four clusters (Figure~\ref{fig:phase3_elbow}).
 
-%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.72\linewidth]{6_phase3/phase3_elbow.png}
 \caption{K-Means elbow and silhouette diagnostics on the cleaned feature space.}
 \label{fig:phase3_elbow}
 \end{figure}
-%TC:endignore
 
 \subsection{Feature separation ($\eta^2$)}
 
@@ -1313,7 +1473,6 @@ To rank which features most separate the four segments, we use $\eta^2$: the sha
 \end{equation}
 where $x_{i}$ is the feature value for account $i$, $\bar{x}$ is the overall mean, $\bar{x}_{k}$ and $n_{k}$ are the mean and size of segment $k$, and $K{=}4$. These scores are feature-specific and do \textbf{not} sum to 100\%---unlike normalised model importances in Phase~4. Figure~\ref{fig:phase3_importance} shows the ranking: engagement recency dominates, followed by portfolio expansion at renewal and commercial scale.
 
-%TC:ignore
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{6_phase3/phase3_feature_importance.png}
@@ -1321,5 +1480,8 @@ where $x_{i}$ is the feature value for account $i$, $\bar{x}$ is the overall mea
 \label{fig:phase3_importance}
 \end{figure}
 %TC:endignore
+
+% ---- Add future internal / modelling appendices below as new \section blocks ----
+% e.g. \section{Phase 4 Model Diagnostics}
 
 \end{document}

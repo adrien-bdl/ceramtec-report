@@ -1,8 +1,8 @@
 Executive Summary: Adrien first version done
 Acknowledgments: Adrien first version done
-Introduction: todo
-Business context: todo
-Project scope and methodology: todo
+Introduction: Michelle
+Business context: Michelle
+Project scope and methodology: Michelle
 Phase 1: todo
 Phase 2: Adrien first version done
 Phase 3: Adrien first version done
@@ -11,3 +11,7 @@ Limitations: todo
 Recommandations and next steps: todo
 Project Learnings: todo
 Conclusion: todo
+
+Appendix:
+Challenges: to do
+
