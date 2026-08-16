@@ -63,6 +63,13 @@
 
 \begin{document}
 
+% Word-count convention (Imperial, max 3{,}000 words):
+% Count = Introduction through Conclusion.
+% Exclude via %TC:ignore ... %TC:endignore:
+%   title page, Executive Summary, Acknowledgments, table of contents,
+%   all figures/tables (and their captions), and the entire Appendix.
+% References would also be excluded if/when added.
+
 %TC:ignore
 \begin{titlepage}
 \pagestyle{empty}
@@ -338,6 +345,7 @@ No centralised external evidence base existed at the outset, only qualitative co
 
 No market reimburses ceramic bearings distinctly from polyethylene: payment binds at the surgical episode or, in China, through procurement tenders rather than at the component level. Market structures differ substantially, however. China combines explicit implant ceilings with competitive bidding processes for companies on the \emph{money-out} side, following the structural break of the 2021 volume-based procurement reform. The United States has a diverse reimbursement mix involving many private payers, making an overall market view difficult to establish. France provides the cleanest and most transparent reimbursement structure, while Italy's highly regionalised system creates greater variation in payment mechanisms and ceilings. Consequently, any ceramic premium must be justified through clinical value rather than payer coding, with the relevant pricing mechanism depending strongly on market and channel.
 
+%TC:ignore
 % <<POLICY_MODEL_BEGIN>>
 \label{app:policy-model}
 \small
@@ -366,6 +374,7 @@ The binding ceiling is the episode payment or, in China, the procurement tender.
 US commercial rates for MS-DRG 470 are bimodal by contract methodology: hospitals on fee-schedule terms settle near Medicare ($\approx$USD 12{,}477), while case-rate contracts run substantially higher ($\approx$USD 21{,}179); per-diem contracts are excluded. Values are indicative bands, not point estimates.
 \normalsize
 % <<POLICY_MODEL_END>>
+%TC:endignore
 
 \subsection{Bearing mix}
 
@@ -898,7 +907,7 @@ We strengthened our applied analytics practice by working within the client's ow
 
 \clearpage
 
-
+% Entire appendix excluded from the 3{,}000-word count.
 %TC:ignore
 \appendix
 \etocdepthtag.toc{appendix}
