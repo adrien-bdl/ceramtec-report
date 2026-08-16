@@ -285,18 +285,14 @@ CeramTec currently prices bearings primarily using a cost-plus approach, whereby
 
 \section{Project Scope and Methodology}
 
-Against this background, CeramTec asked: Can existing data support future AI-enabled pricing decisions? The project therefore assessed the feasibility of a data-driven pricing approach by identifying key pricing drivers, evaluating available data and its limitations, and developing a roadmap for future implementation. Ultimately, the objective was to determine where analytics can add value to CeramTec's pricing process while reducing the risk of premature investment in an AI-based solution.
-
-Several project delivery considerations influenced the sequencing and prioritisation of the work. Appendix~\ref{app:project-delivery-considerations} summarises these considerations and the measures taken to maintain progress.
+CeramTec asked whether existing data can support future AI-enabled pricing decisions. The project assessed feasibility by identifying key pricing drivers, evaluating data and its limits, and building a maintainable framework for negotiation baselines---adding analytical value without premature investment in an automated AI quoting system. Delivery constraints that shaped sequencing are summarised in Appendix~\ref{app:project-delivery-considerations}.
 
 \subsection{Problem reframing: negotiation baselines versus dynamic pricing}
 \label{sec:reframing}
 
-The project was initially framed around dynamic pricing. Early analysis of CeramTec's commercial model, however, indicated that real-time or high-frequency price adjustment was not well aligned with how ceramic bearings are sold.
+The project was initially framed around dynamic pricing. Early analysis showed that real-time or high-frequency adjustment is poorly aligned with CeramTec's model: a concentrated OEM base, relationship-based contracts, and individually negotiated prices embedded in longer medical-device cycles. Dynamic pricing fits settings where prices can respond frequently to demand or capacity, as in aviation or ticketing.
 
-Dynamic pricing is most applicable where prices can respond frequently to changes in demand, capacity, or timing, as in aviation or ticketing. CeramTec instead operates through a concentrated set of OEM customers, relationship-based contracts, and individually negotiated prices. Pricing decisions are therefore relatively infrequent and embedded within longer medical-device contracting and customer relationship cycles.
-
-The project was therefore reframed towards evidence-based negotiation baselines and next-quarter price guidance, using customer, product, and market data to inform pricing discussions. This shifts analytics from automated price setting to decision support, while preserving commercial judgement, and forms the basis of the four-phase framework below.
+The project was therefore reframed toward evidence-based negotiation baselines and next-quarter price guidance, using customer, product, and market data to support commercial judgement rather than automated price setting. This framing underpins the four-phase framework below.
 
 \subsection{Four-phase pricing framework}
 \label{sec:methodology}
@@ -320,16 +316,15 @@ The project was therefore reframed towards evidence-based negotiation baselines 
 \end{table}
 %TC:endignore
 
-Table~\ref{tab:phases} summarises the four-phase framework used to translate available data into actionable pricing support. Phase~1 establishes the evidence base through internal and external data collection and exploratory analysis. Phase~2 transforms these data into structured customer-, country-, and time-level features for pricing analysis. Phase~3 uses purchasing and pricing behaviour to segment 79 OEM customers into four distinct clusters. Finally, Phase~4 incorporates these features into a temporally validated Random Forest model to generate next-quarter price forecasts. Together, the four phases progress from data collection to structured pricing insights and predictive decision support.
-
+Table~\ref{tab:phases} summarises the path from evidence to decision support: Phase~1 builds the internal and external evidence base; Phase~2 engineers customer-, country-, and time-level features; Phase~3 segments 79 OEMs into four behavioural clusters; Phase~4 produces temporally validated next-quarter price forecasts.
 
 \subsection{Scope}
-The project combined internal and external data across four priority markets to assess data-driven pricing feasibility.
+The analysis covers four priority markets using internal and external evidence.
 
 \textbf{Objective.} Assess feasibility of a data-driven pricing strategy and deliver a maintainable framework for negotiation baselines.\\
 \textbf{Markets.} US, China, France, Italy.\\
 \textbf{Accounts.} Full SAP hip-bearing customer universe in those markets (82 country--customer rows), with CeramTec's Key Accounts register as the strategic overlay.\\
-\textbf{Evidence families.} Thirteen external categories (FX, materials/energy, reimbursement, procurement, waiting times, surgery volumes, bearing mix, clinical/revision evidence, macro health spending, medtech benchmarks, OEM fundamentals, competitors), plus SAP commercial and Salesforce behavioural layers.\\
+\textbf{Evidence.} Thirteen external families spanning reimbursement, procurement, demand, clinical outcomes, costs, and OEM or competitor context, plus SAP commercial and Salesforce behavioural layers.\\
 \textbf{Reproducibility.} Scraping/processing scripts, synchronised register, EDA notebooks, and modelling notebooks under version control.
 
 \clearpage
@@ -554,12 +549,12 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 clusters OEM accounts on purchasing, contract, and Salesforce engagement features to form behavioural groups for negotiation playbooks---and, if desired, a simpler segment-based price reference as an alternative to Phase~4.
+Phase~3 clusters OEM accounts on purchasing, contract, and Salesforce engagement to form behavioural groups for negotiation playbooks---and, optionally, a simpler segment-based price reference as an alternative to Phase~4.
 
 \subsection{CeramTec's current internal classification}
 \label{sec:internal-classification}
 
-CeramTec already ranks OEMs in a Key Accounts register (last updated May 2026) by revenue and strategic potential to allocate Key Account Managers (Table~\ref{tab:internal_tiers}). The register organises coverage well, but does not group accounts by pricing or negotiation behaviour: two OEMs in the same revenue band can differ sharply in discount trajectory, engagement, and portfolio breadth. Phase~3 therefore complements it with unsupervised segmentation on the Phase~2 matrix.
+CeramTec already ranks OEMs in a Key Accounts register (May 2026) by revenue and strategic potential to allocate Key Account Managers (Table~\ref{tab:internal_tiers}). Coverage is organised well, but not by pricing behaviour: two OEMs in the same revenue band can differ sharply in discount trajectory, engagement, and portfolio breadth. Phase~3 therefore complements the register with unsupervised segmentation on the Phase~2 matrix.
 
 %TC:ignore
 \begin{table}[H]
@@ -585,7 +580,7 @@ Named small accounts handled by field specialists (e.g.\ Smith\&Nephew, Link, Li
 
 \subsection{Outlier identification}
 
-K-Means on all 82 country--customer rows produced unstable micro-groups. A $k{=}3$ fit isolates Double Medical as a singleton (Figure~\ref{fig:outlier_1}); after its removal, a $k{=}4$ fit isolates ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}). All three show thin Salesforce engagement (one or two logged meetings; Double Medical has had no contact for more than five years). They should be reviewed case by case and excluded from the segment definitions used for pricing guidance.
+K-Means on all 82 country--customer rows produced unstable micro-groups. A $k{=}3$ fit isolates Double Medical (Figure~\ref{fig:outlier_1}); after removal, a $k{=}4$ fit isolates ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}). All three show thin Salesforce engagement (one or two meetings; Double Medical has had no contact for over five years) and should be reviewed case by case, not used to define pricing segments.
 
 %TC:ignore
 \begin{figure}[H]
@@ -603,14 +598,14 @@ K-Means on all 82 country--customer rows produced unstable micro-groups. A $k{=}
         \label{fig:outlier_2}
     \end{subfigure}
 
-    \caption{2-D PCA projections of successive K-Means fits, used only to visualise outlier isolation (clustering itself is run in the full feature space). Horizontally (PC1; $\approx$99\% of projected variance), separation is driven almost entirely by Salesforce engagement dormancy (days since last meeting); vertically (PC2), residual variation mainly reflects contract-revenue scale and growth.}
+    \caption{2-D PCA of successive K-Means fits (visualisation only). PC1 is dominated by Salesforce engagement dormancy; PC2 mainly reflects contract-revenue scale and growth.}
     \label{fig:both_outliers}
 \end{figure}
 %TC:endignore
 
 \subsection{Final segment identification}
 
-On the cleaned sample ($n{=}79$), elbow and silhouette diagnostics favour $k{=}4$ (Appendix~\ref{app:phase3-diagnostics}). Figure~\ref{fig:phase3_pca} and Table~\ref{tab:cluster_summary} show the segments; Table~\ref{tab:phase3_centroids} reports means on the main commercial drivers (engagement recency, portfolio expansion at renewal, and scale; $\eta^2$ detail in Appendix~\ref{app:phase3-diagnostics}).
+On the cleaned sample ($n{=}79$), elbow and silhouette diagnostics favour $k{=}4$ (Appendix~\ref{app:phase3-diagnostics}). Figure~\ref{fig:phase3_pca} and Table~\ref{tab:cluster_summary} show the segments; Table~\ref{tab:phase3_centroids} reports means on the main drivers (engagement recency, portfolio expansion at renewal, and scale; $\eta^2$ in Appendix~\ref{app:phase3-diagnostics}).
 
 %TC:ignore
 \begin{figure}[H]
@@ -665,7 +660,7 @@ Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
 \end{table}
 %TC:endignore
 
-\textbf{Legacy Strategic Partners} combine the highest revenue with the deepest Salesforce engagement. \textbf{Mid-Market Core} is the large average book across all four countries. \textbf{Mature Diversified Accounts} show broad portfolios and strong product expansion at renewal. \textbf{High-Growth Challengers} are smaller in revenue but have the highest opportunity win rate and thinner meeting cadence. Mid-Market Core spans all markets; the smaller segments are behavioural, not a China-versus-West split (Figure~\ref{fig:phase3_heatmap}).
+\textbf{Legacy Strategic Partners} combine the highest revenue with the deepest Salesforce engagement. \textbf{Mid-Market Core} is the large average book across all four countries. \textbf{Mature Diversified Accounts} show broad portfolios and strong product expansion at renewal. \textbf{High-Growth Challengers} are smaller in revenue but have the highest win rate and thinner meeting cadence. Mid-Market Core spans all markets; the smaller segments are behavioural, not a China-versus-West split (Figure~\ref{fig:phase3_heatmap}).
 
 %TC:ignore
 \begin{figure}[H]
@@ -678,7 +673,7 @@ Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
 
 \subsection{Commercial recommendations}
 
-Named Key Accounts remain spread across three of the four behavioural segments, so strategic importance and negotiation behaviour are different axes: keep Key Accounts tiers for coverage, and use behavioural segments as the negotiation overlay.
+Named Key Accounts remain spread across three of four behavioural segments, so strategic importance and negotiation behaviour are different axes: keep Key Accounts for coverage; use behavioural segments as the negotiation overlay.
 
 \begin{itemize}
     \item \textbf{Legacy Strategic Partners}: defend value with clinical and volume evidence; default to joint planning.
@@ -687,9 +682,7 @@ Named Key Accounts remain spread across three of the four behavioural segments, 
     \item \textbf{High-Growth Challengers}: clearer expansion rules with volume or win-rate gates; investigate thin meeting cadence.
 \end{itemize}
 
-Combine three signals in each negotiation: Key Account tier, behavioural segment, and country payer context. As a lighter alternative to Phase~4, CeramTec can also use within-segment average realised prices by product as reference baselines and erosion monitors.
-
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removals are partly judgement-based; and not every global Key Account maps into the four-market sample. Labels should be refreshed as the customer master improves.
+Combine Key Account tier, behavioural segment, and country payer context in each negotiation. As a lighter alternative to Phase~4, within-segment average realised prices by product can serve as reference baselines and erosion monitors. Caveats: some accounts remain CRM-thin after fuzzy matching; outlier removals are partly judgement-based; labels should be refreshed as the customer master improves.
 
 \clearpage
 
