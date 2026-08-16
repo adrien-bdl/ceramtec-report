@@ -554,12 +554,12 @@ Temporal structure & 3 & Calendar timing and relationship age, excluding contemp
 \section{Phase 3: Market and Customer Segmentation}
 \label{sec:phase3}
 
-Phase~3 asks whether CeramTec's customers form natural groups for pricing and negotiation. Clustering on purchasing, contract, and Salesforce engagement features yields four behavioural segments that support differentiated negotiation playbooks---and, if desired, a simpler segment-based price reference as an alternative to the full Phase~4 model.
+Phase~3 clusters OEM accounts on purchasing, contract, and Salesforce engagement features to form behavioural groups for negotiation playbooks---and, if desired, a simpler segment-based price reference as an alternative to Phase~4.
 
 \subsection{CeramTec's current internal classification}
 \label{sec:internal-classification}
 
-CeramTec already classifies OEMs in an internal Key Accounts register (last updated May 2026). The register is not a pricing model: it ranks customers by revenue and strategic potential in order to allocate Key Account Managers (Table~\ref{tab:internal_tiers}).
+CeramTec already ranks OEMs in a Key Accounts register (last updated May 2026) by revenue and strategic potential to allocate Key Account Managers (Table~\ref{tab:internal_tiers}). The register organises coverage well, but does not group accounts by pricing or negotiation behaviour: two OEMs in the same revenue band can differ sharply in discount trajectory, engagement, and portfolio breadth. Phase~3 therefore complements it with unsupervised segmentation on the Phase~2 matrix.
 
 %TC:ignore
 \begin{table}[H]
@@ -583,17 +583,9 @@ Named small accounts handled by field specialists (e.g.\ Smith\&Nephew, Link, Li
 \end{table}
 %TC:endignore
 
-This taxonomy works well for commercial organisation: the largest and most strategic accounts receive named coverage, while lower-intensity relationships are handled more lightly. It does not, however, group customers by similar pricing or negotiation behaviour. Two accounts in the same revenue band can differ sharply in contract stickiness, discount trajectory, Salesforce engagement, and portfolio breadth. Phase~3 therefore complements the register with an unsupervised segmentation on the Phase~2 feature matrix.
-
-\subsection{Methodology}
-
-The segmenter uses the Phase~2 country$\times$customer matrix. Features are median-imputed and Robust-scaled; K-Means is fitted with an elbow/silhouette sweep to choose $k$ (Appendix~\ref{app:phase3-diagnostics}).
-
 \subsection{Outlier identification}
 
-Initial K-Means runs on all 82 country--customer rows produced unstable micro-groups that distorted centroids rather than describing commercially meaningful segments. A first $k{=}3$ fit isolates Double Medical as a singleton far from the main cloud in the 2-D PCA projection (Figure~\ref{fig:outlier_1}); retaining it would waste one segment on a single OEM and pull neighbouring centroids away from the core base. After removing Double Medical, a $k{=}4$ run on the remaining 81 accounts isolates a two-OEM micro-cluster of ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}).
-
-All three accounts share thin Salesforce engagement: ITI Medical and b-ONE Medical each have only one logged meeting, while Double Medical has two meetings and no contact for more than five years. These relationships should be investigated independently---out of business, commercially unresponsive, or lost contact---and kept as case-by-case exceptions rather than allowed to drive the segment definitions used for pricing guidance.
+K-Means on all 82 country--customer rows produced unstable micro-groups. A $k{=}3$ fit isolates Double Medical as a singleton (Figure~\ref{fig:outlier_1}); after its removal, a $k{=}4$ fit isolates ITI Medical and b-ONE Medical (Figure~\ref{fig:outlier_2}). All three show thin Salesforce engagement (one or two logged meetings; Double Medical has had no contact for more than five years). They should be reviewed case by case and excluded from the segment definitions used for pricing guidance.
 
 %TC:ignore
 \begin{figure}[H]
@@ -618,7 +610,7 @@ All three accounts share thin Salesforce engagement: ITI Medical and b-ONE Medic
 
 \subsection{Final segment identification}
 
-Removing the three outliers leaves a cleaned sample of $n{=}79$. Elbow and silhouette diagnostics on this space both favour $k{=}4$ (Appendix~\ref{app:phase3-diagnostics}). The resulting segments are shown in Figure~\ref{fig:phase3_pca} and labelled in Table~\ref{tab:cluster_summary}.
+On the cleaned sample ($n{=}79$), elbow and silhouette diagnostics favour $k{=}4$ (Appendix~\ref{app:phase3-diagnostics}). Figure~\ref{fig:phase3_pca} and Table~\ref{tab:cluster_summary} show the segments; Table~\ref{tab:phase3_centroids} reports means on the main commercial drivers (engagement recency, portfolio expansion at renewal, and scale; $\eta^2$ detail in Appendix~\ref{app:phase3-diagnostics}).
 
 %TC:ignore
 \begin{figure}[H]
@@ -648,8 +640,6 @@ Green & High-Growth Challengers & 9 & Expansion-oriented growth profiles \\
 \end{table}
 %TC:endignore
 
-Table~\ref{tab:phase3_centroids} reports segment means on the most commercially readable drivers. Separation is led by Salesforce engagement recency, then portfolio expansion at renewal and commercial scale; the full per-feature $\eta^2$ ranking is in Appendix~\ref{app:phase3-diagnostics}.
-
 %TC:ignore
 \begin{table}[H]
 \centering
@@ -675,7 +665,7 @@ Opp.\ win rate & 0.32 & 0.35 & 0.25 & 0.64 \\
 \end{table}
 %TC:endignore
 
-The centroids support the commercial labels. \textbf{Legacy Strategic Partners} combine the highest revenue with the most intensive and recent Salesforce engagement. \textbf{Mid-Market Core} is the large average book: moderate scale and moderate engagement across all four countries. \textbf{Mature Diversified Accounts} sit at high revenue with the broadest portfolios and the strongest product expansion at renewal. \textbf{High-Growth Challengers} are smaller in absolute revenue but show the highest opportunity win rate and more fragmented contract histories---expansion-oriented accounts that still need tighter commercial follow-up. Mid-Market Core spans all markets; the smaller segments capture distinctive engagement and growth patterns rather than a pure China-versus-West split (Figure~\ref{fig:phase3_heatmap}).
+\textbf{Legacy Strategic Partners} combine the highest revenue with the deepest Salesforce engagement. \textbf{Mid-Market Core} is the large average book across all four countries. \textbf{Mature Diversified Accounts} show broad portfolios and strong product expansion at renewal. \textbf{High-Growth Challengers} are smaller in revenue but have the highest opportunity win rate and thinner meeting cadence. Mid-Market Core spans all markets; the smaller segments are behavioural, not a China-versus-West split (Figure~\ref{fig:phase3_heatmap}).
 
 %TC:ignore
 \begin{figure}[H]
@@ -686,28 +676,20 @@ The centroids support the commercial labels. \textbf{Legacy Strategic Partners} 
 \end{figure}
 %TC:endignore
 
-\subsection{Comparison with CeramTec's current classification}
-
-If the Key Accounts register already captured pricing behaviour, strategic OEMs would concentrate in one or two clusters. They do not: named Key Accounts in the cleaned four-market matrix remain spread across three of the four behavioural segments, with only modest concentration in any single cluster. The practical implication is that strategic importance and negotiation behaviour are different axes. Keep the Key Accounts tiers for coverage and escalation; use the behavioural segments as an overlay when preparing negotiation baselines and playbooks.
-
 \subsection{Commercial recommendations}
 
-The four segments translate into distinct negotiation postures:
+Named Key Accounts remain spread across three of the four behavioural segments, so strategic importance and negotiation behaviour are different axes: keep Key Accounts tiers for coverage, and use behavioural segments as the negotiation overlay.
 
 \begin{itemize}
-    \item \textbf{Legacy Strategic Partners}: defend value with clinical and volume evidence; default to joint planning; protect already-deep relationships.
-    \item \textbf{Mid-Market Core}: apply standard baselines indexed to market signals; benchmark renewal discounts against segment medians rather than ad hoc exceptions.
-    \item \textbf{Mature Diversified Accounts}: price portfolio breadth and multi-period renewals as a package, not line by line.
-    \item \textbf{High-Growth Challengers}: pair clearer expansion pricing rules with volume or win-rate gates; investigate why meeting cadence remains thin despite strong opportunity outcomes.
+    \item \textbf{Legacy Strategic Partners}: defend value with clinical and volume evidence; default to joint planning.
+    \item \textbf{Mid-Market Core}: standard baselines indexed to market signals; renewals against segment medians.
+    \item \textbf{Mature Diversified Accounts}: price portfolio and multi-period renewals as a package.
+    \item \textbf{High-Growth Challengers}: clearer expansion rules with volume or win-rate gates; investigate thin meeting cadence.
 \end{itemize}
 
-Commercial teams should combine three signals in every negotiation: Key Account tier (who owns the relationship), behavioural segment (how to negotiate), and country market context (what the payer environment allows). A US legacy partner and an Italian legacy partner may share behavioural profile but still face different reimbursement ceilings.
+Combine three signals in each negotiation: Key Account tier, behavioural segment, and country payer context. As a lighter alternative to Phase~4, CeramTec can also use within-segment average realised prices by product as reference baselines and erosion monitors.
 
-If CeramTec prefers a lighter alternative to the Phase~4 predictive model, segment membership itself can support a simple reference-price system: for each product, use the average realised price within each behavioural segment as the negotiation baseline. Tracking those segment--product averages over time also provides an early warning of price erosion when a whole customer type drifts downward. Phase~4 remains the richer option when CeramTec wants next-quarter anchors at customer--product grain.
-
-\subsection{Constraints encountered}
-
-Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin, the three outlier removals are necessary but partly judgement-based, and cluster labels should be refreshed as the customer master improves. The Key Accounts register is global and includes OEMs outside the four modelled markets, so not every named account maps one-to-one into the Phase~3 sample.
+Fuzzy SAP--Salesforce matching leaves some accounts CRM-thin; outlier removals are partly judgement-based; and not every global Key Account maps into the four-market sample. Labels should be refreshed as the customer master improves.
 
 \clearpage
 
