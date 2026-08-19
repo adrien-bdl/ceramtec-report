@@ -149,11 +149,11 @@ From Imperial College Business School, we thank our Academic Mentors, Esma and S
 
 \section{Introduction}
 
-CeramTec is a global manufacturer of advanced technical ceramics, producing over 10,000 products across a range of industries, including electronics, energy and industrial manufacturing, and medical technology. Within its Medical Technology division, CeramTec supplies ceramic components for orthopaedic implants used in hip replacements.
+CeramTec is a global manufacturer of advanced technical ceramics, producing over 10,000 products across industries including electronics, energy, industrial manufacturing, and medical technology. Within its Medical Technology division, CeramTec supplies ceramic components for orthopaedic hip implants.
 
-This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the project's initial ``dynamic pricing'' framing, argue for evidence-based negotiation baselines and next-quarter price guidance as the appropriate objective (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
+This report assesses whether a data-driven pricing approach can improve CeramTec's commercial decisions for ceramic hip bearings across markets and customers. We evaluate the project's initial ``dynamic pricing'' framing, argue for evidence-based negotiation baselines and next-quarter guidance (Section~\ref{sec:reframing}), and present a four-phase framework spanning evidence collection, feature engineering, customer segmentation, and predictive negotiation support.
 
-CeramTec's ceramic bearings form part of the total hip implant system shown in Figure~\ref{fig:hip_implant}. Specifically, the bearing is the articulating interface between the femoral head and acetabular liner, where material choice influences wear, durability, and long-term implant performance.
+CeramTec's ceramic bearings form part of the total hip implant system shown in Figure~\ref{fig:hip_implant}. The bearing is the articulating interface between the femoral head and acetabular liner, where material choice influences wear, durability, and long-term implant performance.
 
 %TC:ignore
 \begin{figure}[H]
@@ -164,7 +164,8 @@ CeramTec's ceramic bearings form part of the total hip implant system shown in F
 \end{figure}
 %TC:endignore
 
-CeramTec operates as a component supplier to original equipment manufacturers (OEMs), which integrate its ceramic bearings into complete implant systems. While pricing is primarily cost-based, CeramTec operates across markets with different reimbursement systems, procurement regimes, competitive intensity, and customer profiles. These differences motivate the assessment of more differentiated, evidence-based negotiation baselines.
+CeramTec supplies these components to original equipment manufacturers (OEMs), which integrate them into complete implant systems. While pricing is primarily cost-based, markets differ in reimbursement systems, procurement regimes, competitive intensity, and customer profiles. These differences motivate more differentiated, evidence-based negotiation baselines.
+
 
 \clearpage
 
@@ -173,7 +174,7 @@ CeramTec operates as a component supplier to original equipment manufacturers (O
 
 \subsection{CeramTec in the value chain}
 
-CeramTec's Medical Technology division recorded approximately EUR\,335M of the group's EUR\,685M revenue in 2025, with roughly 3{,}500 employees and 16 production sites. In hip arthroplasty (hip replacement surgery), CeramTec operates as a business-to-business (B2B) component supplier, manufacturing high-performance ceramic femoral heads and acetabular liners for original equipment manufacturers (OEMs). These OEMs assemble and commercialise the complete implant systems that are subsequently supplied to healthcare providers. Hospitals purchase these systems under country-specific reimbursement and procurement rules, meaning CeramTec's pricing is influenced by the downstream commercial constraints faced by its OEM customers.
+In hip arthroplasty, CeramTec operates as a B2B component supplier, manufacturing ceramic femoral heads and acetabular liners for original equipment manufacturers (OEMs). OEMs integrate these components into complete implant systems supplied to healthcare providers. As CeramTec does not sell directly to hospitals, its pricing is shaped by OEM willingness-to-pay and the downstream reimbursement and procurement constraints faced in each market.
 
 \vspace{0.3cm}
 %TC:ignore
@@ -236,16 +237,15 @@ CeramTec's Medical Technology division recorded approximately EUR\,335M of the g
 \vspace{0.3cm}
 
 
-Figure~\ref{fig:value-chain} summarises the commercial chain from component supply to the patient. CeramTec manufactures and supplies ceramic heads and liners to OEMs such as Stryker, Zimmer Biomet, DePuy Synthes, Smith\&Nephew, Exactech, and MicroPort. Finished implant systems then reach hospitals either directly or through distributors, with patients as the ultimate clinical beneficiaries. As CeramTec does not sell directly to hospitals or patients, its pricing negotiations depend on OEM willingness-to-pay within these downstream constraints.
+Figure~\ref{fig:value-chain} illustrates CeramTec’s position in the commercial chain. As CeramTec sells ceramic heads and liners to OEMs rather than directly to hospitals, pricing negotiations depend on OEM willingness-to-pay within downstream reimbursement and procurement constraints.
 
-
-Table~\ref{tab:typical-costs} illustrates CeramTec's position within the broader value stack. Ceramic bearings account for approximately 5--11\% of the complete implant cost, while commanding a premium over standard non-ceramic bearings. This highlights the component's relatively small share of total implant expenditure despite its importance to implant performance.
+Ceramic bearings account for approximately 5--11\% of the complete implant cost while commanding a premium over non-ceramic alternatives, highlighting their relatively small cost share despite their importance to implant performance (Table~\ref{tab:typical-costs}).
 
 %TC:ignore
 \begin{table}[H]
 \centering
 \small
-\label{tab:typical-costs}
+
 \begin{tabularx}{0.85\textwidth}{@{}X r@{}}
 \toprule
 \textbf{Cost component} & \textbf{Typical cost} \\
@@ -256,43 +256,45 @@ Complete implant & EUR\,2.6k--8.7k \\
 Standard non-ceramic bearing & EUR\,73--270 \\
 \bottomrule
 \end{tabularx}
-\caption{Typical costs across the hip replacement value stack}
-\end{table}
 
+\caption{Typical costs across the hip replacement value stack}
+\label{tab:typical-costs}
+
+\end{table}
 %TC:endignore
 
 
 \subsubsection{Customer base and competitive landscape}
 
-CeramTec's customer base consists primarily of global and regional orthopaedic OEMs. Its internal Key Accounts register categorises these customers according to current and potential sales and strategic-project status. Large and medium accounts are managed by dedicated Key Account Managers, while smaller accounts are covered by field specialists or Customer Service. The Key Accounts register is examined further in Phase 3 (Section~\ref{sec:phase3}); Phases~2--4 use the broader SAP customer universe across the US, China (CN), France (FR), and Italy (IT) to avoid restricting the analysis to strategic accounts alone.
+CeramTec's customer base consists primarily of global and regional orthopaedic OEMs. Its internal Key Accounts register classifies customers according to current and potential sales and strategic relevance, while Phase~3 (Section~\ref{sec:phase3}) complements this view with behavioural segmentation. Phases~2--4 use the broader SAP customer universe across the US, China, France, and Italy.
 
-Phase~1 (Section~\ref{sec:external-data}) external profiling focused on five disclosure-rich OEMs (Stryker, DePuy Synthes, Zimmer Biomet, Smith\&Nephew, Medacta), to assess differences in scale, geographic exposure, product portfolios, and market positioning.
+Within the competitive landscape, CeramTec is differentiated as a specialist ceramic-component supplier, with its BIOLOX\textregistered{} platform estimated to account for over 90\% of the relevant bearing segment. This strong position limits direct competition, although pressure remains from alternative bearing materials, regional suppliers, and growing China-based manufacturers.
 
-Within the competitive landscape, CeramTec is differentiated as a specialist ceramic-component supplier rather than a full-system implant manufacturer. Its BIOLOX\textregistered{} platform is estimated to account for over 90\% of the bearing market within this segment. Alternative suppliers include Kyocera Medical, CoorsTek, HiPer Medical, and Enovis/Mathys, alongside a growing number of China-based manufacturers. This strong market position limits direct competition but does not eliminate pressure from alternative bearing materials or OEM cost constraints.
 
 \subsection{Hip bearing products}
-CeramTec's hip bearing portfolio centres on BIOLOX\textregistered{} forte, an alumina ceramic, and BIOLOX\textregistered{} delta, a zirconia-toughened alumina composite. Advanced ceramics offer high hardness, low friction, wear resistance, and biocompatibility, supporting implant durability and long-term performance. BIOLOX\textregistered{} delta further improves fracture resistance relative to conventional alumina.
 
-These components are supplied in ceramic-on-polyethylene (CoP) and ceramic-on-ceramic (CoC) bearing configurations. CoC offers very low wear, while CoP combines a ceramic femoral head with a polyethylene liner and represents the larger-volume ceramic segment in many markets.
+CeramTec's hip bearing portfolio centres on BIOLOX\textregistered{} forte, an alumina ceramic, and BIOLOX\textregistered{} delta, a zirconia-toughened alumina composite. Both offer low friction, wear resistance, and biocompatibility, while BIOLOX\textregistered{} delta provides greater fracture resistance.
 
-Phase~1 registry and China's Volume-Based Procurement (VBP) proxy evidence indicates substantial variation in ceramic adoption across the US, China, France, and Italy. These differences influence CeramTec's market potential and provide an important market-level input to the pricing analysis.
+These components are supplied in ceramic-on-polyethylene (CoP) and ceramic-on-ceramic (CoC) configurations. CoP represents the larger-volume ceramic segment in many markets, while CoC remains relevant where very low wear is prioritised.
+
+Phase~1 evidence indicates substantial variation in ceramic adoption across the US, China, France, and Italy. These differences influence CeramTec's market potential and provide an important market-level input to the pricing analysis.
 
 \subsubsection{Current pricing approach}
 
-CeramTec currently prices bearings primarily using a cost-plus approach, whereby production cost is combined with a target margin. Realised SAP prices already reflect some differentiation through volume discounts and account history; however, there is no systematic, evidence-based baseline incorporating market and customer characteristics. Given payer ceilings, procurement competition, and OEM heterogeneity, a single global cost-plus formula cannot capture willingness-to-pay differences across France's GHS/LPPR logic, Italy's regional fragmentation, US Medicare/commercial split, or China's Volume-Based Procurement (VBP) rounds.
+CeramTec currently prices bearings primarily using a cost-plus approach, combining production cost with a target margin. Realised SAP prices already reflect some differentiation through volume discounts and account history; however, there is no systematic, evidence-based baseline incorporating market and customer characteristics. Given differences in reimbursement structures, procurement regimes, and OEM profiles across markets, a single global cost-plus formula cannot fully capture variation in willingness-to-pay.
 
 \clearpage
 
 \section{Project Scope and Methodology}
 
-CeramTec asked whether existing data can support future AI-enabled pricing decisions. The project assessed feasibility by identifying key pricing drivers, evaluating data and its limits, and building a maintainable framework for negotiation baselines---adding analytical value without premature investment in an automated AI quoting system. Delivery constraints that shaped sequencing are summarised in Appendix~\ref{app:project-delivery-considerations}.
+CeramTec asked whether existing data could support future AI-enabled pricing decisions. We assessed feasibility by identifying key pricing drivers, evaluating data limitations, and building a maintainable framework for negotiation baselines without premature investment in automated quoting. Delivery constraints are summarised in Appendix~\ref{app:project-delivery-considerations}.
 
 \subsection{Problem reframing: negotiation baselines versus dynamic pricing}
 \label{sec:reframing}
 
-The project was initially framed around dynamic pricing. Early analysis showed that real-time or high-frequency adjustment is poorly aligned with CeramTec's model: a concentrated OEM base, relationship-based contracts, and individually negotiated prices embedded in longer medical-device cycles. Dynamic pricing fits settings where prices can respond frequently to demand or capacity, as in aviation or ticketing.
+The project was initially framed around dynamic pricing. Early analysis showed that high-frequency adjustment is poorly aligned with CeramTec's concentrated OEM base, relationship-based contracts, and individually negotiated prices embedded in longer medical-device cycles.
 
-The project was therefore reframed toward evidence-based negotiation baselines and next-quarter price guidance, using customer, product, and market data to support commercial judgement rather than automated price setting. This framing underpins the four-phase framework below.
+The objective was therefore reframed toward evidence-based negotiation baselines and next-quarter price guidance, using customer, product, and market data to support commercial judgement rather than automated price setting.
 
 \subsection{Four-phase pricing framework}
 \label{sec:methodology}
@@ -301,7 +303,7 @@ The project was therefore reframed toward evidence-based negotiation baselines a
 \begin{table}[H]
 \centering
 \small
-\label{tab:phases}
+
 \begin{tabular}{@{}p{1.5cm}p{5.0cm}p{9.0cm}@{}}
 \toprule
 \textbf{Phase} & \textbf{Objective} & \textbf{Deliverables and status} \\
@@ -312,11 +314,13 @@ The project was therefore reframed toward evidence-based negotiation baselines a
 4 & Negotiation pricing model & Temporally validated Random Forest next-quarter forecasts --- \textbf{implemented} \\
 \bottomrule
 \end{tabular}
+
 \caption{Four-phase pricing framework: objectives and deliverables}
+\label{tab:phases}
 \end{table}
 %TC:endignore
 
-Table~\ref{tab:phases} summarises the path from evidence to decision support: Phase~1 builds the internal and external evidence base; Phase~2 engineers customer-, country-, and time-level features; Phase~3 segments 79 OEMs into four behavioural clusters; Phase~4 produces temporally validated next-quarter price forecasts.
+Table~\ref{tab:phases} summarises the four-phase path from evidence collection to behavioural segmentation and next-quarter pricing support.
 
 \subsection{Scope}
 The analysis covers four priority markets using internal and external evidence.
@@ -338,36 +342,65 @@ No centralised external evidence base existed at the outset, only qualitative co
 
 \subsection{Reimbursement structure}
 
-No market reimburses ceramic bearings distinctly from polyethylene: payment binds at the surgical episode or, in China, through procurement tenders rather than at the component level. Market structures differ substantially, however. China combines explicit implant ceilings with competitive bidding processes for companies on the \emph{money-out} side, following the structural break of the 2021 volume-based procurement reform. The United States has a diverse reimbursement mix involving many private payers, making an overall market view difficult to establish. France provides the cleanest and most transparent reimbursement structure, while Italy's highly regionalised system creates greater variation in payment mechanisms and ceilings. Consequently, any ceramic premium must be justified through clinical value rather than payer coding, with the relevant pricing mechanism depending strongly on market and channel.
+Payment reaches the implant through two channels: \emph{money-in}, what a payer reimburses for the surgical episode, and \emph{money-out}, the price a hospital pays its supplier under competitive tenders. However, market structures differ substantially: China combines explicit implant ceilings with competitive bidding processes for companies on the \emph{money-out} side, following the structural break of the 2021 volume-based procurement reform. The United States has a diverse reimbursement mix involving many private payers, making an overall market view difficult to establish. France provides the cleanest and most transparent reimbursement structure, while Italy's highly regionalised system creates greater variation in payment mechanisms and ceilings. Consequently, any ceramic premium must be first justified through clinical value, then priced through each market's specific mechanism.
 
 %TC:ignore
 % <<POLICY_MODEL_BEGIN>>
-\label{app:policy-model}
+
 \small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
+
 \begin{longtable}{@{}p{1.4cm}>{\raggedright\arraybackslash}p{3.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{4.3cm}p{2.4cm}@{}}
+
 \toprule
 \textbf{Market} & \textbf{Public episode payment} & \textbf{Implant layer} & \textbf{Private / commercial role} & \textbf{Grain \& isolation} \\
 \midrule
 \endhead
+
 \midrule
 \multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
-\bottomrule
+
 \endlastfoot
-USA & Medicare MS-DRG 470 inpatient bundle, $\approx$USD 12{,}456 (FY2025) & Inside the DRG; no SKU-level device tariff & Commercial contracts, bimodal: fee-schedule $\approx$USD 12{,}477 vs case-rate $\approx$USD 21{,}179 & \shortstack[l]{Per procedure\\[2pt] \footnotesize device not isolated} \\
-France & GHS 2886, GHM 08C family, $\approx$EUR 6{,}300 (2024) & LPP/CEPS device code, billed as add-on & Complementary co-pays; private GHS coefficients & \shortstack[l]{Per component\\[2pt] \footnotesize isolated on money-in} \\
-Italy & Regional DRG (Piedmont DRG 209), $\approx$EUR 20{,}200 & National nomenclator (DM 25/11/2024) & Supplementary insurance; private billing above the DRG & \shortstack[l]{Per episode\\[2pt] \footnotesize device not isolated} \\
-China & DRG pilots expanding & NHSA VBP maximum bid is the binding ceiling: CoC CNY 8{,}506 / MoP CNY 8{,}306 (2024) & Private hospitals operating outside VBP & \shortstack[l]{Per system\\[2pt] \footnotesize isolated on money-out} \\
+
+USA & Medicare MS-DRG 470 inpatient bundle, $\approx$USD 12{,}456 (FY2025)
+& Inside the DRG; no SKU-level device tariff
+& Commercial contracts, bimodal: fee-schedule $\approx$USD 12{,}477 vs case-rate $\approx$USD 21{,}179
+& \parbox[t]{2.4cm}{\raggedright Per procedure\\[2pt] \footnotesize device not isolated} \\
+
+France & GHS 2886, GHM 08C family, $\approx$EUR 6{,}300 (2024)
+& LPP/CEPS device code, billed as add-on
+& Complementary co-pays; private GHS coefficients
+& \parbox[t]{2.4cm}{\raggedright Per component\\[2pt] \footnotesize isolated on money-in} \\
+
+Italy & Regional DRG (Piedmont DRG 209), $\approx$EUR 20{,}200
+& National nomenclator (DM 25/11/2024)
+& Supplementary insurance; private billing above the DRG
+& \parbox[t]{2.4cm}{\raggedright Per episode\\[2pt] \footnotesize device not isolated} \\
+
+China & DRG pilots expanding
+& NHSA VBP maximum bid is the binding ceiling: CoC CNY 8{,}506 / MoP CNY 8{,}306 (2024)
+& Private hospitals operating outside VBP
+& \parbox[t]{2.4cm}{\raggedright Per system\\[2pt] \footnotesize isolated on money-out} \\
+
+\bottomrule
+
+\caption{Reimbursement policy model by market}
+\label{app:policy-model}
+
 \end{longtable}
+
 \normalsize
 \vspace{0.25em}
-\noindent\footnotesize\textit{Notes.} 
+
+\noindent\footnotesize\textit{Notes.}
 How each priority market pays for a total hip replacement, and where a ceramic bearing sits within that payment. No market reimburses the ceramic bearing as a separate line.
 The binding ceiling is the episode payment or, in China, the procurement tender.
 US commercial rates for MS-DRG 470 are bimodal by contract methodology: hospitals on fee-schedule terms settle near Medicare ($\approx$USD 12{,}477), while case-rate contracts run substantially higher ($\approx$USD 21{,}179); per-diem contracts are excluded. Values are indicative bands, not point estimates.
+
 \normalsize
+
 % <<POLICY_MODEL_END>>
 %TC:endignore
 
@@ -401,31 +434,40 @@ This favours pricing anchored in volume commitments and contractual continuity o
 
 \subsection{Internal Data: SalesForce behavioural signals}
  
-With a behavioural layer — conversation around the contracts and transactions of roughly 1,500 records across six report exports, 223 accounts, and 380 meeting notes — the Salesforce meeting notes are the only internal source that records \emph{how} a price is reached rather than merely what it ended up being.
-Read qualitatively, the notes are consistent: the same considerations
-resurface across markets and accounts, and four dimensions shape
-essentially every pricing conversation.
- 
-\emph{Component type} determines the starting point, as premium
-components are discussed on different terms from base parts; the object
-under negotiation, not the account alone, sets the reference. \emph{Order
-size} operates as a central lever, with larger volumes associated with
-greater unit-price concessions, so a discount is typically framed
-against a volume commitment rather than granted outright. \emph{Customer
-market} exerts a systematic pull, as Chinese customers anchor lower in
-line with domestic competitive intensity and volume-based procurement
-expectations rather than account-specific weakness. \emph{Competitor
-pricing} sets a floor, as locally available alternatives create a
-competitive reference point that customers raise directly in
-discussion, particularly where domestic ceramic suppliers are active.
- 
-These signals are qualitative rather than numeric, and they are not a
-substitute for the realised prices held in SAP. Their value is
-interpretive: they explain why otherwise similar accounts may negotiate
-differently, and they identify the arguments a negotiation-support tool
-must be able to evidence. On this basis, component, order-size, market,
-and competitive context were carried forward as engagement, market, and
-product-mix features into Phase~2.
+The Salesforce meeting notes are the only internal source capturing
+\emph{how} prices are negotiated rather than only their final outcomes.
+Four recurring drivers emerge.
+
+%TC:ignore
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{0.95\textwidth}{@{}p{3.2cm}X@{}}
+\toprule
+\textbf{Driver} & \textbf{Negotiation implication} \\
+\midrule
+Component type &
+Premium components are discussed on different terms from base parts, so the product under negotiation helps determine the starting reference. \\
+
+Order size &
+Larger volumes are associated with greater unit-price concessions, typically linking discounts to volume commitments. \\
+
+Customer market &
+Chinese customers tend to anchor lower due to stronger domestic competition and VBP expectations rather than account-specific weakness. \\
+
+Competitor pricing &
+Local alternatives provide explicit reference points and can establish a competitive floor during negotiations. \\
+\bottomrule
+\end{tabularx}
+\caption{Key negotiation drivers identified from Salesforce meeting notes}
+\label{tab:salesforce-drivers}
+\end{table}
+%TC:endignore
+
+These signals are qualitative rather than numeric, but explain why otherwise
+similar accounts may negotiate differently and identify the arguments a
+negotiation-support tool should evidence. They were therefore carried forward
+into Phase~2 through engagement, market, and product-mix features.
 
 \subsection{Internal Data: SAP commercial patterns}
  
@@ -439,17 +481,9 @@ Demand appears close to inelastic ($r = -0.14$): quantity responds only weakly t
 
 \subsection{Challenges and constraints encountered}
 
-Regulated-market opacity constrained access across most of the external evidence base, from macro-financial, cost and reimbursement indicators to demand, clinical and competitive intelligence, leaving coverage uneven. We addressed this through reproducible pipelines and transparent, well-documented assumptions and proxies, converting a fragmented landscape into an auditable base. Collectively, these signals establish country and channel as structural pricing dimensions and reframe the objective from spot pricing toward negotiation-ready, segment-specific guidance. The exercise also yielded a durable insight: pricing signal resides at the episode and tender level, not the component. This backbone, on which Phases~2--4 depend, remains re-executable to support the later modelling phases.
+Regulated-market opacity constrained access across the external evidence base, from cost and reimbursement indicators to demand, clinical, and competitive intelligence, leaving coverage uneven. We addressed this through reproducible pipelines and transparent, documented assumptions and proxies, converting a fragmented landscape into an auditable base. These signals establish country and channel as structural pricing dimensions and reinforce a key insight: observable pricing signals reside at the episode and tender level rather than the component level. This evidence base remains re-executable and supports Phases~2--4.
 
-The internal layers posed a different constraint. Salesforce evidence
-sits in free-text notes rather than structured fields, so it reliably
-signals which considerations drive a negotiation but does not support
-robust numerical extraction---hence the behavioural findings are kept
-qualitative. The same OEM also appears under several billing and CRM
-entities, requiring manual normalisation and fuzzy matching that still
-leaves some accounts CRM-thin. A shared customer master key is therefore
-a prerequisite for turning these layers into a reproducible input to
-Phases~2--4.
+The internal layers posed a different constraint. Salesforce evidence sits in free-text notes rather than structured fields, identifying which considerations drive a negotiation but not supporting robust numerical extraction; behavioural findings are therefore kept qualitative. The same OEM may also appear under several billing and CRM entities, requiring normalisation and fuzzy matching and leaving some accounts CRM-thin. A shared customer master key is therefore important for reproducible integration across Phases~2--4.
 
 
 
@@ -789,16 +823,17 @@ Phase~3 segment language should shape negotiation tone (e.g.\ legacy partners ve
 
 \clearpage
 
+
 \section{Limitations}
 \label{sec:limitations}
 Several constraints bound how the results should be interpreted.
 
 \paragraph{No cost or contractual completeness.}
-The analysis works on the revenue side alone, so outputs act as price anchors rather than margin-optimal recommendations: production costs, FX hedging, duties, and contract clauses stay outside the calculation. The internal data compounds this, capturing outcomes but not the negotiation context behind them. SAP and CRM fields record the transaction rather than its contractual terms, so deeper text analysis of meeting notes would be needed to recover qualitative leverage, and negotiation dynamics are therefore only partially reflected.
+The analysis works on the revenue side alone, so outputs act as price anchors rather than margin-optimal recommendations: production costs, FX hedging, duties, and contract clauses stay outside the calculation. Internal data captures outcomes but not the negotiation context. SAP and CRM record transactions rather than contractual terms, so deeper analysis of meeting notes would be needed to recover qualitative leverage, leaving negotiation dynamics only partially reflected.
 \vspace{0.4em}
 
 \paragraph{Strong price persistence.}
-The high $R^2$ partly reflects sticky realised prices, with the prior quarter's price the dominant driver. This mirrors a genuine feature of the market, since OEM contracts are long-term and relationship-based, but the model is best read as an extrapolation of recent commercial reality, not proof that price moves freely with every signal. Its outputs should frame a negotiation rather than settle it, so commercial review remains mandatory.
+The high $R^2$ partly reflects sticky realised prices, with the prior quarter's price the dominant driver. This reflects long-term, relationship-based OEM contracts, but the model is best read as an extrapolation of recent commercial reality, not proof that price moves freely with every signal. Outputs should frame rather than settle negotiations, so commercial review remains mandatory.
 \vspace{0.4em}
 
 \paragraph{Geographic scope.}
@@ -807,6 +842,8 @@ Results cover US, China, France, and Italy only. The pipeline is built to scale,
 
 \paragraph{Data quality.}
 External sources differ in grain, mixing registry counts, VBP demand, and survey estimates, so cross-market comparisons carry added uncertainty. Residual SAP--Salesforce matching gaps leave some accounts CRM-thin, and Phase~3 outlier removals remain partly judgement-based. Cold-start product lines are the hardest case, so thin-history quotes need closer human oversight.
+
+
 
 \clearpage
 
@@ -834,24 +871,26 @@ Throughout, keep the framework as decision support with human review: analytical
 
 \section{Conclusion and Key Learnings}
 
-This project shows that a data-driven pricing strategy for CeramTec's ceramic hip bearings is \textbf{feasible} once reframed from literal dynamic pricing to evidence-based negotiation baselines and next-quarter guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0, MAE EUR\,5.4, $R^2{=}0.96$). The durable assets are the maintainable evidence register, the two modelling datasets, the four behavioural segments, and the shadow-ready forecasting workflow, including cold-start support. Extending the model with costs and contract terms, then validating under shadow negotiations, are the highest-value next steps.
+
+This project shows that a data-driven pricing strategy for CeramTec's ceramic hip bearings is \textbf{feasible} once reframed from literal dynamic pricing to evidence-based negotiation baselines and next-quarter guidance. All four phases are implemented: external evidence collection, feature engineering, pricing-behaviour segmentation, and a temporally validated Random Forest next-quarter model (out-of-time RMSE EUR\,10.0, MAE EUR\,5.4, $R^2{=}0.96$). The durable assets are the evidence register, modelling datasets, behavioural segments, and shadow-ready forecasting workflow, including cold-start support. Adding costs and contract terms, then validating through shadow negotiations, are the highest-value next steps.
 
 Beyond the technical deliverables, the engagement developed three transferable capabilities:
 
 \vspace{0.4em}
 
 \paragraph{Healthcare market and regulation.}
-Medical-device pricing is mediated by institutions rather than spot markets. Building usable context from scratch required deep research across reimbursement, procurement, and clinical evidence, and forced adaptation to economics that shift sharply by country: a conclusion drawn in France rarely transfers directly to China. Cross-country comparison in particular demanded simultaneous attention to reimbursement (money-in) and procurement or tender (money-out) logics, illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS and LPPR structure.
+Medical-device pricing is mediated by institutions rather than spot markets. Building usable context required research across reimbursement, procurement, and clinical evidence and adaptation to country-specific economics. Cross-country comparison demanded simultaneous attention to reimbursement (money-in) and procurement or tender (money-out) logics, illustrated by China's VBP regime, Italy's regional fragmentation, and France's dual GHS and LPPR structure.
 
 \vspace{0.4em}
 
 \paragraph{Project management and client delivery.}
-The engagement behaved like a real consulting mandate. NDA delays and incremental data releases forced a parallel workstream---framework design and external collection first, internal modelling once access opened---and constant bridging between technical and commercial stakeholders. Reframing the brief from dynamic pricing to negotiation baselines was itself a major consulting deliverable, not a detour.
+NDA delays and incremental data releases required parallel workstreams---framework design and external collection first, internal modelling once access opened---and coordination between technical and commercial stakeholders. Reframing the brief from dynamic pricing to negotiation baselines was itself a major consulting deliverable, not a detour.
 
 \vspace{0.4em}
 
 \paragraph{Technical: agentic AI and platform agility.}
-Working in CeramTec's Databricks environment and automating collection through reproducible scripts made the pipelines re-executable as markets and tenders evolve. Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial and Todo flags. Combining Databricks for SAP joins with local notebooks reinforced platform agility across client and academic settings.
+Databricks and reproducible scripts made the pipelines re-executable as markets and tenders evolve. Agentic AI accelerated scraping and PDF extraction, but only with disciplined human validation and explicit Partial and Todo flags. Combining Databricks for SAP joins with local notebooks reinforced platform agility across client and academic settings.
+```
 
 \clearpage
 
@@ -1186,6 +1225,8 @@ Competitor list / competitor datasets & \textcolor{gray}{Todo} & Global & Ad hoc
 
 % <<REGISTER_END>>
 
+\newpage
+
 % <<EXTERNAL_EXHIBITS_BEGIN>>
 \section{External Data Exhibits}
 \label{app:external-exhibits}
@@ -1208,12 +1249,403 @@ Commercial rates for the same elective procedure (MS-DRG~470, without MCC) split
 \label{fig:us-drg470-dispersion}
 \end{figure}
 
-% ---- Add future external exhibits below as new \subsection blocks ----
-% e.g. \subsection{Bearing-mix divergence by market}
-%      \subsection{Demand vs waiting-time proxy}
-% <<EXTERNAL_EXHIBITS_END>>
-
 % ================= INTERNAL DATA & MODELLING APPENDICES =================
+
+% <<SAP_EXHIBITS_BEGIN>>
+% ================= INTERNAL DATA EXHIBITS: SAP COMMERCIAL =================
+
+% Figure images expected under 7_sap/ ; each figure compiles to a placeholder
+% box until the PNG is added (via \IfFileExists), so this file is drop-in safe.
+%TC:ignore
+
+\newpage
+
+\section{Internal Data Exhibits: SAP Commercial}
+\label{app:sap-exhibits}
+Analytical exhibits underpinning the SAP commercial findings.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Headline findings}
+\label{app:sap-headline}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l@{}}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Total revenue analysed                 & EUR\,2.17B \\
+D~Kugel price spread (P10--P90)        & EUR\,116--231 (2$\times$) \\
+2025 price effect                      & $-$EUR\,18.9M (first negative year) \\
+D~Kugel own-price elasticity           & $r=-0.14$ (inelastic) \\
+D~Kugel $\leftrightarrow$ D~CLock complement corr. & $+0.86$ \\
+Estimated repricing opportunity        & EUR\,50--100M \\
+\bottomrule
+\end{tabular}
+\captionof{table}{SAP commercial price analysis: headline findings.}
+\label{tab:sap-headline}
+\normalsize
+
+
+
+% -----------------------------------------------------------------------------
+\subsection{Source schema and cleaning}
+\label{app:sap-schema}
+The raw SAP dump is a single denormalised billing extract; the fields below are the source
+columns feeding the cleaned table. This documents provenance and is distinct from the
+engineered features in Section~\ref{app:feature_dictionary}.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{longtable}{@{}l l l l@{}}
+\caption{Raw SAP source columns (\texttt{cleaned\_sap\_sales}) with data types.}
+\label{tab:sap-schema} \\
+\toprule
+\textbf{Field} & \textbf{Type} & \textbf{Field} & \textbf{Type} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} --- continued} \\
+\toprule
+\textbf{Field} & \textbf{Type} & \textbf{Field} & \textbf{Type} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{sales\_org\_id} & STRING & \texttt{sales\_org\_name} & STRING \\
+\texttt{division\_code} & STRING & \texttt{division\_name} & STRING \\
+\texttt{customer\_district\_code} & STRING & \texttt{customer\_district\_name} & STRING \\
+\texttt{country\_code} & STRING & \texttt{country\_name} & STRING \\
+\texttt{product\_group\_code} & STRING & \texttt{product\_group\_name} & STRING \\
+\texttt{sub\_product\_code} & STRING & \texttt{sub\_product\_name} & STRING \\
+\texttt{partner\_code} & STRING & \texttt{partner\_name} & STRING \\
+\texttt{sales\_group\_code} & STRING & \texttt{sales\_group\_name} & STRING \\
+\texttt{customer\_id} & STRING & \texttt{customer\_name} & STRING \\
+\texttt{material\_id} & STRING & \texttt{material\_description} & STRING \\
+\texttt{invoice\_month} & DATE & \texttt{invoice\_year} & INT \\
+\texttt{invoice\_month\_num} & INT & \texttt{revenue\_eur} & DECIMAL \\
+\texttt{revenue\_currency} & STRING & \texttt{invoiced\_quantity} & DECIMAL \\
+\texttt{quantity\_unit} & STRING & \texttt{net\_weight\_kg} & DECIMAL \\
+\texttt{weight\_unit} & STRING & \texttt{credit\_note\_eur} & DECIMAL \\
+\texttt{credit\_note\_currency} & STRING &  &  \\
+\end{longtable}
+\normalsize
+
+% -----------------------------------------------------------------------------
+
+\newpage
+\subsection{Price level and dispersion}
+\label{app:sap-dispersion}
+D~Kugel, the largest group at EUR\,1.6B revenue, shows a coefficient of variation of 33.6\%
+and a P10--P90 range of EUR\,116 to EUR\,231 (a 2$\times$ spread), signalling pronounced
+pricing inconsistency or deliberate tiering.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}l r r r r r r r@{}}
+\caption{Summary statistics by product group (unit price, EUR). N is transaction count.}
+\label{tab:sap-summary-stats} \\
+\toprule
+\textbf{Product group} & \textbf{N} & \textbf{Avg} & \textbf{Median} & \textbf{CV\%} & \textbf{IQR} & \textbf{P10} & \textbf{P90} \\
+\midrule
+\endfirsthead
+\multicolumn{8}{c}{\tablename\ \thetable{} --- continued} \\
+\toprule
+\textbf{Product group} & \textbf{N} & \textbf{Avg} & \textbf{Median} & \textbf{CV\%} & \textbf{IQR} & \textbf{P10} & \textbf{P90} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+D Knie      & 89       & 897.89 & 900.42 & 2.9  & 0.65  & 900.09 & 901.25 \\
+Contoura    & 97       & 213.96 & 215.03 & 1.6  & 6.01  & 209.01 & 218.81 \\
+Wirbelsäule & 75       & 195.59 & 190.01 & 7.2  & 20.00 & 170.01 & 210.00 \\
+D CLock     & 11{,}982 & 192.73 & 191.61 & 17.9 & 40.85 & 142.64 & 235.00 \\
+D Kugel     & 35{,}252 & 162.34 & 153.72 & 33.6 & 43.62 & 116.31 & 231.01 \\
+F CLock     & 152      & 133.93 & 131.07 & 4.7  & 0.00  & 131.07 & 147.29 \\
+F Kugel     & 1{,}682  & 107.25 & 102.08 & 29.7 & 27.18 & 57.20  & 143.17 \\
+\end{longtable}
+\normalsize
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/price_distribution_histogram.png}{%
+  \includegraphics[width=\linewidth]{7_sap/price_distribution_histogram.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/price\_distribution\_histogram.png}}}}
+\caption{Unit-price distribution by product group.}
+\label{fig:sap-price-hist}
+\end{figure}
+
+D~Kugel is bimodal: a high-volume OEM cluster at EUR\,120--160 and a premium cluster at EUR\,230--270. D~CLock is roughly normal around EUR\,180--200; F~Kugel clusters at EUR\,90--110 with a long right tail.
+
+% -----------------------------------------------------------------------------
+
+\newpage
+\subsection{Price band by region (D~Kugel)}
+\label{app:sap-region}
+The two largest customers by volume (Ireland and Switzerland) pay 54\% and 49\% less than Japan respectively: the classic Marn \& Rosiello pocket-price band.\\[0.5em]
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/dkugel_region_boxplot.png}{%
+  \includegraphics[width=\linewidth]{7_sap/dkugel_region_boxplot.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/dkugel\_region\_boxplot.png}}}}
+\caption{D~Kugel unit-price band by country (box plot).}
+\label{fig:sap-region-box}
+\end{figure}
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}l r r r p{5.4cm}@{}}
+\caption{D~Kugel price band by country (EUR per unit).} 
+\label{tab:sap-region} \\
+\toprule
+\textbf{Country} & \textbf{Median} & \textbf{P10} & \textbf{P90} & \textbf{Interpretation} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{c}{\tablename\ \thetable{} --- continued} \\
+\toprule
+\textbf{Country} & \textbf{Median} & \textbf{P10} & \textbf{P90} & \textbf{Interpretation} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\textit{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+Japan       & 268 & 250 & 328 & Premium market, highest prices \\
+USA         & 238 & 154 & 273 & High but dispersed \\
+Brazil      & 203 & 194 & 239 & Mid-premium \\
+China       & 169 & 106 & 197 & Mid-range \\
+France      & 150 & 127 & 171 & Competitive \\
+Germany     & 146 & 120 & 212 & Wide range (domestic) \\
+Switzerland & 138 & 98  & 173 & Low (Zimmer volume discount) \\
+Ireland     & 122 & 115 & 166 & Lowest (DePuy/Stryker mega-volume) \\
+\end{longtable}
+\normalsize
+This spans the full SAP extract, which
+is broader than the four focus markets; read non-focus rows as portfolio context.
+
+
+% -----------------------------------------------------------------------------
+
+\newpage
+\subsection{Price waterfall (reference to pocket)}
+\label{app:sap-waterfall}
+The dominant price lever is the upfront volume discount ($\approx$30\% of reference), not
+post-invoice leakage: credit-note leakage is negligible at EUR\,0.50 per unit.\\[0.5em]
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/dkugel_waterfall.png}{%
+  \includegraphics[width=0.9\linewidth]{7_sap/dkugel_waterfall.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/dkugel\_waterfall.png}}}}
+\caption{D~Kugel reference-to-pocket price waterfall (product-group average).}
+\label{fig:sap-waterfall}
+\end{figure}
+Reference price is proxied by P90, since SAP carries no true list price.
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l r r@{}}
+\toprule
+\textbf{Step} & \textbf{Value (EUR)} & \textbf{\% of reference} \\
+\midrule
+Reference price (P90)   & 231.01   & 100\%     \\
+$-$ Volume discount     & $-$68.67 & $-$29.7\% \\
+$=$ Invoice price       & 162.34   & 70.3\%    \\
+$-$ Credit-note leakage & $-$0.50  & $-$0.2\%  \\
+$=$ Pocket price        & 161.84   & 70.1\%    \\
+\bottomrule
+\end{tabular}
+\captionof{table}{D~Kugel price waterfall, reference (P90 proxy) to pocket price.}
+\label{tab:sap-waterfall}
+\normalsize
+
+% -----------------------------------------------------------------------------
+\subsection{Waterfall by customer decile (Marn \& Rosiello)}
+\label{app:sap-decile}
+The bottom decile (11 customers) buys 52$\times$ more volume than the top decile yet pays
+48\% less per unit.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+\textbf{Segment} & \textbf{Cust.} & \textbf{Avg invoice} & \textbf{Avg pocket} & \textbf{Volume} & \textbf{Leak./unit} \\
+\midrule
+Top decile (highest price)   & 12 & 242.20 & 240.62 & 167K units & 1.58 \\
+Middle (D2--D9)              & 89 & 175.44 & 175.10 & 3.7M units & 0.34 \\
+Bottom decile (lowest price) & 11 & 126.16 & 126.00 & 8.7M units & 0.16 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{D~Kugel waterfall by customer price decile (EUR per unit).}
+\label{tab:sap-decile}
+\normalsize
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/dkugel_decile.png}{%
+  \includegraphics[width=0.85\linewidth]{7_sap/dkugel_decile.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/dkugel\_decile.png}}}}
+\caption{D~Kugel average pocket price per unit by customer price decile.}
+\label{fig:sap-decile}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Price-volume-mix decomposition}
+\label{app:sap-pvm}
+Growth in 2021--2023 was volume-driven; the 2024 decline was purely volume (prices held);
+2025 is the first year with a negative price contribution.\\[0.5em]
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/pvm_decomposition.png}{%
+  \includegraphics[width=\linewidth]{7_sap/pvm_decomposition.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/pvm\_decomposition.png}}}}
+\caption{Year-over-year revenue change decomposed into price, volume and mix effects}
+\label{fig:sap-pvm}
+\end{figure}
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+\textbf{Year} & \textbf{$\Delta$ Revenue (EUR M)} & \textbf{Price} & \textbf{Volume} & \textbf{Mix} \\
+\midrule
+2021 & $+$39.5 & $-$4.8  & $+$45.3 & $-$1.0 \\
+2022 & $+$62.2 & $+$9.6  & $+$50.7 & $+$1.8 \\
+2023 & $+$79.6 & $+$8.6  & $+$69.2 & $+$1.8 \\
+2024 & $-$38.6 & $+$8.0  & $-$45.7 & $-$0.9 \\
+2025 & $-$39.6 & $-$18.9 & $-$21.9 & $+$1.1 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Price-volume-mix decomposition of annual revenue change (EUR M).}
+\label{tab:sap-pvm}
+\normalsize
+
+% -----------------------------------------------------------------------------
+\subsection{Price elasticity}
+\label{app:sap-elasticity}
+Own-price elasticity is estimated from the correlation between quarterly \% price change and
+\% quantity change per product group. We report the correlation and interpretation only; the
+raw OLS point-elasticity estimates are unstable (they divide by very small price variation and
+even flip sign for near-fixed-price groups) and are omitted.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l r r p{6.2cm}@{}}
+\toprule
+\textbf{Product group} & \textbf{Corr.\ $r$} & \textbf{Qtr price CV\%} & \textbf{Interpretation} \\
+\midrule
+D Kugel     & $-$0.14 & 3.0  & Inelastic; price barely affects demand \\
+D CLock     & $-$0.31 & 5.3  & Mildly elastic; some price sensitivity \\
+F Kugel     & $-$0.71 & 11.5 & Elastic; demand responds strongly to price \\
+Contoura    & $-$0.03 & 0.8  & Fixed contracts; no market-driven variation \\
+Wirbelsäule & $-$0.30 & 7.2  & Mildly elastic \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Own-price elasticity by product group.}
+\label{tab:sap-elasticity}
+\normalsize
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/elasticity_dkugel.png}{%
+  \includegraphics[width=0.32\linewidth]{7_sap/elasticity_dkugel.png}}{%
+  \fbox{\parbox[c][2.6cm][c]{0.30\linewidth}{\centering\itshape D~Kugel scatter}}}\hfill
+\IfFileExists{7_sap/elasticity_dclock.png}{%
+  \includegraphics[width=0.32\linewidth]{7_sap/elasticity_dclock.png}}{%
+  \fbox{\parbox[c][2.6cm][c]{0.30\linewidth}{\centering\itshape D~CLock scatter}}}\hfill
+\IfFileExists{7_sap/elasticity_fkugel.png}{%
+  \includegraphics[width=0.32\linewidth]{7_sap/elasticity_fkugel.png}}{%
+  \fbox{\parbox[c][2.6cm][c]{0.30\linewidth}{\centering\itshape F~Kugel scatter}}}
+\caption{Quarterly \% price change (x) versus \% quantity change (y) with OLS trendline.}
+\label{fig:sap-elasticity-scatters}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Cross-elasticity and cannibalisation}
+\label{app:sap-cross}
+D~Kugel and D~CLock move together as a head-and-liner system, and a D~CLock price rise
+depresses D~Kugel demand, so the couple cannot be priced independently.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l r p{6.6cm}@{}}
+\toprule
+\textbf{Relationship} & \textbf{$r$} & \textbf{Meaning} \\
+\midrule
+D Kugel price $\rightarrow$ F Kugel qty   & $-$0.18 & Weak substitution \\
+D Kugel price $\rightarrow$ D CLock qty   & $+$0.04 & No cross-effect (volume complements) \\
+D CLock price $\rightarrow$ D Kugel qty   & $-$0.48 & CLock price rises depress Kugel demand \\
+D Kugel qty $\leftrightarrow$ D CLock qty & $+$0.86 & Strong co-movement (head + liner system) \\
+D Kugel qty $\leftrightarrow$ F Kugel qty & $+$0.32 & Weak co-movement \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Cross-elasticity / cannibalisation between product groups.}
+\label{tab:sap-cross}
+\normalsize
+
+% -----------------------------------------------------------------------------
+\subsection{Price trend over time}
+\label{app:sap-price-trend}
+D~CLock rose from EUR\,174 to a EUR\,203 peak in mid-2024, then fell to EUR\,173 in 2025: the movement that drives the negative 2025 price effect.\\[0.5em]
+
+\begin{figure}[H]
+\centering
+\IfFileExists{7_sap/price_trend_quarterly.png}{%
+  \includegraphics[width=\linewidth]{7_sap/price_trend_quarterly.png}}{%
+  \fbox{\parbox[c][3.2cm][c]{0.95\linewidth}{\centering\itshape Figure placeholder --- add \texttt{7\_sap/price\_trend\_quarterly.png}}}}
+\caption{Quarterly average unit price by product group.}
+\label{fig:sap-price-trend}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Customer price dispersion (top customers)}
+\label{app:sap-top-customers}
+Realisation is close to 100\% for almost all top accounts, confirming the discount is embedded
+upfront in the invoice price rather than leaking post-invoice through credit notes.\\[0.5em]
+
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l r r r r@{}}
+\toprule
+\textbf{Customer} & \textbf{Country} & \textbf{Qty} & \textbf{Invoice} & \textbf{Pocket} & \textbf{Realis.} \\
+\midrule
+JOYUP Co.      & Japan  & 2{,}664  & 262.75 & 262.75 & 100\%  \\
+Nakashima      & Japan  & 28{,}658 & 259.80 & 259.80 & 100\%  \\
+Globus Medical & USA    & 1{,}653  & 258.69 & 241.56 & 93.4\% \\
+Branch Medical & USA    & 4{,}718  & 256.77 & 256.77 & 100\%  \\
+ORTHO DEV.     & USA    & 55{,}024 & 245.28 & 244.01 & 99.5\% \\
+restor3d       & USA    & 11{,}524 & 239.00 & 239.00 & 100\%  \\
+ICONACY        & Brazil & 1{,}068  & 203.43 & 190.30 & 93.5\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Top D~Kugel customers, invoice versus pocket price (EUR per unit).
+Realisation = pocket / invoice.}
+\label{tab:sap-top-customers}
+\normalsize
+
+%TC:endignore
+% <<SAP_EXHIBITS_END>>
+
+\newpage
+
 \section{Complete Feature Dictionary}
 \label{app:feature_dictionary}
 
@@ -1401,7 +1833,7 @@ Phase~2 produces two grains. The country$\times$customer matrix supports Phase~3
 \texttt{quarter\_\allowbreak of\_\allowbreak year} & Quarter number (1-4). Captures seasonality. \\
 \end{longtable}
 
-
+\newpage
 \section{Phase 3 Segmentation Diagnostics}
 \label{app:phase3-diagnostics}
 
